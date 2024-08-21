@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template
+from flask import Flask, render_template, request, jsonify, Blueprint
+from process import preparation, botResponse
+preparation()
 
 route_bp = Blueprint('routes', __name__)
 
@@ -9,3 +11,10 @@ def index():
 @route_bp.route('/chat-bot')
 def chat():
   return render_template('chatbot.html')
+
+@route_bp.route("/predict", methods=["GET", "POST"])
+def predict():
+	text = request.get_json().get("message")
+	response = botResponse(text)
+	message = {"answer": response}
+	return jsonify(message)
