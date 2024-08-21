@@ -1,7 +1,7 @@
 import { createChatLi } from "./createChat.js";
 import { generateResponse } from "./generateResponseChat.js";
 
-export const handleChat = (userMessage, API_URL, API_KEY, chatInput, chatbox, inputInitHeight) => {
+export const handleChat = (API_URL_OPENAI, API_KEY, API_URL_DATASET, chatInput, chatbox, inputInitHeight, userMessage) => {
   userMessage = chatInput.value.trim();
   if (!userMessage) return;
 
@@ -15,6 +15,6 @@ export const handleChat = (userMessage, API_URL, API_KEY, chatInput, chatbox, in
     const incomingChatLi = createChatLi("Thinking...", "incoming");
     chatbox.appendChild(incomingChatLi);
     chatbox.scrollTo(0, chatbox.scrollHeight);
-    generateResponse(incomingChatLi, API_URL, API_KEY, chatbox);
+    generateResponse(incomingChatLi, API_URL_OPENAI, API_KEY, API_URL_DATASET, chatbox, userMessage);
   }, 600);
 };
