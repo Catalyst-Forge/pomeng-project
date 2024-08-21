@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomeng</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+  </head>
+
+  <body>
+    <div id="app">
+      <header class="app-header">
+        <div class="container">
+          <h1>Pomeng Chatbot</h1>
+        </div>
+      </header>
+
+      <div class="jumbotron">
+        <div class="jumbotron-text">
+          <h1>Selamat Datang di Pelayanan Chatbot Rumah Sakit XYZ</h1>
+          <h2>Solusi Cepat dan Efisien untuk Informasi dan Pelayanan Kesehatan Anda</h2>
+
+          <a href="/chat-bot" class="chatbot-link" role="button">Mulai Chat</a>
+        </div>
+
+        <div class="illustration-left">
+          <img src="{{ url_for('static', filename='images/call-center.jpg') }}" class="illus-img" alt="Illustration call center chatbot" />
+        </div>
+
+        <div class="illustration-right">
+          <img src="{{ url_for('static', filename='images/illustration-1.png') }}" class="illus-img" alt="Illustration bot" />
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+  </body>
+</html>
