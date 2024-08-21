@@ -1,6 +1,40 @@
-export const generateResponse = (userMessage, API_URL, API_KEY, chatbox) => {
-  const messageElement = userMessage.querySelector("p");
+export const generateResponse = (incomingChatLi, API_URL_OPENAI, API_KEY, API_URL_DATASET, chatbox, userMessage) => {
+  const messageElement = incomingChatLi.querySelector("p");
 
+  // Request Option dari model sendiri
+  const modelData = {
+    method: "POST",
+    body: JSON.stringify({ message: userMessage }),
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  // Pertama, coba mendapatkan respons dari model sendiri
+  fetch(API_URL_DATASET, modelData)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data) {
+        // Jika model sendiri memberikan respons yang valid
+        messageElement.textContent = data.answer;
+      } else {
+        console.log("Data Pomeng tidak merespon");
+
+        // Jika model sendiri gagal atau tidak ada respons, coba API OpenAI
+        return fetchOpenAI(userMessage, API_URL_OPENAI, API_KEY, messageElement);
+      }
+    })
+    .catch((error) => {
+      console.error("Model sendiri error:", error);
+      // Jika terjadi kesalahan pada model sendiri, coba API OpenAI
+      return fetchOpenAI(userMessage, API_URL_OPENAI, API_KEY, messageElement);
+    })
+    .finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
+};
+
+const fetchOpenAI = (userMessage, API_URL_OPENAI, API_KEY, messageElement) => {
+  // Request Option dari model API OpenAI
   const requestOptions = {
     method: "POST",
     headers: {
@@ -18,10 +52,9 @@ export const generateResponse = (userMessage, API_URL, API_KEY, chatbox) => {
     }),
   };
 
-  fetch(API_URL, requestOptions)
+  return fetch(API_URL_OPENAI, requestOptions)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data); // Untuk melihat respons dari API
       if (data.error && data.error.message) {
         messageElement.classList.add("error");
         messageElement.textContent = `Error: ${data.error.message}`;
@@ -33,9 +66,8 @@ export const generateResponse = (userMessage, API_URL, API_KEY, chatbox) => {
       }
     })
     .catch((error) => {
-      console.error(error);
+      console.error("OpenAI API error:", error);
       messageElement.classList.add("error");
       messageElement.textContent = "Oops! Something went wrong. Please try again.";
-    })
-    .finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
+    });
 };
