@@ -4,18 +4,17 @@ import { handleChat } from "./utils/handleChat.js";
 /**
  *  Queries Elements
  */
-const app = document.getElementById("app");
 const chatbox = document.querySelector(".chatbox");
 const chatInput = document.querySelector(".chat-input textarea");
 const sendChatBtn = document.querySelector(".chat-input span");
-// const containerText = document.querySelector(".container p");
 
 /**
  *  API Config
  */
 let userMessage = null;
 const API_KEY = "API-KEY";
-const API_URL = "https://api.openai.com/v1/chat/completions";
+const API_URL_OPENAI = "https://api.openai.com/v1/chat/completions";
+const API_URL_DATASET = "/predict";
 
 if (location.pathname === "/chat-bot") {
   const inputInitHeight = chatInput.scrollHeight; // Get input height value
@@ -28,11 +27,11 @@ if (location.pathname === "/chat-bot") {
   chatInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.shiftKey && window.innerWidth > 800) {
       e.preventDefault();
-      handleChat(userMessage, API_URL, API_KEY, chatInput, chatbox, inputInitHeight);
+      handleChat(API_URL_OPENAI, API_KEY, API_URL_DATASET, chatInput, chatbox, inputInitHeight, userMessage);
     }
   });
 
-  sendChatBtn.addEventListener("click", handleChat(userMessage, API_URL, API_KEY, chatInput, chatbox, inputInitHeight));
+  sendChatBtn.addEventListener("click", handleChat(API_URL_OPENAI, API_KEY, API_URL_DATASET, chatInput, chatbox, inputInitHeight, userMessage));
 }
 
 // document.addEventListener("DOMContentLoaded", () => {
