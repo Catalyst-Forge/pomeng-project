@@ -8,9 +8,6 @@ route_bp = Blueprint('routes', __name__)
 def index():
   return render_template('index.html')
 
-@route_bp.route('/chat-bot')
-def chat():
-  return render_template('chatbot.html')
 
 @route_bp.route("/predict", methods=["GET", "POST"])
 def predict():
