@@ -1,4 +1,3 @@
-import { navigateTo } from "./utils/navigate.js";
 import { handleChat } from "./utils/handleChat.js";
 
 /**
@@ -59,30 +58,3 @@ openChatBubbleBtn.addEventListener("click", (e) => {
     chatbotContainer.classList.remove("animating-open");
   }, 700);
 });
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   // typeWriterEffect();
-
-//   document.body.addEventListener("click", (e) => {
-//     if (e.target.matches("[data-link]")) {
-//       e.preventDefault();
-//       navigateTo(e.target.href, app);
-//     }
-//   });
-
-//   const path = location.pathname;
-//   if (path === "/") {
-//     navigateTo("index.html");
-//   } else if (path === "/chat-bot") {
-//     navigateTo("chatbot.html");
-//   }
-// });
-
-// window.addEventListener("popstate", () => {
-//   const path = location.pathname;
-//   if (path === "/") {
-//     navigateTo("index.html");
-//   } else if (path === "/chat-bot") {
-//     navigateTo("chatbot.html");
-//   }
-// });
