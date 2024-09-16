@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Test</title>
+    <script>
+        // Function to handle GET request
+        function getIntents() {
+            fetch('/intents')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').innerHTML = JSON.stringify(data, null, 2);
+                });
+        }
+
+        // Function to handle POST request
+        function addIntent() {
+            const tag = document.getElementById('postTag').value;
+            const patterns = document.getElementById('postPatterns').value.split(',');
+            const responses = document.getElementById('postResponses').value.split(',');
+
+            fetch('/intents', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    tag: tag,
+                    patterns: patterns,
+                    responses: responses
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerHTML = JSON.stringify(data, null, 2);
+            });
+        }
+
+        // Function to handle DELETE request
+        function deleteIntent() {
+            const tag = document.getElementById('deleteTag').value;
+
+            fetch(`/intents/${tag}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerHTML = JSON.stringify(data, null, 2);
+            });
+        }
+
+        // Function to handle PUT request
+        function updateIntent() {
+            const tag = document.getElementById('putTag').value;
+            const patterns = document.getElementById('putPatterns').value.split(',');
+            const responses = document.getElementById('putResponses').value.split(',');
+
+            fetch(`/intents/${tag}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    patterns: patterns,
+                    responses: responses
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerHTML = JSON.stringify(data, null, 2);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>CRUD Operations</h1>
+
+    <!-- GET Intents -->
+    <h3>Get All Intents</h3>
+    <button onclick="getIntents()">Get Intents</button>
+    
+    <!-- POST Intent -->
+    <h3>Add New Intent</h3>
+    <label>Tag:</label>
+    <input type="text" id="postTag" placeholder="Enter tag"><br>
+    <label>Patterns (comma separated):</label>
+    <input type="text" id="postPatterns" placeholder="Enter patterns"><br>
+    <label>Responses (comma separated):</label>
+    <input type="text" id="postResponses" placeholder="Enter responses"><br>
+    <button onclick="addIntent()">Add Intent</button>
+
+    <!-- PUT (Update) Intent -->
+    <h3>Update Existing Intent</h3>
+    <label>Tag to update:</label>
+    <input type="text" id="putTag" placeholder="Enter tag"><br>
+    <label>New Patterns (comma separated):</label>
+    <input type="text" id="putPatterns" placeholder="Enter new patterns"><br>
+    <label>New Responses (comma separated):</label>
+    <input type="text" id="putResponses" placeholder="Enter new responses"><br>
+    <button onclick="updateIntent()">Update Intent</button>
+
+    <!-- DELETE Intent -->
+    <h3>Delete Intent</h3>
+    <label>Tag to delete:</label>
+    <input type="text" id="deleteTag" placeholder="Enter tag"><br>
+    <button onclick="deleteIntent()">Delete Intent</button>
+
+    <!-- Result Section -->
+    <h3>Result</h3>
+    <pre id="result"></pre>
+</body>
+</html>

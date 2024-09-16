@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Register</title>
+</head>
+<body>
+    <h1>Register</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <label for="email">Email</label>
+        {{ form.email.label }}
+        {{ form.email() }}
+        <label for="password">Password</label>
+        {{ form.password.label }}
+        {{ form.password() }}
+        <label for="confirm_password">Confirm Password</label>
+        {{ form.confirm_password.label }}
+        {{ form.confirm_password() }}
+        {{ form.submit() }}
+    </form>
+    <a href="{{ url_for('auth.login') }}">Login</a>
+</body>
+</html>

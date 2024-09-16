@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ current_user.username }}!</h1>
+    <a href="{{ url_for('auth.crud-test') }}">dataset</a><br>
+    <a href="{{ url_for('auth.logout') }}">Logout</a>
+</body>
+</html>
