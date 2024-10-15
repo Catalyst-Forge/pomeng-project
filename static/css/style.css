@@ -30,9 +30,28 @@ body {
   color: #f2f2f2;
   position: fixed;
 
-  & h1 {
+  > * {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .title {
     font-size: 2.5rem;
     text-shadow: 0 0 0.2rem #010665, 0 0 0.275rem #010665, 0 0 0.75rem #010665;
+  }
+
+  .link {
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    text-decoration: none;
+    background-color: #010665;
+    color: #ccc;
+
+    &:hover {
+      background-color: #f8d7dadf;
+      color: #010665;
+    }
   }
 }
 
