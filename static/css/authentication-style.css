@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(90deg, #caf0f8, #90e0ef);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.box {
+  background: linear-gradient(90deg, #0096c7, #48cae4);
+  position: relative;
+  width: 23rem;
+  height: 37rem;
+  box-shadow: 0 0 24px #44b0c5;
+}
+
+.box__content {
+  position: relative;
+  height: 100%;
+  z-index: 1;
+}
+
+.box__content-title {
+  padding: 5rem 3rem;
+}
+
+.box__content-authentication {
+  margin-top: -3rem;
+  padding: 1.75rem;
+}
+
+.authentication__field {
+  padding: 20px 0;
+  position: relative;
+}
+
+.authentication__input {
+  border: none;
+  border-bottom: 2px solid #d1d1d4;
+  padding: 10px;
+  background: none;
+  width: 75%;
+  font-weight: 700;
+  transition: 200ms;
+}
+
+.authentication__input:is(:active, :focus, :hover) {
+  border-bottom-color: #03045e;
+  outline: none;
+}
+
+.authentication__submit {
+  margin-top: 30px;
+  border: 1px solid #d4d3e8;
+  border-radius: 26px;
+  padding: 1rem 1.25rem;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  color: #0096c7;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 2px 2px #428da6;
+  transition: 200ms;
+  cursor: pointer;
+}
+
+.authentication__submit:is(:active, :focus, :hover) {
+  border-color: #6a679e;
+  outline: none;
+}
+
+.box__content-register {
+  margin-top: 1.5rem;
+  margin-inline-end: 3rem;
+  color: #fff;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.25rem;
+  text-decoration: none;
+  font-weight: 700;
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.box__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+  clip-path: inset(0 0 0 0);
+}
+
+.box__background-shape {
+  position: absolute;
+  rotate: 45deg;
+}
+
+.box__background-shape-1 {
+  border-radius: 0 72px 0 0;
+  width: 520px;
+  height: 520px;
+  background-color: #fff;
+  top: -50px;
+  right: 120px;
+}
+
+.box__background-shape-2 {
+  border-radius: 32px;
+  width: 220px;
+  height: 220px;
+  background-color: #0077b6;
+  top: -172px;
+  right: 0;
+}
+
+.box__background-shape-3 {
+  border-radius: 32px;
+  width: 190px;
+  height: 540px;
+  background: linear-gradient(270deg, #03045e, #0077b6);
+  top: -24px;
+  right: 0;
+}
+
+.box__background-shape-4 {
+  border-radius: 60px;
+  width: 200px;
+  height: 400px;
+  background-color: #0096c7;
+  top: 420px;
+  right: 50px;
+}
