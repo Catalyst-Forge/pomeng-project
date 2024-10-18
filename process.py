@@ -30,7 +30,7 @@ def preparation():
             tokenizer = pickle.load(file)
         with open('model/le.pkl', 'rb') as file:
             le = pickle.load(file)
-        model = keras.models.load_model('model/ArunBot.h5')
+        model = keras.models.load_model('model/arun.keras')
         lemmatizer = WordNetLemmatizer()
         nltk.download('punkt', quiet=True)
         nltk.download('wordnet', quiet=True)
