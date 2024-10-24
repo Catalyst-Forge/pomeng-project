@@ -10,7 +10,7 @@ from tensorflow import keras
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 global responses, lemmatizer, tokenizer, le, model, input_shape
-input_shape = 13
+input_shape = 15
 
 # import dataset answer
 def load_response():
@@ -26,11 +26,11 @@ def preparation():
     try:
         global lemmatizer, tokenizer, le, model
         load_response()
-        with open('model/tokenizers.pkl', 'rb') as file:
+        with open('preprocessing/tokenizers.pkl', 'rb') as file:
             tokenizer = pickle.load(file)
-        with open('model/le.pkl', 'rb') as file:
+        with open('preprocessing/le.pkl', 'rb') as file:
             le = pickle.load(file)
-        model = keras.models.load_model('model/arun.keras')
+        model = keras.models.load_model('preprocessing/arun.keras')
         lemmatizer = WordNetLemmatizer()
         nltk.download('punkt', quiet=True)
         nltk.download('wordnet', quiet=True)
