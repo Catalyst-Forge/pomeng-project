@@ -2,7 +2,8 @@ from flask import Flask, jsonify
 from models.auth_model import User
 from extensions import db, migrate, login_manager
 from viewController.view_auth import auth_bp
-from viewController.view_Lstm import crud_bp
+from viewController.view_Lstm import lstm
+from viewController.view_fineTuning import fineTuning
 from route import route_bp  # Import blueprint
 
 def create_app():
@@ -23,7 +24,8 @@ def create_app():
 
 
     app.register_blueprint(auth_bp)
-    app.register_blueprint(crud_bp)
+    app.register_blueprint(lstm)
+    app.register_blueprint(fineTuning)
     app.register_blueprint(route_bp)
 
     return app
