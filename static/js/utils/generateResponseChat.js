@@ -33,7 +33,7 @@ export const generateResponse = (incomingChatLi, API_URL_OPENAI, API_KEY, API_UR
     .finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
 };
 
-const fetchOpenAI = (userMessage, API_URL_OPENAI, API_KEY, messageElement) => {
+const fetchOpenAI = async (userMessage, API_URL_OPENAI, API_KEY, messageElement) => {
   // Request Option dari model API OpenAI
   const requestOptions = {
     method: "POST",
@@ -52,22 +52,21 @@ const fetchOpenAI = (userMessage, API_URL_OPENAI, API_KEY, messageElement) => {
     }),
   };
 
-  return fetch(API_URL_OPENAI, requestOptions)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.error && data.error.message) {
-        messageElement.classList.add("error");
-        messageElement.textContent = `Error: ${data.error.message}`;
-      } else if (data.choices && data.choices.length > 0) {
-        messageElement.textContent = data.choices[0].message.content.trim();
-      } else {
-        messageElement.classList.add("error");
-        messageElement.textContent = "Oops! Something went wrong. Please try again.";
-      }
-    })
-    .catch((error) => {
-      console.error("OpenAI API error:", error);
+  try {
+    const res = await fetch(API_URL_OPENAI, requestOptions);
+    const data = await res.json();
+    if (data.error && data.error.message) {
+      messageElement.classList.add("error");
+      messageElement.textContent = `Error: ${data.error.message}`;
+    } else if (data.choices && data.choices.length > 0) {
+      messageElement.textContent = data.choices[0].message.content.trim();
+    } else {
       messageElement.classList.add("error");
       messageElement.textContent = "Oops! Something went wrong. Please try again.";
-    });
+    }
+  } catch (error) {
+    console.error("OpenAI API error:", error);
+    messageElement.classList.add("error");
+    messageElement.textContent = "Oops! Something went wrong. Please try again.";
+  }
 };
