@@ -4,7 +4,15 @@ from flask_login import login_required
 
 crud_bp = Blueprint('crud_bp', __name__)
 
-@crud_bp.route('/create', methods=['POST'])
+# Read all dataset
+@crud_bp.route('/dashboard/dataset')
+@login_required
+def read_intents():
+    intents = Intent.query.all()
+    return render_template('pages/dataset.html', intents=intents)
+
+# Create an dataset
+@crud_bp.route('/dashboard/dataset/create', methods=['POST'])
 @login_required
 def create_intent():
     tag = request.form['tag']
@@ -18,16 +26,8 @@ def create_intent():
     save_to_json() 
     return redirect(url_for('crud_bp.read_intents'))
 
-
-# Read all intents
-@crud_bp.route('/crud')
-@login_required
-def read_intents():
-    intents = Intent.query.all()
-    return render_template('crud.html', intents=intents)
-
-# Update an intent
-@crud_bp.route('/update/<int:id>', methods=['POST'])
+# Update an dataset
+@crud_bp.route('/dashboard/dataset/<int:id>/update', methods=['POST'])
 @login_required
 def update_intent(id):
     intent = Intent.query.get(id)
@@ -45,9 +45,8 @@ def update_intent(id):
         save_to_json()  # Simpan perubahan ke JSON
     return redirect(url_for('crud_bp.read_intents'))
 
-
-# Delete an intent
-@crud_bp.route('/delete/<int:id>', methods=['POST'])
+# Delete an dataset
+@crud_bp.route('/dashboard/dataset/<int:id>/delete', methods=['POST'])
 @login_required
 def delete_intent(id):
     intent = Intent.query.get(id)
