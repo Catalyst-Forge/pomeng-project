@@ -1,3 +1,4 @@
+import json
 from extensions import db
 
 class Intent(db.Model):
