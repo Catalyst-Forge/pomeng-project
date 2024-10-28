@@ -4,6 +4,7 @@ import sys
 import json
 from extensions import db
 from models.fine_tuning import Conversation  # pastikan path ini sesuai dengan struktur folder Anda
+from models.lstm_model import Intent  # pastikan path ini sesuai dengan struktur folder Anda
 from app import create_app  # Pastikan ini sesuai dengan aplikasi utama Anda
 
 
@@ -14,16 +15,14 @@ def migrate_to_db(file_path, file_type="json"):
         
         # Iterasi pada setiap intent dalam data JSON
         for intent_data in data['intents']:
-            # Ambil messages dari JSON
-            messages = [
-                {"role": "system", "content": intent_data.get("tag")},
-                {"role": "user", "content": ", ".join(intent_data.get("patterns", []))},
-                {"role": "assistant", "content": ", ".join(intent_data.get("responses", []))}
-            ]
+            # Mengambil data langsung dari tag, patterns, dan responses
+            tag = intent_data.get("tag")
+            patterns = ", ".join(intent_data.get("patterns", []))  # Menggabungkan list patterns menjadi string
+            responses = ", ".join(intent_data.get("responses", []))  # Menggabungkan list responses menjadi string
             
-            # Membuat instance baru dari Conversation
-            conversation = Conversation(messages=messages)
-            db.session.add(conversation)
+            # Membuat instance baru dari Intent
+            intent = Intent(tag=tag, patterns=patterns, responses=responses)
+            db.session.add(intent)
 
     elif file_type == "jsonl":
         with open(file_path, 'r') as jsonl_file:
