@@ -1,0 +1,182 @@
+#sidebar .sidebar-wrapper {
+  left: -300px;
+}
+
+#sidebar.inactive .sidebar-wrapper {
+  left: -300px;
+}
+
+#sidebar.inactive ~ #main {
+  margin-left: 0;
+}
+
+#sidebar.active .sidebar-wrapper {
+  left: 0;
+}
+
+.sidebar-wrapper {
+  width: 300px;
+  height: 100vh;
+  position: fixed;
+  overflow-y: auto;
+  background-color: #fff;
+  transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sidebar-wrapper .sidebar-toggler.x {
+  position: absolute;
+  right: 1.75rem;
+  top: 0.25rem;
+  display: none;
+}
+
+.sidebar-wrapper .sidebar-menu .menu {
+  padding-left: 0;
+  padding: 0 2rem;
+  font-weight: 600;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item {
+  list-style: none;
+  padding-top: 0.5rem;
+  position: relative;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .sidebar-link {
+  display: block;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  transition: all 0.5s;
+  text-decoration: none;
+  color: #25396f;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .sidebar-link :is(svg, i) {
+  color: #7c8db5;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .sidebar-link i:before {
+  vertical-align: top;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .sidebar-link:hover {
+  background-color: #f0f1f5;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item.active.has-sub .sidebar-link:after {
+  content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9" style="fill:none;stroke:white;stroke-width:1"></polyline></svg>');
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item.active > .sidebar-link {
+  background-color: #435ebe;
+  color: #fff;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item.active > .sidebar-link :is(svg, i) {
+  fill: #fff;
+  color: #fff;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item.active > .sidebar-link.has-sub:after {
+  content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9" style="fill:none;stroke:white;stroke-width:1"></polyline></svg>');
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .submenu {
+  list-style: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .submenu.active {
+  height: var(--submenu-height);
+  display: block;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .submenu.submenu-closed {
+  max-height: 0;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .submenu.submenu-open {
+  max-height: var(--submenu-height);
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .submenu .submenu-item.active {
+  position: relative;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .submenu .submenu-item.active > .submenu-link {
+  color: #435ebe;
+  font-weight: 700;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .submenu .submenu-item .submenu-link {
+  padding: 0.7rem 2rem;
+  display: block;
+  color: #25396f;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .submenu .submenu-item .submenu-link:is(:hover, .active) {
+  margin-left: 0.3rem;
+  color: #435ebe;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item.has-sub,
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .submenu .submenu-item.has-sub {
+  overflow: hidden;
+  position: relative;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item.has-sub > .sidebar-link:after {
+  content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9" style="fill:none;stroke:gray;stroke-width:1"></polyline></svg>');
+  position: absolute;
+  color: #ccc;
+  right: 15px;
+  display: block;
+}
+
+.sidebar-wrapper .sidebar-menu .menu .sidebar-item .submenu .submenu-item.has-sub > .submenu-link:after {
+  content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9" style="fill:none;stroke:gray;stroke-width:1"></polyline></svg>');
+  position: absolute;
+  color: #ccc;
+  right: 15px;
+  display: block;
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+}
+
+@media screen and (max-width: 1199px) {
+  .sidebar-wrapper {
+    position: fixed;
+    left: -300px;
+  }
+  .sidebar-wrapper .sidebar-toggler.x {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #sidebar .sidebar-wrapper {
+    left: 0;
+  }
+
+  #sidebar ~ #main {
+    margin-left: 300px;
+  }
+}
