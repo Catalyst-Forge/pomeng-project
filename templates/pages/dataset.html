@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+{% extends 'dashboard.html' %} {% block content %}
+
+<header class="mb-3">
+  <h1>CRUD Intent</h1>
+  <button type="button" class="btn btn-primary" id="create-btn" data-bs-toggle="modal" data-bs-target="#createModal">Create Intent</button>
+</header>
+
+<!-- List of Intents -->
+<section>
+  <h2>List of Intents</h2>
+
+  <table class="table table-info table-hover text-center">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Tag</th>
+        <th scope="col">Patterns</th>
+        <th scope="col">Responses</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for intent in intents %}
+      <tr>
+        <td id="dataset-id" data-id="{{ intent.id }}">{{ intent.id }}</td>
+        <td>{{ intent.tag }}</td>
+        <td>{{ intent.patterns }}</td>
+        <td>{{ intent.responses }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-primary open-update-modal-button"
+            data-id="{{ intent.id }}"
+            data-tag="{{ intent.tag }}"
+            data-patterns="{{ intent.patterns }}"
+            data-responses="{{ intent.responses }}"
+            data-bs-toggle="modal"
+            data-bs-target="#updateModal"
+          >
+            Update
+          </button>
+          <form id="delete-form" method="POST" style="display: inline-block">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this intent?')">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<!-- Create Intent Modal -->
+<section>
+  <div id="createModal" class="modal fade" tabindex="-1" aria-labelledby="createModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h3 class="modal-title">Create New Intent</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </header>
+
+        <form id="create-form" class="modal-body" action="{{ url_for('crud_bp.create_intent') }}" method="POST">
+          <div class="mb-3">
+            <label for="create-tag" class="form-label">Tag:</label>
+            <input type="text" class="form-control" id="create-tag" name="tag" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="create-patterns" class="form-label">Patterns:</label>
+            <div id="create-patterns-list" class="patterns-list">
+              <div class="pattern-input input-group mb-2">
+                <input type="text" class="form-control" name="patterns[]" placeholder="Enter pattern" required />
+                <button type="button" class="remove-pattern btn btn-primary">Remove</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <button type="button" class="btn btn-primary" id="add-create-pattern">Add Pattern</button>
+          </div>
+
+          <div class="mb-3">
+            <label for="create-responses" class="form-label">Responses:</label>
+            <input type="text" class="form-control" id="create-responses" name="responses" required />
+          </div>
+
+          <input type="hidden" id="create-patterns-hidden" name="patterns_hidden" />
+          <button type="submit" class="btn btn-success">Add Intent</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Update Intent Modal -->
+<section>
+  <div id="updateModal" class="modal fade" tabindex="-1" aria-labelledby="updateModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h3 class="modal-title">Update Intent</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </header>
+
+        <form id="update-form" class="modal-body" method="POST">
+          <input type="hidden" id="intent-id" name="id" value="" />
+
+          <div class="mb-3">
+            <label for="update-tag" class="form-label">Tag</label>
+            <input type="text" class="form-control" id="update-tag" name="tag" value="" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="update-patterns" class="form-label">Patterns</label>
+            <input type="text" class="form-control" id="update-patterns" name="patterns" value="" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="update-responses" class="form-label">Responses</label>
+            <input type="text" class="form-control" id="update-responses" name="responses" value="" required />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Update Intent</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
