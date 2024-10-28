@@ -1,0 +1,62 @@
+{
+    "intents": [
+        {
+            "tag": "blablabla",
+            "patterns": [
+                "bla"
+            ],
+            "responses": [
+                "bla",
+                " bla"
+            ]
+        },
+        {
+            "tag": "blablabla",
+            "patterns": [
+                "bla"
+            ],
+            "responses": [
+                "bla"
+            ]
+        },
+        {
+            "tag": "blablabla",
+            "patterns": [
+                "bla"
+            ],
+            "responses": [
+                "bla"
+            ]
+        },
+        {
+            "tag": "blablabla",
+            "patterns": [
+                "bla bwa bwa"
+            ],
+            "responses": [
+                "bla bwa"
+            ]
+        },
+        {
+            "tag": "blablabla",
+            "patterns": [
+                "bla bla"
+            ],
+            "responses": [
+                "bla"
+            ]
+        },
+        {
+            "tag": "blablabla",
+            "patterns": [
+                "bla",
+                "bla",
+                "bla",
+                "bla"
+            ],
+            "responses": [
+                "bla"
+            ]
+        }
+    ]
+}
