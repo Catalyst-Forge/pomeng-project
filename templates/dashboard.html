@@ -12,6 +12,7 @@
     />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard-style.css') }}" />
   </head>
 
   <body class="bg-body-tertiary" style="min-height: 100vh">
@@ -21,114 +22,11 @@
       </div>
     </header>
 
-    <div class="row me-0 h-100 accordion" id="accordionContent">
-      <aside class="col-3">
-        <nav class="nav nav-pills flex-column bg-dark-subtle p-3">
-          <a
-            class="nav-link active"
-            id="mainContentToggle"
-            href="#mainContent"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainContent"
-            aria-expanded="true"
-            aria-controls="mainContent"
-            >Dashboard</a
-          >
-          <a
-            class="nav-link collapsed"
-            href="#datasetContent"
-            id="datasetContentToggle"
-            data-bs-toggle="collapse"
-            data-bs-target="#datasetContent"
-            aria-expanded="false"
-            aria-controls="datasetContent"
-            >Dataset</a
-          >
-          <a href="/" class="nav-link">Homepage</a>
-          <a class="nav-link mt-auto" href="{{ url_for('auth.logout') }}">Logout</a>
-        </nav>
-      </aside>
+    <div class="row me-0 h-100">
+      {% include 'partials/sidebar.html' %}
 
       <main class="col-9">
-        <div class="container">
-          <div id="mainContent" class="accordion-collapse collapse show" aria-labelledby="mainContentToggle" data-bs-parent="#accordionContent">
-            <h1>Welcome, {{ current_user.username }}!</h1>
-            <a href="{{ url_for('route.crud_test') }}">dataset</a>
-            <a href="{{ url_for('auth.logout') }}">Logout</a>
-          </div>
-
-          <div id="datasetContent" class="accordion-collapse collapse" aria-labelledby="datasetContentToggle" data-bs-parent="#accordionContent">
-            <h1>CRUD Operations</h1>
-
-            <!-- GET Intents -->
-            <div class="mt-3">
-              <h3>Get All Intents</h3>
-              <button class="btn btn-primary" onclick="getIntents()">Get Intents</button>
-            </div>
-
-            <!-- POST Intent -->
-            <div class="mt-3">
-              <h3>Add New Intent</h3>
-
-              <div class="mb-3">
-                <label for="postTag" class="form-label">Tag:</label>
-                <input type="text" class="form-control" id="postTag" placeholder="Enter tag" />
-              </div>
-
-              <div class="mb-3">
-                <label for="postPatterns" class="form-label">Patterns (comma separated):</label>
-                <input type="text" class="form-control" id="postPatterns" placeholder="Enter patterns" />
-              </div>
-
-              <div class="mb-3">
-                <label for="postResponses" class="form-label">Responses (comma separated):</label>
-                <input type="text" class="form-control" id="postResponses" placeholder="Enter responses" />
-              </div>
-
-              <button class="btn btn-primary" onclick="addIntent()">Add Intent</button>
-            </div>
-
-            <!-- PUT (Update) Intent -->
-            <div class="mt-3">
-              <h3>Update Existing Intent</h3>
-
-              <div class="mb-3">
-                <label for="putTag" class="form-label">Tag to update:</label>
-                <input type="text" class="form-control" id="putTag" placeholder="Enter tag" />
-              </div>
-
-              <div class="mb-3">
-                <label for="putPatterns" class="form-label">New Patterns (comma separated):</label>
-                <input type="text" class="form-control" id="putPatterns" placeholder="Enter new patterns" />
-              </div>
-
-              <div class="mb-3">
-                <label for="putResponses" class="form-label">New Responses (comma separated):</label>
-                <input type="text" class="form-control" id="putResponses" placeholder="Enter new responses" />
-              </div>
-
-              <button class="btn btn-primary" onclick="updateIntent()">Update Intent</button>
-            </div>
-
-            <!-- DELETE Intent -->
-            <div class="mt-3">
-              <h3>Delete Intent</h3>
-
-              <div class="mb-3">
-                <label for="deleteTag" class="form-label">Tag to delete:</label>
-                <input type="text" class="form-control" id="deleteTag" placeholder="Enter tag" />
-              </div>
-
-              <button class="btn btn-primary" onclick="deleteIntent()">Delete Intent</button>
-            </div>
-
-            <!-- Result Section -->
-            <div class="mt-3">
-              <h3>Result</h3>
-              <pre id="result"></pre>
-            </div>
-          </div>
-        </div>
+        <div class="container" id="content">{% block content %} {% endblock content %}</div>
       </main>
     </div>
 
@@ -138,45 +36,6 @@
       crossorigin="anonymous"
     ></script>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const accordionButtons = document.querySelectorAll(".nav-link");
-        const accordions = document.querySelectorAll(".accordion-collapse");
-        let lastOpenedAccordion = null;
-
-        // Event listener untuk tombol accordion
-        accordionButtons.forEach((button) => {
-          button.addEventListener("click", function (event) {
-            const targetId = this.getAttribute("data-bs-target");
-            const targetCollapse = document.querySelector(targetId);
-
-            // Tutup accordion yang sebelumnya dibuka
-            if (lastOpenedAccordion && lastOpenedAccordion !== targetCollapse) {
-              lastOpenedAccordion.classList.remove("show");
-            }
-
-            // Mencegah penutupan jika accordion yang sama ditekan
-            if (targetCollapse.classList.contains("show") && lastOpenedAccordion === targetCollapse) {
-              event.preventDefault();
-            } else {
-              lastOpenedAccordion = targetCollapse;
-            }
-
-            // Update kelas "active" untuk nav-link
-            accordionButtons.forEach((link) => link.classList.remove("active"));
-            this.classList.add("active");
-          });
-        });
-
-        // Mencegah accordion yang terbuka tertutup saat tombol yang sama ditekan
-        accordions.forEach((accordion) => {
-          accordion.addEventListener("hide.bs.collapse", (event) => {
-            if (lastOpenedAccordion === accordion) {
-              event.preventDefault();
-            }
-          });
-        });
-      });
-    </script>
+    <script type="module" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
   </body>
 </html>
