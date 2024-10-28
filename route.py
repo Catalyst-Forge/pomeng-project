@@ -2,8 +2,7 @@ from flask import Blueprint, render_template, request, jsonify
 from predict.process import preparation, botResponse
 from flask_login import login_required
 
-
-route_bp = Blueprint('route', __name__)
+route_bp = Blueprint('route', __name__, template_folder='templates')
 
 preparation()
 
@@ -19,7 +18,7 @@ def chat():
 @route_bp.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('pages/main-dashboard.html')
 
 @route_bp.route("/predict", methods=["GET", "POST"])
 def predict():
@@ -27,8 +26,3 @@ def predict():
     response = botResponse(text)
     message = {"answer": response}
     return jsonify(message)
-
-@route_bp.route('/crud-test')
-@login_required  # Menambahkan dekorator login_required di sini
-def crud_test():
-    return render_template('crud.html')
