@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Perbarui Percakapan</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styless.css') }}" />
+    </head>
+    <body>
+        <h1>Perbarui Percakapan</h1>
+        <form method="POST">
+            {% for message in conversation.messages %}
+            <div>
+                <label for="{{ message.role }}">{{ message.role | capitalize }}</label>
+                <input type="text" name="{{ message.role }}" value="{{ message.content }}" required />
+            </div>
+            {% endfor %}
+            <button type="submit">Perbarui</button>
+        </form>
+        <a href="{{ url_for('fineTuning.view_conversations') }}">Kembali ke Daftar Percakapan</a>
+    </body>
+</html>
