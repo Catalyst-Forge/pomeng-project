@@ -1,47 +1,47 @@
 <aside class="col-3" id="sidebar">
-    <div class="sidebar-wrapper active">
-        <nav class="sidebar-menu">
-            <div class="menu">
-                <div class="sidebar-item">
-                    <a href="{{ url_for('route.dashboard') }}" class="sidebar-link">Dashboard</a>
-                </div>
+  <div class="sidebar-wrapper active">
+    <nav class="sidebar-menu">
+      <div class="menu">
+        <div class="sidebar-item">
+          <a href="{{ url_for('route.dashboard') }}" class="sidebar-link">Dashboard</a>
+        </div>
 
-                <div class="sidebar-item">
-                    <a href="#" class="sidebar-link">Analytic</a>
-                </div>
+        <div class="sidebar-item">
+          <a href="#" class="sidebar-link">Analytic</a>
+        </div>
 
-                <div class="sidebar-item has-sub">
-                    <div class="sidebar-link"><span>Dataset</span></div>
+        <div class="sidebar-item has-sub">
+          <div class="sidebar-link"><span>Dataset</span></div>
 
-                    <div class="submenu">
-                        <div class="submenu-item">
-                            <a href="{{ url_for('crud_bp.read_intents') }}" class="submenu-link">LSTM</a>
-                        </div>
-
-                        <div class="submenu-item">
-                            <a href="#" class="submenu-link">Fine Tuning</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sidebar-item has-sub">
-                    <div class="sidebar-link"><span>Training Models</span></div>
-
-                    <div class="submenu">
-                        <div class="submenu-item">
-                            <a href="#" class="submenu-link">LSTM</a>
-                        </div>
-
-                        <div class="submenu-item">
-                            <a href="#" class="submenu-link">Fine Tuning</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sidebar-item">
-                    <a href="#" class="sidebar-link">Settings</a>
-                </div>
+          <div class="submenu">
+            <div class="submenu-item">
+              <a href="{{ url_for('crud_bp.read_intents') }}" class="submenu-link">LSTM</a>
             </div>
-        </nav>
-    </div>
+
+            <div class="submenu-item">
+              <a href="{{ url_for('fineTuning.view_conversations') }}" class="submenu-link">Fine Tuning</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-item has-sub">
+          <div class="sidebar-link"><span>Training Models</span></div>
+
+          <div class="submenu">
+            <div class="submenu-item">
+              <a href="#" class="submenu-link">LSTM</a>
+            </div>
+
+            <div class="submenu-item">
+              <a href="#" class="submenu-link">Fine Tuning</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-item">
+          <a href="#" class="sidebar-link">Settings</a>
+        </div>
+      </div>
+    </nav>
+  </div>
 </aside>
