@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+{% extends 'dashboard.html' %} {% block content %}
+
+<h1 class="my-3">Tambah Percakapan</h1>
+
+<form method="POST">
+  <div class="mb-3">
+    <label for="system" class="form-label">System:</label>
+    <textarea class="form-control" name="system" required></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="user" class="form-label">User:</label>
+    <textarea class="form-control" name="user" required></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="assistant" class="form-label">Assistant:</label>
+    <textarea class="form-control" name="assistant" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-success">Tambah Percakapan</button>
+</form>
+<a href="{{ url_for('fineTuning.view_conversations') }}">Kembali</a>
+
+{% endblock content %}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+{% extends 'dashboard.html' %} {% block content %}
+
+<h1 class="my-3">Perbarui Percakapan</h1>
+
+<form method="POST">
+  {% for message in conversation.messages %}
+  <div class="mb-3">
+    <label for="{{ message.role }}" class="form-label">{{ message.role | capitalize }}</label>
+    <input type="text" class="form-control" name="{{ message.role }}" value="{{ message.content }}" required />
+  </div>
+  {% endfor %}
+  <button type="submit" class="btn btn-success">Perbarui</button>
+</form>
+<a href="{{ url_for('fineTuning.view_conversations') }}">Kembali ke Daftar Percakapan</a>
+
+{% endblock content %}
