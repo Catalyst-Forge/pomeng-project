@@ -80,68 +80,69 @@ if (currentPage.startsWith("/dashboard")) {
     const sidebarItems = document.querySelectorAll(".sidebar-item");
     const hasSubItems = document.querySelectorAll(".sidebar-item.has-sub");
 
-    // Initiate for nav active in sidebar
-    hasSubItems.forEach((item) => {
+    const toggleSubmenu = (item) => {
+      closeAllSubmenus(item); // Tutup semua submenu kecuali yang sedang diklik
       const submenu = item.querySelector(".submenu");
+      submenu.classList.toggle("submenu-open");
+      submenu.classList.toggle("submenu-closed");
+      item.classList.toggle("active");
+    };
 
-      // Hide submenu initially
-      submenu.classList.add("submenu-closed");
-
-      // Add event listener for each item with a submenu
-      item.addEventListener("click", function (e) {
-        e.stopPropagation(); // Prevent event from bubbling up
-
-        // Toggle display for the clicked submenu
-        if (submenu.classList.contains("submenu-closed")) {
-          // Close other open submenus
-          hasSubItems.forEach((el) => {
-            const otherSubmenu = el.querySelector(".submenu");
-            if (otherSubmenu && otherSubmenu !== submenu) {
-              submenu.classList.add("submenu-closed");
-            }
-          });
-          // Open the clicked submenu
-          submenu.classList.remove("submenu-closed");
-          submenu.classList.add("submenu-open");
-        } else {
-          // Close the clicked submenu if it's already open
-          submenu.classList.remove("submenu-open");
-          submenu.classList.add("submenu-closed");
+    const closeAllSubmenus = (excludeItem) => {
+      hasSubItems.forEach((el) => {
+        if (el !== excludeItem) {
+          const submenu = el.querySelector(".submenu");
+          if (submenu) {
+            submenu.classList.add("submenu-closed");
+            submenu.classList.remove("submenu-open");
+            el.classList.remove("active");
+          }
         }
-        item.classList.toggle("active");
       });
-    });
+    };
 
-    // Validate for if one or more segments
-    if (segments.length === 2 && segments[1] === "dashboard") {
+    const activateLinkBasedOnURL = () => {
       sidebarItems.forEach((item) => {
-        const sidebarLinks = item.querySelectorAll(".sidebar-link");
-
-        sidebarLinks.forEach((link) => {
-          if (window.location.href.includes(link.href)) {
-            // If it matches, keep the submenu open and add an active class
+        const links = item.querySelectorAll(".sidebar-link, .submenu-link");
+        links.forEach((link) => {
+          if (window.location.href === link.href) {
             item.classList.add("active");
-            link.classList.add("active"); // Highlight the active submenu link
+            link.classList.add("active");
+
+            const submenu = item.querySelector(".submenu");
+            if (submenu) {
+              submenu.classList.replace("submenu-closed", "submenu-open");
+            }
           }
         });
       });
-    }
+    };
 
-    if (segments.length === 3 && segments[1] === "dashboard") {
+    // Event listeners for submenu toggle only if page has sub-items
+    if (segments.length >= 2 && segments[1] === "dashboard") {
       hasSubItems.forEach((item) => {
         const submenu = item.querySelector(".submenu");
-        const submenuLinks = submenu.querySelectorAll(".submenu-link");
+        if (submenu) {
+          submenu.classList.add("submenu-closed");
+          item.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleSubmenu(item);
+          });
+        }
+      });
 
-        // Check if the current URL matches any submenu link
-        submenuLinks.forEach((link) => {
-          if (window.location.href.includes(link.href)) {
-            // If it matches, keep the submenu open and add an active class
-            item.classList.add("active");
-            link.classList.add("active"); // Highlight the active submenu link
-            submenu.classList.remove("submenu-closed");
-            submenu.classList.add("submenu-open");
-          }
-        });
+      // Activate links based on URL if dashboard has sub-items
+      activateLinkBasedOnURL();
+    } else {
+      // No sub-items, activate links directly
+      sidebarItems.forEach((item) => {
+        const link = item.querySelector(".sidebar-link");
+
+        // Aktifkan hanya jika URL cocok secara persis
+        if (link && window.location.href === link.href) {
+          item.classList.add("active");
+          link.classList.add("active");
+        }
       });
     }
   });
