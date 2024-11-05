@@ -16,17 +16,20 @@
   </head>
 
   <body class="bg-body-tertiary" style="min-height: 100vh">
-    <header class="navbar navbar-expand-lg bg-primary-subtle position-sticky top-0">
-      <div class="container">
-        <a class="navbar-brand" href="#">Pomeng Dashboard</a>
-      </div>
-    </header>
-
     <div class="row me-0 h-100">
       {% include 'partials/sidebar.html' %}
 
       <main class="col-9">
-        <div class="container" id="content">{% block content %} {% endblock content %}</div>
+        <header class="navbar navbar-expand-lg bg-primary-subtle position-sticky top-0 rounded-4">
+          <div class="container gx-lg-5 justify-content-between">
+            <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+              <ol class="breadcrumb mb-0 py-2" id="breadcrumb"></ol>
+            </nav>
+
+            <span class="badge text-bg-info fs-6">{{ current_user.fullname }}</span>
+          </div>
+        </header>
+        <div class="container gx-lg-5" id="content">{% block content %} {% endblock content %}</div>
       </main>
     </div>
 
