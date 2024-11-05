@@ -1,38 +1,38 @@
-# Pomeng Chatbot
+# Lili Chatbot
 
-Welcome to the Pomeng Chatbot project! This project demonstrates a simple chatbot interface using Flask for the backend, along with HTML, CSS, and JavaScript for the frontend.
+Welcome to the Lili Chatbot project! This project demonstrates a simple chatbot interface using Flask for the backend, along with HTML, CSS, and JavaScript for the frontend.
 
 ## Table of Contents
 
-- [Pomeng Chatbot](#pomeng-chatbot)
-  - [Table of Contents](#table-of-contents)
-  - [Project Overview](#project-overview)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [File Structure](#file-structure)
-  - [Contributing](#contributing)
-  - [License](#license)
+-   [Lili Chatbot](#Lili-chatbot)
+    -   [Table of Contents](#table-of-contents)
+    -   [Project Overview](#project-overview)
+    -   [Features](#features)
+    -   [Installation](#installation)
+    -   [Usage](#usage)
+    -   [File Structure](#file-structure)
+    -   [Contributing](#contributing)
+    -   [License](#license)
 
 ## Project Overview
 
-The Pomeng Chatbot project provides a basic chatbot interface where users can interact with a bot. The frontend is designed with modern CSS and JavaScript to create a smooth and engaging user experience.
+The Lili Chatbot project provides a basic chatbot interface where users can interact with a bot. The frontend is designed with modern CSS and JavaScript to create a smooth and engaging user experience.
 
 ## Features
 
-- Responsive design
-- Interactive chatbot interface
-- Easy to set up and run locally
+-   Responsive design
+-   Interactive chatbot interface
+-   Easy to set up and run locally
 
 ## Installation
 
-To get started with the Pomeng Chatbot project, follow these steps:
+To get started with the Lili Chatbot project, follow these steps:
 
 1. **Clone the repository**:
 
     ```sh
-    git clone https://github.com/BagasAuliaAlfasyam/pomeng-project-master.git
-    cd pomeng-project-master
+    git clone https://github.com/BagasAuliaAlfasyam/Lili-project-master.git
+    cd Lili-project-master
     ```
 
 2. **Create a virtual environment**:
@@ -44,7 +44,7 @@ To get started with the Pomeng Chatbot project, follow these steps:
     # in windows
     python -m venv venv
 
-    source venv/bin/activate  
+    source venv/bin/activate
     # On Windows use `venv\Scripts\activate`
     ```
 
@@ -69,7 +69,7 @@ Open your browser and navigate to `http://127.0.0.1:5000/` to see the chatbot in
 Here's a brief overview of the project structure:
 
 ```
-pomeng-project-master/
+Lili-project-master/
 ├── static/
 │   ├── css/
 │   │   └── style.css
@@ -84,11 +84,11 @@ pomeng-project-master/
 └── README.md
 ```
 
-- `static/`: Contains static files such as CSS, JavaScript, and images.
-- `templates/`: Contains HTML templates.
-- `app.py`: The main Flask application file.
-- `requirements.txt`: Lists the project dependencies.
-- `README.md`: Project documentation.
+-   `static/`: Contains static files such as CSS, JavaScript, and images.
+-   `templates/`: Contains HTML templates.
+-   `app.py`: The main Flask application file.
+-   `requirements.txt`: Lists the project dependencies.
+-   `README.md`: Project documentation.
 
 ## Contributing
 
