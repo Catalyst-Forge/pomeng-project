@@ -1,7 +1,7 @@
 # import_jsonl_to_db.py
 
 import json
-from models.fine_tuning import Conversation  # pastikan path ini sesuai dengan struktur folder Anda
+from models.fine_tuning import Finetuning  # pastikan path ini sesuai dengan struktur folder Anda
 from extensions import db
 
 def import_jsonl_to_db(jsonl_file_path):
@@ -13,10 +13,10 @@ def import_jsonl_to_db(jsonl_file_path):
             messages = data.get("messages", [])
 
             # Buat instance Conversation baru
-            conversation = Conversation(messages=messages)
+            finetuning = Finetuning(messages=messages)
             
             # Tambahkan ke sesi database
-            db.session.add(conversation)
+            db.session.add(finetuning)
     
     # Simpan semua perubahan ke database
     db.session.commit()

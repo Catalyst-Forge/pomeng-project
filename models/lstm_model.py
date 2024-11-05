@@ -1,7 +1,7 @@
 import json
 from extensions import db
 
-class Intent(db.Model):
+class Lstm(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tag = db.Column(db.String(80), nullable=False)
     patterns = db.Column(db.Text, nullable=False)  

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, Blueprint
 from extensions import db
-from models.fine_tuning import Conversation
+from models.fine_tuning import Finetuning
 from flask_login import login_required
 import json
 
@@ -9,16 +9,16 @@ fineTuning = Blueprint("fineTuning", __name__)
 
 @fineTuning.route("/dashboard/dataset/fine-tuning/list")
 @login_required
-def view_conversations():
-    conversations = Conversation.query.all()
+def view_finetuning_data():
+    finetuning = Finetuning.query.all()
     return render_template(
-        "pages/dataset-fine-tuning.html", conversations=conversations
+        "pages/dataset-fine-tuning.html", finetuning=finetuning
     )
 
 
 @fineTuning.route("/dashboard/dataset/fine-tuning/add", methods=["GET", "POST"])
 @login_required
-def add_conversation():
+def add_finetuning_data():
     if request.method == "POST":
         messages = []
 
@@ -28,10 +28,10 @@ def add_conversation():
                 messages.append({"role": role, "content": content})
 
         if len(messages) == 3:
-            add_conversation(messages)
+            add_finetuning_data(messages)
             export_to_jsonl()
             flash("Percakapan berhasil ditambahkan!", "success")
-            return redirect(url_for("fineTuning.view_conversations"))
+            return redirect(url_for("fineTuning.view_finetuning_data"))
         else:
             flash("Semua peran harus diisi!", "danger")
 
@@ -42,8 +42,8 @@ def add_conversation():
     "/dashboard/dataset/fine-tuning/<int:id>/update", methods=["GET", "POST"]
 )
 @login_required
-def update_conversation(id):
-    conversation = Conversation.query.get_or_404(id)
+def update_finetuning_data(id):
+    fineTuning = Finetuning.query.get_or_404(id)
 
     if request.method == "POST":
         # Update messages with data from the form
@@ -54,39 +54,39 @@ def update_conversation(id):
                 messages.append({"role": role, "content": content})
 
         if len(messages) == 3:
-            conversation.messages = messages
+            fineTuning.messages = messages
             db.session.commit()
             export_to_jsonl()
             flash("Percakapan berhasil diperbarui!", "success")
-            return redirect(url_for("fineTuning.view_conversations"))
+            return redirect(url_for("fineTuning.view_finetuning_data"))
         else:
             flash("Semua peran harus diisi!", "danger")
 
     return render_template(
-        "pages/dataset-fine-tuning-update.html", conversation=conversation
+        "pages/dataset-fine-tuning-update.html", finetuning=fineTuning
     )
 
 
 @fineTuning.route("/dashboard/dataset/fine-tuning/<int:id>/delete", methods=["POST"])
 @login_required
-def delete_conversation(id):
-    conversation = Conversation.query.get_or_404(id)
-    db.session.delete(conversation)
+def delete_finetuning_data(id):
+    fineTuning = Finetuning.query.get_or_404(id)
+    db.session.delete(fineTuning)
     db.session.commit()
     flash("Percakapan berhasil dihapus!", "success")
     export_to_jsonl()
-    return redirect(url_for("fineTuning.view_conversations"))
+    return redirect(url_for("fineTuning.view_finetuning_data"))
 
 
-def add_conversation(messages):
-    conversation = Conversation(messages=messages)
-    db.session.add(conversation)
+def add_finetuning_data(messages):
+    fineTuning = Finetuning(messages=messages)
+    db.session.add(fineTuning)
     db.session.commit()
 
 
 def export_to_jsonl():
-    conversations = Conversation.query.all()
-    with open("dataset/conversations.jsonl", "w") as jsonl_file:
-        for conversation in conversations:
-            jsonl_file.write(json.dumps({"messages": conversation.messages}) + "\n")
-    flash("Data berhasil diekspor ke conversations.jsonl", "success")
+    fineTunings = Finetuning.query.all()
+    with open("dataset/fine-tuning-GPT4o.jsonl", "w") as jsonl_file:
+        for fineTuning in fineTunings:
+            jsonl_file.write(json.dumps({"messages": fineTunings.messages}) + "\n")
+    flash("Data berhasil diekspor ke jsonl", "success")

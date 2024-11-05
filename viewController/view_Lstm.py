@@ -1,57 +1,57 @@
 from flask import Blueprint, request, jsonify, redirect, url_for, render_template
-from models.lstm_model import db, Intent, save_to_json
+from models.lstm_model import db, Lstm, save_to_json
 from flask_login import login_required
 
-crud_bp = Blueprint('crud_bp', __name__)
+lstm = Blueprint('lstm', __name__)
 
 # Read all dataset
-@crud_bp.route('/dashboard/dataset')
+@lstm.route('/dashboard/dataset')
 @login_required
-def read_intents():
-    intents = Intent.query.all()
-    return render_template('pages/dataset.html', intents=intents)
+def read_lstm():
+    lstm = Lstm.query.all()
+    return render_template('pages/dataset.html', lstm=lstm)
 
 # Create an dataset
-@crud_bp.route('/dashboard/dataset/create', methods=['POST'])
+@lstm.route('/dashboard/dataset/create', methods=['POST'])
 @login_required
-def create_intent():
+def create_lstm():
     tag = request.form['tag']
     patterns = request.form.getlist('patterns[]')  # Ambil semua pola sebagai list
     responses = request.form['responses']  # Input sebagai string
     patterns_str = ','.join(patterns)  # Gabungkan pola menjadi string
 
-    new_intent = Intent(tag=tag, patterns=patterns_str, responses=responses)
-    db.session.add(new_intent)
+    new_lstm = Lstm(tag=tag, patterns=patterns_str, responses=responses)
+    db.session.add(new_lstm)
     db.session.commit()
     save_to_json() 
-    return redirect(url_for('crud_bp.read_intents'))
+    return redirect(url_for('lstm.read_lstm'))
 
 # Update an dataset
-@crud_bp.route('/dashboard/dataset/<int:id>/update', methods=['POST'])
+@lstm.route('/dashboard/dataset/<int:id>/update', methods=['POST'])
 @login_required
-def update_intent(id):
-    intent = Intent.query.get(id)
-    if intent:
+def update_lstm(id):
+    lstm = Lstm.query.get(id)
+    if lstm:
         # Log untuk melihat apakah data dari form sudah diterima dengan benar
-        print(f"Updating intent with ID: {id}")
+        print(f"Updating lstm Data with ID: {id}")
         print(f"Tag: {request.form['tag']}")
         print(f"Patterns: {request.form['patterns']}")
         print(f"Responses: {request.form['responses']}")
 
-        intent.tag = request.form['tag']
-        intent.patterns = request.form['patterns']  # Input sebagai string
-        intent.responses = request.form['responses']  # Input sebagai string
+        lstm.tag = request.form['tag']
+        lstm.patterns = request.form['patterns']  # Input sebagai string
+        lstm.responses = request.form['responses']  # Input sebagai string
         db.session.commit()
         save_to_json()  # Simpan perubahan ke JSON
-    return redirect(url_for('crud_bp.read_intents'))
+    return redirect(url_for('lstm.read_lstm'))
 
 # Delete an dataset
-@crud_bp.route('/dashboard/dataset/<int:id>/delete', methods=['POST'])
+@lstm.route('/dashboard/dataset/<int:id>/delete', methods=['POST'])
 @login_required
-def delete_intent(id):
-    intent = Intent.query.get(id)
-    if intent:
-        db.session.delete(intent)
+def delete_lstm(id):
+    lstm = Lstm.query.get(id)
+    if lstm:
+        db.session.delete(lstm)
         db.session.commit()
         save_to_json()  # Simpan perubahan ke JSON
-    return redirect(url_for('crud_bp.read_intents'))
+    return redirect(url_for('crud_bp.read_lstm'))

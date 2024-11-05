@@ -3,8 +3,8 @@
 import sys
 import json
 from extensions import db
-from models.fine_tuning import Conversation  # pastikan path ini sesuai dengan struktur folder Anda
-from models.lstm_model import Intent  # pastikan path ini sesuai dengan struktur folder Anda
+from models.fine_tuning import Finetuning  # pastikan path ini sesuai dengan struktur folder Anda
+from models.lstm_model import Lstm  # pastikan path ini sesuai dengan struktur folder Anda
 from app import create_app  # Pastikan ini sesuai dengan aplikasi utama Anda
 
 
@@ -14,23 +14,23 @@ def migrate_to_db(file_path, file_type="json"):
             data = json.load(file)
         
         # Iterasi pada setiap intent dalam data JSON
-        for intent_data in data['intents']:
+        for lstm_data in data['intents']:
             # Mengambil data langsung dari tag, patterns, dan responses
             tag = intent_data.get("tag")
-            patterns = ", ".join(intent_data.get("patterns", []))  # Menggabungkan list patterns menjadi string
-            responses = ", ".join(intent_data.get("responses", []))  # Menggabungkan list responses menjadi string
+            patterns = ", ".join(lstm_data.get("patterns", []))  # Menggabungkan list patterns menjadi string
+            responses = ", ".join(lstm_data.get("responses", []))  # Menggabungkan list responses menjadi string
             
             # Membuat instance baru dari Intent
-            intent = Intent(tag=tag, patterns=patterns, responses=responses)
-            db.session.add(intent)
+            lstm = Lstm(tag=tag, patterns=patterns, responses=responses)
+            db.session.add(lstm)
 
     elif file_type == "jsonl":
         with open(file_path, 'r') as jsonl_file:
             for line in jsonl_file:
                 data = json.loads(line)
                 messages = data.get("messages", [])
-                conversation = Conversation(messages=messages)
-                db.session.add(conversation)
+                finetuning = Finetuning(messages=messages)
+                db.session.add(finetuning)
 
     # Simpan semua perubahan ke database
     db.session.commit()
