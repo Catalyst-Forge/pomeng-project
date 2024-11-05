@@ -79,6 +79,7 @@ if (currentPage.startsWith("/dashboard")) {
     const segments = currentPage.split("/");
     const sidebarItems = document.querySelectorAll(".sidebar-item");
     const hasSubItems = document.querySelectorAll(".sidebar-item.has-sub");
+    const breadcrumbLinks = document.querySelectorAll(".breadcrumb-link");
 
     const toggleSubmenu = (item) => {
       closeAllSubmenus(item); // Tutup semua submenu kecuali yang sedang diklik
@@ -145,6 +146,19 @@ if (currentPage.startsWith("/dashboard")) {
         }
       });
     }
+
+    // Generate breadcrumb on page load
+    generateBreadcrumb();
+
+    breadcrumbLinks.forEach((bcLink) => {
+      if (bcLink.href.endsWith("/dashboard/dataset/fine-tuning")) {
+        bcLink.setAttribute("href", "/dashboard/dataset/fine-tuning/list");
+      }
+
+      if (bcLink.href.endsWith("/dashboard/dataset")) {
+        bcLink.setAttribute("href", "/dashboard/dataset/list");
+      }
+    });
   });
 }
 
@@ -155,3 +169,24 @@ if (currentPage === "/dashboard/dataset") {
   const container = document.querySelector("#content");
   CRUDDatasetHandler(container);
 }
+
+const generateBreadcrumb = () => {
+  const breadcrumbContainer = document.getElementById("breadcrumb");
+  breadcrumbContainer.innerHTML = ""; // Clear existing items
+
+  // Get path segments and start building HTML
+  const pathSegments = currentPage.split("/").filter(Boolean);
+  let accumulatedPath = "";
+
+  // Loop through segments and add to breadcrumb
+  pathSegments.forEach((segment, index) => {
+    accumulatedPath += `/${segment}`;
+    const isLastSegment = index === pathSegments.length - 1;
+    const segmentName = segment.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+
+    // Set last segment as active
+    breadcrumbContainer.innerHTML += isLastSegment
+      ? `<li class="breadcrumb-item active fw-bold" aria-current="page">${segmentName}</li>`
+      : `<li class="breadcrumb-item"><a href="${accumulatedPath}" class="link-info text-decoration-none breadcrumb-link">${segmentName}</a></li>`;
+  });
+};
