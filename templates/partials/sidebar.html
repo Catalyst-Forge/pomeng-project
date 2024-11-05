@@ -1,7 +1,21 @@
-<aside class="col-3" id="sidebar">
-  <div class="sidebar-wrapper active">
+<aside class="col-3 gx-0" id="sidebar">
+  <div class="sidebar-wrapper active top-0 shadow-sm rounded-4 bg-info-subtle">
+    <header class="sidebar-header position-relative">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="logo">
+          <a class="navbar-brand" href="/">Pomeng Dashboard</a>
+        </div>
+
+        <div class="sidebar-toggler x">
+          <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+        </div>
+      </div>
+    </header>
+
     <nav class="sidebar-menu">
       <div class="menu">
+        <div class="sidebar-item"><a href="/" class="sidebar-link">Homepage</a></div>
+
         <div class="sidebar-item">
           <a href="{{ url_for('route.dashboard') }}" class="sidebar-link">Dashboard</a>
         </div>
