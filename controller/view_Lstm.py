@@ -53,5 +53,5 @@ def delete_lstm(id):
     if lstm:
         db.session.delete(lstm)
         db.session.commit()
-        save_to_json()  # Simpan perubahan ke JSON
-    return redirect(url_for('crud_bp.read_lstm'))
+        save_to_json()
+    return redirect(url_for('lstm.read_lstm'))
