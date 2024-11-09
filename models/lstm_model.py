@@ -20,5 +20,5 @@ def save_to_json():
             "responses": intent.responses.split(",")
         })
 
-    with open("dataset/intents.json", "w") as json_file:
+    with open("dataset/arun.json", "w") as json_file:
         json.dump(data, json_file, indent=4)

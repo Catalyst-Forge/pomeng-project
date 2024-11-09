@@ -24,7 +24,7 @@
         </thead>
 
         <tbody>
-            {% for intent in intents %}
+            {% for intent in lstm %}
             <tr>
                 <td class="text-center" id="dataset-id" data-id="{{ intent.id }}">{{ loop.index }}</td>
                 <td class="text-center">{{ intent.tag }}</td>
