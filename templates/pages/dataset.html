@@ -26,7 +26,7 @@
         <tbody>
             {% for intent in lstm %}
             <tr>
-                <td class="text-center" id="dataset-id" data-id="{{ intent.id }}">{{ loop.index }}</td>
+                <td class="text-center">{{ loop.index }}</td>
                 <td class="text-center">{{ intent.tag }}</td>
                 <td>
                     <div class="pattern-container">
@@ -54,7 +54,7 @@
                         >
                             Update
                         </button>
-                        <form id="delete-form" method="POST">
+                        <form id="delete-form" method="POST" data-id="{{ intent.id }}">
                             <button
                                 type="submit"
                                 class="btn btn-danger"
@@ -125,28 +125,28 @@
                 </header>
 
                 <form id="update-form" class="modal-body" method="POST">
-                    <input type="hidden" id="intent-id" name="id" value="" />
+                    <input type="hidden" id="intent-id" name="intent_id" />
 
                     <div class="mb-3">
-                        <label for="update-tag" class="form-label">Tag</label>
-                        <input type="text" class="form-control" id="update-tag" name="tag" value="" required />
+                        <label for="update-tag" class="form-label">Tag:</label>
+                        <input type="text" class="form-control" id="update-tag" name="tag" required />
                     </div>
 
                     <div class="mb-3">
-                        <label for="update-patterns" class="form-label">Patterns</label>
-                        <input type="text" class="form-control" id="update-patterns" name="patterns" value="" required />
+                        <label for="update-patterns" class="form-label">Patterns:</label>
+                        <textarea class="form-control" id="update-patterns" name="patterns" required></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label for="update-responses" class="form-label">Responses</label>
-                        <input type="text" class="form-control" id="update-responses" name="responses" value="" required />
+                        <label for="update-responses" class="form-label">Responses:</label>
+                        <textarea class="form-control" id="update-responses" name="responses" required></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Update Intent</button>
+                    <button type="submit" class="btn btn-success">Update Dataset</button>
                 </form>
             </div>
         </div>
     </div>
 </section>
 
-{% endblock content %}
+{% endblock %}

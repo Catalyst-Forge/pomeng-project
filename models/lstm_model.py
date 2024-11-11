@@ -8,12 +8,12 @@ class Lstm(db.Model):
     responses = db.Column(db.Text, nullable=False)
 
     def __repr__(self):
-        return f'<Intent {self.tag}>'
+        return f'<Lstm {self.tag}>'
 
 def save_to_json():
-    intents = Intent.query.all()
+    lstm = Lstm.query.all()
     data = {"intents": []}
-    for intent in intents:
+    for intent in lstm:
         data["intents"].append({
             "tag": intent.tag,
             "patterns": intent.patterns.split(","),
