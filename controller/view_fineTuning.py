@@ -88,5 +88,5 @@ def export_to_jsonl():
     fineTunings = Finetuning.query.all()
     with open("dataset/finetuning.jsonl", "w") as jsonl_file:
         for fineTuning in fineTunings:
-            jsonl_file.write(json.dumps({"messages": fineTunings.messages}) + "\n")
+            jsonl_file.write(json.dumps({"messages": fineTuning.messages}) + "\n")
     flash("Data berhasil diekspor ke jsonl", "success")
