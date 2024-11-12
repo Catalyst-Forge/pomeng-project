@@ -65,10 +65,9 @@ export const CRUDDatasetHandler = (container) => {
 
     // Handle delete for dataset
     deleteForms.forEach((form) => {
-      form.addEventListener("click", (event) => {
+      form.addEventListener("submit", (event) => {
         event.preventDefault();
-
-        const datasetId = document.getElementById("dataset-id").dataset.id;
+        const datasetId = form.dataset.id;
 
         Swal.fire({
           title: "Apakah Anda yakin ingin menghapus data?",
