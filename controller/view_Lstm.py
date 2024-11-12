@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, redirect, url_for, render_template
+from flask import Blueprint, request, jsonify, redirect, url_for, render_template, flash
 from models.lstm_model import db, Lstm, save_to_json
 from flask_login import login_required
 
