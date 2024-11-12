@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, redirect, url_for, render_template, flash
+from flask import Blueprint, request, jsonify, redirect, url_for, render_template
 from models.lstm_model import db, Lstm, save_to_json
 from flask_login import login_required
 
@@ -58,6 +58,6 @@ def delete_lstm(id):
     if lstm:
         db.session.delete(lstm)
         db.session.commit()
-        save_to_json()  # Simpan perubahan ke JSON
+        save_to_json()
         flash("Data berhasil dihapus!", "success")
     return redirect(url_for("lstm.read_lstm"))
