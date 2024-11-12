@@ -26,6 +26,7 @@ def create_lstm():
     db.session.add(new_lstm)
     db.session.commit()
     save_to_json()
+    flash("Data berhasil ditambahkan!", "success")
     return redirect(url_for("lstm.read_lstm"))
 
 
