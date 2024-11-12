@@ -11,9 +11,7 @@ fineTuning = Blueprint("fineTuning", __name__)
 @login_required
 def view_finetuning_data():
     finetuning = Finetuning.query.all()
-    return render_template(
-        "pages/dataset-fine-tuning.html", finetuning=finetuning
-    )
+    return render_template("pages/dataset-fine-tuning.html", finetuning=finetuning)
 
 
 @fineTuning.route("/dashboard/dataset/fine-tuning/add", methods=["GET", "POST"])
@@ -89,4 +87,3 @@ def export_to_jsonl():
     with open("dataset/finetuning.jsonl", "w") as jsonl_file:
         for fineTuning in fineTunings:
             jsonl_file.write(json.dumps({"messages": fineTuning.messages}) + "\n")
-    flash("Data berhasil diekspor ke jsonl", "success")
