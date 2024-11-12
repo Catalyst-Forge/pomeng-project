@@ -24,7 +24,7 @@
     <tbody>
       {% for lstm_data in lstm %}
       <tr>
-        <td class="text-center" id="dataset-id" data-id="{{ lstm_data.id }}">{{ loop.index }}</td>
+        <td class="text-center" id="dataset-id">{{ loop.index }}</td>
         <td class="text-center">{{ lstm_data.tag }}</td>
         <td>
           <div class="pattern-container">
@@ -51,7 +51,7 @@
             >
               Update
             </button>
-            <form id="delete-form" method="POST">
+            <form id="delete-form" method="POST" data-id="{{ lstm_data.id }}">
               <button type="submit" class="btn btn-danger">Delete</button>
             </form>
           </div>
