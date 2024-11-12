@@ -22,13 +22,13 @@
     </thead>
 
     <tbody>
-      {% for intent in intents %}
+      {% for lstm_data in lstm %}
       <tr>
-        <td class="text-center" id="dataset-id" data-id="{{ intent.id }}">{{ loop.index }}</td>
-        <td class="text-center">{{ intent.tag }}</td>
+        <td class="text-center" id="dataset-id" data-id="{{ lstm_data.id }}">{{ loop.index }}</td>
+        <td class="text-center">{{ lstm_data.tag }}</td>
         <td>
           <div class="pattern-container">
-            {% for pattern in intent.patterns.split(',') %}
+            {% for pattern in lstm_data.patterns.split(',') %}
             <span class="pattern-item"
               >&OpenCurlyDoubleQuote;{{ pattern.strip() }}&CloseCurlyDoubleQuote;{% if not loop.last %}&comma; {% endif %}</span
             >
@@ -36,23 +36,23 @@
           </div>
         </td>
 
-        <td class="text-start">&OpenCurlyDoubleQuote;{{ intent.responses }}&CloseCurlyDoubleQuote;</td>
+        <td class="text-start">&OpenCurlyDoubleQuote;{{ lstm_data.responses }}&CloseCurlyDoubleQuote;</td>
         <td>
           <div class="d-flex justify-content-center align-items-center gap-2">
             <button
               type="button"
               class="btn btn-primary open-update-modal-button"
-              data-id="{{ intent.id }}"
-              data-tag="{{ intent.tag }}"
-              data-patterns="{{ intent.patterns }}"
-              data-responses="{{ intent.responses }}"
+              data-id="{{ lstm_data.id }}"
+              data-tag="{{ lstm_data.tag }}"
+              data-patterns="{{ lstm_data.patterns }}"
+              data-responses="{{ lstm_data.responses }}"
               data-bs-toggle="modal"
               data-bs-target="#updateModal"
             >
               Update
             </button>
             <form id="delete-form" method="POST">
-              <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this intent?')">Delete</button>
+              <button type="submit" class="btn btn-danger">Delete</button>
             </form>
           </div>
         </td>
