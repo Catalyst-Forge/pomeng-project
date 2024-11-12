@@ -3,6 +3,7 @@ from models.auth_model import User
 from extensions import db, migrate, login_manager
 from controller.view_auth import auth_bp
 from controller.view_Lstm import lstm
+from controller.view_train_lstm import lstm_train
 from controller.view_fineTuning import fineTuning
 from route import route_bp  # Import blueprint
 
@@ -27,6 +28,8 @@ def create_app():
     app.register_blueprint(lstm)
     app.register_blueprint(fineTuning)
     app.register_blueprint(route_bp)
+    app.register_blueprint(lstm_train)
+    
 
     return app
 if __name__ == '__main__':
