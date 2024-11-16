@@ -10,10 +10,11 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard-style.css') }}" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
 
   <body class="bg-body-tertiary" style="min-height: 100vh">
@@ -43,5 +44,6 @@
     ></script>
 
     <script type="module" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <script type="module" src="{{ url_for('static', filename='js/fetchTrainingLSTMModel.js') }}" defer></script>
   </body>
 </html>
