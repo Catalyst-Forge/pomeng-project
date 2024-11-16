@@ -98,7 +98,6 @@ def backup_current_asset_preprocessing():
             raise
     return None
 
-
 def preprocess_data():
     """Preprocess data with versioning support"""
     words, classes, documents = [], [], []
@@ -158,7 +157,6 @@ def preprocess_data():
 
     return X_train, Y_train, len(tokenizer.word_index) + 1, le.classes_.shape[0]
 
-
 # Route for the main page with form inputs
 @lstm_train.route("/dashboard/training-models/training-lstm")
 def home():
@@ -183,10 +181,6 @@ def get_versions():
     return jsonify(
         {"versions": sorted(versions, key=lambda x: x["backup_date"], reverse=True)}
     )
-
-
-# Add new endpoint to get training history for specific version
-
 
 @lstm_train.route(
     "/dashboard/training-models/training-lstm/version-history/<version>",
@@ -481,17 +475,6 @@ def train_model():
         logger.error(f"Training error: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
-
-from flask import Flask, jsonify
-import shutil
-import json
-from pathlib import Path
-import datetime
-import logging
-
-# Add these new endpoints and functions to the existing Flask app
-
-
 @lstm_train.route("/models", methods=["GET"])
 def get_models():
     """Get models from logs directory and check active model in asset_preprocessing"""
@@ -578,7 +561,6 @@ def get_models():
         logger.error(f"Error getting models: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
-
 @lstm_train.route("/models/<version>", methods=["DELETE"])
 def delete_model(version):
     """Delete a specific model version from logs"""
@@ -600,7 +582,6 @@ def delete_model(version):
     except Exception as e:
         logger.error(f"Error deleting model: {str(e)}")
         return jsonify({"error": str(e)}), 500
-
 
 @lstm_train.route("/models/<version>/activate", methods=["POST"])
 def activate_model(version):
