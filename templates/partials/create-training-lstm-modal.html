@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- Create Model Modal -->
+<div id="createTrainingModal" class="modal fade" tabindex="-1" aria-labelledby="createTrainingModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <!-- Modal header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Configure and Train Model</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form id="model-form">
+          <div class="mb-4">
+            <label class=""> Embedding Dimension: </label>
+            <input type="number" name="embedding_dim" min="1" max="100" value="16" required class="form-control" />
+          </div>
+
+          <div id="layer-config" class="mb-4">
+            <h4 class="">Layers</h4>
+            <button type="button" id="add-layer-btn" class="btn btn-primary">Add Layer</button>
+            <div id="layers-container" class="row g-3"></div>
+          </div>
+
+          <div class="row g-3 mb-4">
+            <div class="col-auto">
+              <label class=""> Learning Rate: </label>
+              <input type="number" class="form-control" name="learning_rate" step="0.001" value="0.001" required />
+            </div>
+
+            <div class="col-auto">
+              <label class=""> Batch Size: </label>
+              <input type="number" class="form-control" name="batch_size" value="64" required />
+            </div>
+
+            <div class="col-auto">
+              <label class=""> Epochs: </label>
+              <input type="number" class="form-control" name="epochs" value="200" required />
+            </div>
+          </div>
+        </form>
+
+        <!-- Progress container -->
+        <div id="progress-container" class="d-none">
+          <div class="">Training Progress</div>
+          <div class="progress" role="progressbar">
+            <div class="progress-bar" id="progress" style="width: 0%"></div>
+          </div>
+          <div id="progress-status" class="">0%</div>
+        </div>
+
+        <!-- Message container -->
+        <div id="response-message" class=""></div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" id="train-button" class="btn btn-primary">Train Model</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
