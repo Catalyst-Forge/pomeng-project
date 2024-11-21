@@ -7,6 +7,8 @@ from flask import (
     stream_with_context,
     Blueprint,
 )
+
+from utils.train_lstm_helper import create_version_folder, backup_current_asset_preprocessing,preprocess_data
 import json
 import pickle
 import numpy as np
@@ -18,144 +20,15 @@ from tensorflow.keras.layers import Embedding, LSTM, Dense, Dropout
 from sklearn.preprocessing import LabelEncoder
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-from nltk.stem import WordNetLemmatizer
 import os
-import nltk
 import shutil
 from pathlib import Path
 import datetime
 import logging
 from tensorflow.python.client import device_lib
 
-# Setup logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
 # Initialize Flask app
 lstm_train = Blueprint("lstm_train", __name__)
-
-# Initialize nltk resources
-nltk.download("punkt")
-nltk.download("wordnet")
-
-# Load dataset and asset_preprocessing configurations
-with open("dataset/arun.json") as f:
-    msbot_dataset = json.load(f)
-
-lemmatizer = WordNetLemmatizer()
-
-print(device_lib.list_local_devices())
-
-
-def create_version_folder():
-    """Create a new version folder based on timestamp"""
-    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    version_path = Path(f"logs/version_{timestamp}")
-    version_path.mkdir(parents=True, exist_ok=True)
-    return version_path
-
-
-def backup_current_asset_preprocessing():
-    """Backup current asset_preprocessing folder if it exists"""
-    current_asset_preprocessing = Path("asset_preprocessing")
-    if current_asset_preprocessing.exists():
-        # Create logs directory if it doesn't exist
-        logs_dir = Path("logs")
-        logs_dir.mkdir(exist_ok=True)
-
-        # Get the version folder path
-        version_path = create_version_folder()
-
-        # Copy all files from asset_preprocessing to the version folder
-        try:
-            shutil.copytree(
-                current_asset_preprocessing, version_path, dirs_exist_ok=True
-            )
-            logger.info(f"Backed up asset_preprocessing to {version_path}")
-
-            # Create metadata file with extended training history if available
-            metadata = {
-                "version_timestamp": version_path.name,
-                "backup_date": datetime.datetime.now().isoformat(),
-                "files_backed_up": [
-                    f.name for f in current_asset_preprocessing.glob("*")
-                ],
-            }
-
-            # Check if training history exists in current asset_preprocessing
-            history_file = current_asset_preprocessing / "training_history.json"
-            if history_file.exists():
-                with open(history_file) as f:
-                    training_history = json.load(f)
-                metadata["training_history"] = training_history
-
-            with open(version_path / "metadata.json", "w") as f:
-                json.dump(metadata, f, indent=4)
-
-            return str(version_path)
-        except Exception as e:
-            logger.error(f"Backup failed: {str(e)}")
-            raise
-    return None
-
-def preprocess_data():
-    """Preprocess data with versioning support"""
-    words, classes, documents = [], [], []
-    ignore_words = ["?", "!"]
-
-    # Backup existing asset_preprocessing folder
-    backup_current_asset_preprocessing()
-
-    for intent in msbot_dataset["intents"]:
-        for pattern in intent["patterns"]:
-            word_list = nltk.word_tokenize(pattern)
-            words.extend(word_list)
-            documents.append((word_list, intent["tag"]))
-            if intent["tag"] not in classes:
-                classes.append(intent["tag"])
-
-    words = sorted(
-        set(lemmatizer.lemmatize(w.lower()) for w in words if w not in ignore_words)
-    )
-    classes = sorted(set(classes))
-
-    # Tokenize and encode labels
-    tokenizer = Tokenizer(num_words=2000)
-    patterns = [" ".join(pattern).lower() for pattern, _ in documents]
-    tokenizer.fit_on_texts(patterns)
-    train_sequences = tokenizer.texts_to_sequences(patterns)
-    X_train = pad_sequences(train_sequences)
-
-    le = LabelEncoder()
-    Y_train = le.fit_transform([label for _, label in documents])
-
-    # Ensure asset_preprocessing directory exists
-    Path("asset_preprocessing").mkdir(exist_ok=True)
-
-    # Save asset_preprocessing objects
-    asset_preprocessing_files = {
-        "words.pkl": words,
-        "classes.pkl": classes,
-        "le.pkl": le,
-        "tokenizer.pkl": tokenizer,
-    }
-
-    for filename, obj in asset_preprocessing_files.items():
-        with open(f"asset_preprocessing/{filename}", "wb") as f:
-            pickle.dump(obj, f)
-
-    # Create metadata for current version
-    metadata = {
-        "asset_preprocessing_date": datetime.datetime.now().isoformat(),
-        "vocab_size": len(words),
-        "num_classes": len(classes),
-        "num_patterns": len(patterns),
-    }
-
-    with open("asset_preprocessing/metadata.json", "w") as f:
-        json.dump(metadata, f, indent=4)
-
-    return X_train, Y_train, len(tokenizer.word_index) + 1, le.classes_.shape[0]
 
 # Route for the main page with form inputs
 @lstm_train.route("/dashboard/training-models/training-lstm")
@@ -182,10 +55,7 @@ def get_versions():
         {"versions": sorted(versions, key=lambda x: x["backup_date"], reverse=True)}
     )
 
-@lstm_train.route(
-    "/dashboard/training-models/training-lstm/version-history/<version>",
-    methods=["GET"],
-)
+@lstm_train.route("/dashboard/training-models/training-lstm/version-history/<version>", methods=["GET"])
 def get_version_history(version):
     """Get detailed training history for a specific version including per-epoch metrics"""
     try:
@@ -204,10 +74,7 @@ def get_version_history(version):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
-@lstm_train.route(
-    "/dashboard/training-models/training-lstm/<version>/restore", methods=["POST"]
-)
+@lstm_train.route("/dashboard/training-models/training-lstm/<version>/restore", methods=["POST"])
 def restore_version(version):
     """Endpoint to restore a specific version"""
     try:
@@ -218,17 +85,23 @@ def restore_version(version):
         # Backup current before restore
         backup_current_asset_preprocessing()
 
-        # Clear current asset_preprocessing folder
-        shutil.rmtree("asset_preprocessing", ignore_errors=True)
+        # Clear current asset_preprocessing folder completely
+        if Path("asset_preprocessing").exists():
+            shutil.rmtree("asset_preprocessing")
 
-        # Restore the selected version
-        shutil.copytree(version_path, "asset_preprocessing", dirs_exist_ok=True)
+        # Restore the selected version using copytree
+        shutil.copytree(version_path, "asset_preprocessing")
+
+        # Remove metadata.json from asset_preprocessing if it exists
+        metadata_file = Path("asset_preprocessing/metadata.json")
+        if metadata_file.exists():
+            metadata_file.unlink()
 
         return jsonify({"message": f"Successfully restored version {version}"})
     except Exception as e:
+        logger.error(f"Restore failed: {str(e)}")
         return jsonify({"error": str(e)}), 500
-
-
+    
 @lstm_train.route("/dashboard/training-models/training-lstm/train", methods=["POST"])
 def train_model():
     try:
@@ -586,6 +459,7 @@ def delete_model(version):
 @lstm_train.route("/models/<version>/activate", methods=["POST"])
 def activate_model(version):
     """Activate a specific model version"""
+    backup_path = None
     try:
         version_path = Path(f"logs/{version}")
         if not version_path.exists():

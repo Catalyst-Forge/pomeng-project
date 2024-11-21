@@ -5,7 +5,7 @@ from controller.view_auth import auth_bp
 from controller.view_Lstm import lstm
 from controller.view_train_lstm import lstm_train
 from controller.view_fineTuning import fineTuning
-from route import route_bp  # Import blueprint
+from route import route_bp
 
 def create_app():
     app = Flask(__name__)
@@ -19,7 +19,7 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        return User.query.get(int(user_id))
+        return db.session.get(User, int(user_id))
 
     login_manager.login_view = 'auth.login'
 
@@ -34,4 +34,4 @@ def create_app():
     return app
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True, port=2001)
+    app.run(debug=True, port=2002)

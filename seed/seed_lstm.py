@@ -10,7 +10,7 @@ def migrate_json_to_db(json_file_path):
         data = json.load(file)
     
     # Iterasi pada setiap intent dalam data JSON
-    for lstm_data in data['intents']:
+    for lstm_data in data['lstm_data']:
         # Gabungkan patterns dan responses menjadi string untuk disimpan di database
         patterns_str = ",".join(lstm_data['patterns'])
         responses_str = ",".join(lstm_data['responses'])

@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     last_login = db.Column(db.DateTime)
     is_active = db.Column(db.Boolean, default=True)
+    role = db.Column(db.String(50), nullable=False, default='user')  # New role column
 
     def set_password(self, password):
         """Set the user's password using SHA-256 hashing"""
@@ -66,7 +67,8 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'last_login': self.last_login.isoformat() if self.last_login else None,
-            'is_active': self.is_active
+            'is_active': self.is_active,
+            'role': self.role  # Include role in the dictionary
         }
 
     def __repr__(self):

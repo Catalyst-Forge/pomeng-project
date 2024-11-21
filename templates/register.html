@@ -1,45 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/authentication-style.css') }}" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  </head>
-  <body>
-    <div class="container">
-      <div class="box">
-        <div class="box__content">
-          <h1 class="box__content-title">Register</h1>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Register</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/authentication-style.css') }}" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="box">
+                <div class="box__content">
+                    <h1 class="box__content-title">Register</h1>
 
-          <form class="box__content-authentication" method="POST">
-            {{ form.hidden_tag() }}
+                    <form class="box__content-authentication" method="POST">
+                        {{ form.hidden_tag() }}
 
-            <section class="authentication__field">{{ form.username(class_="authentication__input", placeholder_="Username") }}</section>
-            <section class="authentication__field">{{ form.fullname(class_="authentication__input", placeholder_="Full Name") }}</section>
-            <section class="authentication__field">{{ form.email(class_="authentication__input", placeholder_="Email") }}</section>
-            <section class="authentication__field">{{ form.password(class_="authentication__input", placeholder_="Password") }}</section>
-            <section class="authentication__field">
-              {{ form.confirm_password(class_="authentication__input", placeholder_="Confirmation Password") }}
-            </section>
-            {{ form.submit(class_="button authentication__submit") }}
-          </form>
+                        <section class="authentication__field">
+                            {{ form.username(class_="authentication__input", placeholder_="Username") }}
+                        </section>
+                        <section class="authentication__field">
+                            {{ form.fullname(class_="authentication__input", placeholder_="Full Name") }}
+                        </section>
+                        <section class="authentication__field">
+                            {{ form.email(class_="authentication__input", placeholder_="Email") }}
+                        </section>
+                        <section class="authentication__field">
+                            {{ form.password(class_="authentication__input", placeholder_="Password") }}
+                        </section>
+                        <section class="authentication__field">
+                            {{ form.confirm_password(class_="authentication__input", placeholder_="Confirmation Password") }}
+                        </section>
+                        {{ form.submit(class_="button authentication__submit") }}
+                    </form>
 
-          <a href="{{ url_for('auth.login') }}" class="box__content-register">Login</a>
+                    <a href="{{ url_for('auth.login') }}" class="box__content-register">Login</a>
+                </div>
+
+                <div class="box__background">
+                    <span class="box__background-shape box__background-shape-4"></span>
+                    <span class="box__background-shape box__background-shape-3"></span>
+                    <span class="box__background-shape box__background-shape-2"></span>
+                    <span class="box__background-shape box__background-shape-1"></span>
+                </div>
+            </div>
         </div>
 
-        <div class="box__background">
-          <span class="box__background-shape box__background-shape-4"></span>
-          <span class="box__background-shape box__background-shape-3"></span>
-          <span class="box__background-shape box__background-shape-2"></span>
-          <span class="box__background-shape box__background-shape-1"></span>
-        </div>
-      </div>
-    </div>
-
-    {% include 'partials/sweetalert-notification.html' %}
-  </body>
+        {% include 'partials/sweetalert-notification.html' %}
+    </body>
 </html>

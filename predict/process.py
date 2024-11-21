@@ -18,7 +18,7 @@ def load_response():
     responses = {}
     with open('dataset/arun.json') as content:
         data = json.load(content)
-    for intent in data['intents']:
+    for intent in data['lstm_data']:
         responses[intent['tag']]=intent['responses']
 
 # import model dan download nltk file

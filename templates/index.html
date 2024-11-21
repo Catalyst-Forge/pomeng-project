@@ -15,7 +15,13 @@
                 <div class="container">
                     <h1 class="title">Lili Chatbot</h1>
 
+                    {% if current_user.is_authenticated and current_user.role == 'admin' %}
                     <a href="/dashboard" class="link">Dashboard</a>
+                    {% elif current_user.is_authenticated and current_user.role == 'user' %}
+                    <a href="/logout" class="link">Logout</a>
+                    {% else %}
+                    <a href="/login" class="link">Login</a>
+                    {% endif %}
                 </div>
             </header>
 
