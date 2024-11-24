@@ -26,11 +26,11 @@ def preparation():
     try:
         global lemmatizer, tokenizer, le, model
         load_response()
-        with open('asset_preprocessing/tokenizer.pkl', 'rb') as file:
-            tokenizer = pickle.load(file)
-        with open('asset_preprocessing/le.pkl', 'rb') as file:
-            le = pickle.load(file)
-        model = keras.models.load_model('asset_preprocessing/arunv_latest.keras')
+        # with open('asset_preprocessing/tokenizer.pkl', 'rb') as file:
+        #     tokenizer = pickle.load(file)
+        # with open('asset_preprocessing/le.pkl', 'rb') as file:
+        #     le = pickle.load(file)
+        # model = keras.models.load_model('asset_preprocessing/arunv_latest.keras')
         lemmatizer = WordNetLemmatizer()
         nltk.download('punkt', quiet=True)
         nltk.download('wordnet', quiet=True)
