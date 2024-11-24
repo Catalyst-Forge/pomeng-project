@@ -1,0 +1,97 @@
+{% extends "dashboard.html" %} {% block head %}
+<!-- Add Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %} {% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-6">Training Metrics for {{ model_name }}</h1>
+
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white p-4 rounded shadow">
+            <h3 class="text-gray-500 text-sm">Final Accuracy</h3>
+            <p class="text-xl font-bold">{{ "%.2f"|format(summary.final_accuracy) }}%</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+            <h3 class="text-gray-500 text-sm">Final Loss</h3>
+            <p class="text-xl font-bold">{{ "%.4f"|format(summary.final_loss) }}</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+            <h3 class="text-gray-500 text-sm">Best Accuracy (Epoch {{ summary.best_epoch }})</h3>
+            <p class="text-xl font-bold">{{ "%.2f"|format(summary.best_accuracy) }}%</p>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+            <h3 class="text-gray-500 text-sm">Total Duration</h3>
+            <p class="text-xl font-bold">{{ summary.total_duration }}</p>
+        </div>
+    </div>
+
+    <!-- Training Progress Chart -->
+    <div class="bg-white p-4 rounded shadow mb-8">
+        <canvas id="metricsChart" height="400"></canvas>
+    </div>
+</div>
+
+<script>
+    // Create the chart
+    const ctx = document.getElementById('metricsChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ epochs|tojson|safe }},
+            datasets: [
+                {
+                    label: 'Accuracy',
+                    data: {{ accuracies|tojson|safe }},
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                    yAxisID: 'y-accuracy',
+                },
+                {
+                    label: 'Loss',
+                    data: {{ losses|tojson|safe }},
+                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                    yAxisID: 'y-loss',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Epoch'
+                    }
+                },
+                'y-accuracy': {
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Accuracy'
+                    },
+                    min: 0,
+                    max: 1,
+                },
+                'y-loss': {
+                    display: true,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Loss'
+                    },
+                    grid: {
+                        drawOnChartArea: false,
+                    },
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

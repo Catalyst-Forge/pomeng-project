@@ -2,8 +2,9 @@ from flask import Flask, jsonify
 from models.auth_model import User
 from extensions import db, migrate, login_manager
 from controller.view_auth import auth_bp
+import nltk
 from controller.view_Lstm import lstm
-from controller.view_train_lstm import lstm_train
+from controller.view_train_lstm import train_lstm
 from controller.view_fineTuning import fineTuning
 from route import route_bp
 
@@ -20,6 +21,9 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return db.session.get(User, int(user_id))
+    
+    nltk.download('punkt', quiet=True)
+    nltk.download('wordnet', quiet=True)
 
     login_manager.login_view = 'auth.login'
 
@@ -28,7 +32,7 @@ def create_app():
     app.register_blueprint(lstm)
     app.register_blueprint(fineTuning)
     app.register_blueprint(route_bp)
-    app.register_blueprint(lstm_train)
+    app.register_blueprint(train_lstm)
     
 
     return app

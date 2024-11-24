@@ -1,0 +1,92 @@
+<!-- templates/models.html -->
+{% extends 'dashboard.html' %} {% block content %}
+
+<style>
+    .progress {
+        margin: 10px 0;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        transition: width 0.3s ease;
+        text-align: center;
+        line-height: 30px;
+        color: white;
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center my-4">
+    <h1>Model Management</h1>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTrainingModal">Create Model</button>
+</div>
+
+<div id="training-progress" style="display: none">
+    <div class="progress">
+        <div
+            id="training-progress-bar"
+            class="progress-bar progress-bar-striped progress-bar-animated"
+            role="progressbar"
+            aria-valuenow="0"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            style="width: 0%"
+        >
+            0%
+        </div>
+    </div>
+    <div id="training-status" class="text-center mt-2">Training Progress: 0%</div>
+</div>
+
+<section class="mt-4">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Version</th>
+                    <th>Created Date</th>
+                    <th>Duration</th>
+                    <th>Best Accuracy</th>
+                    <th>Final Loss</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if models %} {% for model in models %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ model.name }}</td>
+                    <td>{{ model.created_at.split('T')[0] }}</td>
+                    <td>{{ model.duration if model.duration != 'N/A' else '-' }}</td>
+                    <td>{% if model.accuracy != 'N/A' %} {{ model.accuracy }} {% else %} - {% endif %}</td>
+                    <td>{% if model.loss != 'N/A' %} {{ "%.4f"|format(model.loss) }} {% else %} - {% endif %}</td>
+                    <td>
+                        <!-- In your index.html template -->
+                        <a href="{{ url_for('train_lstm.get_model_metrics', model_name=model.name) }}" class="btn btn-sm btn-primary">
+                            View Metrics
+                        </a>
+                        <a href="{{ url_for('train_lstm.get_models_details', model_name=model.name) }}" class="btn btn-sm btn-primary">
+                            View Details
+                        </a>
+                        <form
+                            action="{{ url_for('train_lstm.delete_model', model_name=model.name) }}"
+                            method="POST"
+                            onsubmit="return confirm('Are you sure you want to delete model {{ model.name }}? This action cannot be undone.');"
+                        >
+                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete Model</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %} {% else %}
+                <tr>
+                    <td colspan="7" class="text-center">No versions available</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% include 'partials/create-training-lstm-modal.html' %} {% endblock content %}

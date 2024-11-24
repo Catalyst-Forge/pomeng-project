@@ -1,49 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard-style.css') }}" />
-  </head>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dashboard</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 
-  <body class="bg-body-tertiary" style="min-height: 100vh">
-    <div class="row me-0 h-100">
-      {% include 'partials/sidebar.html' %}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+        <script src="{{ url_for('static', filename='js/lstm.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard-style.css') }}" />
+    </head>
 
-      <main class="col-9">
-        <header class="navbar navbar-expand-lg bg-primary-subtle position-sticky top-0 rounded-4">
-          <div class="container gx-lg-5 justify-content-between">
-            <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
-              <ol class="breadcrumb mb-0 py-2" id="breadcrumb"></ol>
-            </nav>
+    <body class="bg-body-tertiary" style="min-height: 100vh">
+        <div class="row me-0 h-100">
+            {% include 'partials/sidebar.html' %}
 
-            <span class="badge text-bg-info fs-6">{{ current_user.fullname }}</span>
-          </div>
-        </header>
-        <div class="container gx-lg-5" id="content">{% block content %} {% endblock content %}</div>
-      </main>
-    </div>
+            <main class="col-9">
+                <header class="navbar navbar-expand-lg bg-primary-subtle position-sticky top-0 rounded-4">
+                    <div class="container gx-lg-5 justify-content-between">
+                        <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0 py-2" id="breadcrumb"></ol>
+                        </nav>
 
-    {% include 'partials/sweetalert-toast.html' %}
+                        <span class="badge text-bg-info fs-6">{{ current_user.fullname }}</span>
+                    </div>
+                </header>
+                <div class="container gx-lg-5" id="content">{% block content %} {% endblock content %}</div>
+            </main>
+        </div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
+        {% include 'partials/sweetalert-toast.html' %}
 
-    <script type="module" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
-    <script type="module" src="{{ url_for('static', filename='js/fetchTrainingLSTMModel.js') }}" defer></script>
-  </body>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"
+        ></script>
+
+        <script type="module" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+        <script type="module" src="{{ url_for('static', filename='js/lstm.js') }}" defer></script>
+        <!-- <script type="module" src="{{ url_for('static', filename='js/fetchTrainingLSTMModel.js') }}" defer></script> -->
+    </body>
 </html>
