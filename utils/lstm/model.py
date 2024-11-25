@@ -235,7 +235,7 @@ def train_model_with_progress(model_name, version_path, X_train, Y_train, vocab_
             if training_history.get("epochs"):
                 try:
                     # Save the model
-                    model_path = version_path / f"{model_name}.keras"
+                    model_path = version_path / "model.keras"
                     model.save(model_path)
                     
                     # Update and save training history

@@ -1,0 +1,94 @@
+{% extends 'dashboard.html' %} {% block content %}
+    <title>Fine-tuning Dashboard</title>
+    <style>
+        .card {
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .card:hover .card-shadow {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .icon-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<section class="min-h-screen bg-gray-100">
+    <div class="container mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-12">Fine-tuning Dashboard</h1>
+
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Model List Card -->
+            <a href="{{ url_for('train_finetuning.list_models') }}" class="card group">
+                <div class="relative rounded-xl overflow-hidden card-shadow">
+                    <div class="gradient-bg p-8 text-white h-full">
+                        <div class="icon-container inline-block p-4 rounded-full mb-6">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                                ></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Available Models</h3>
+                        <p class="text-gray-100 mb-4">View and Select available GPT models or Finetuning Jobs for your Chatbot</p>
+                        <div class="flex items-center text-sm">
+                            <span>Explore Models</span>
+                            <svg
+                                class="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Fine-tuning List Card -->
+            <a href="{{ url_for('train_finetuning.list_finetunings') }}" class="card group">
+                <div class="relative rounded-xl overflow-hidden card-shadow">
+                    <div class="gradient-bg p-8 text-white h-full">
+                        <div class="icon-container inline-block p-4 rounded-full mb-6">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Fine-tuning Jobs</h3>
+                        <p class="text-gray-100 mb-4">Monitor and track your ongoing fine-tuning processes</p>
+                        <div class="flex items-center text-sm">
+                            <span>View Jobs</span>
+                            <svg
+                                class="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

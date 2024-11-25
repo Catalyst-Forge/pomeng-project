@@ -13,7 +13,7 @@ def migrate_json_to_db(json_file_path):
     for lstm_data in data['lstm_data']:
         # Gabungkan patterns dan responses menjadi string untuk disimpan di database
         patterns_str = ",".join(lstm_data['patterns'])
-        responses_str = ",".join(lstm_data['responses'])
+        responses_str = lstm_data['responses']
         
         # Membuat instance baru dari Intent
         lstm = Lstm(
