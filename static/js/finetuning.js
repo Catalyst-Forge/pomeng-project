@@ -2,10 +2,9 @@ const detailsModal = new bootstrap.Modal(document.getElementById("detailsModal")
 const metricsModal = new bootstrap.Modal(document.getElementById("metricsModal"));
 
 // Tambahkan event listener ke tombol create
-
 async function loadDetails(finetuningId) {
     try {
-        const response = await fetch(`/finetunings/${finetuningId}`);
+        const response = await fetch(`/train-finetuning/${finetuningId}`);
         const data = await response.text();
         document.getElementById("modalContent").innerHTML = data;
         detailsModal.show();
@@ -21,7 +20,7 @@ async function loadDetails(finetuningId) {
 }
 
 function showSteps(finetuningId) {
-    fetch(`/finetunings/show-steps/${finetuningId}`)
+    fetch(`/train-finetuning/show-steps/${finetuningId}`)
         .then((response) => response.text())
         .then((html) => {
             const modalElement = document.getElementById("stepsModal");
@@ -35,7 +34,7 @@ function showSteps(finetuningId) {
         });
 }
 function loadStepsPage(finetuningId, page) {
-    fetch(`/finetunings/show-steps/${finetuningId}/${page}`)
+    fetch(`/train-finetuning/show-steps/${finetuningId}/${page}`)
         .then((response) => response.text())
         .then((html) => {
             // Replace the modal content with the new HTML
@@ -58,7 +57,7 @@ async function createModel() {
     const data = Object.fromEntries(formData.entries());
 
     try {
-        const response = await fetch("/finetunings/create-finetuning/jobs", {
+        const response = await fetch("/train-finetuning/create-finetuning/jobs", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -82,7 +81,7 @@ async function createModel() {
 async function deleteFinetuning(finetuningId) {
     if (confirm("Are you sure you want to delete this fine-tuning job?")) {
         try {
-            const response = await fetch(`/finetunings/delete-finetuning/${finetuningId}`, {
+            const response = await fetch(`/train-finetuning/delete-finetuning/${finetuningId}`, {
                 method: "DELETE",
             });
 
@@ -113,7 +112,7 @@ function confirmDelete(jobId) {
     }).then((result) => {
         if (result.isConfirmed) {
             // Submit form untuk delete
-            fetch(`/finetunings/model/${jobId}`, {
+            fetch(`/train-finetuning/model/${jobId}`, {
                 method: "POST",
             })
                 .then((response) => response.json())

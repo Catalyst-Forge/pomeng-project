@@ -70,6 +70,10 @@
                         <a href="{{ url_for('train_lstm.get_models_details', model_name=model.name) }}" class="btn btn-sm btn-primary">
                             View Details
                         </a>
+                        <!-- New Select Model Form -->
+                        <form onsubmit="event.preventDefault(); selectModel('{{ model.name }}');" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-success"><i class="fas fa-check-circle"></i> Select Model</button>
+                        </form>
                         <form
                             action="{{ url_for('train_lstm.delete_model', model_name=model.name) }}"
                             method="POST"

@@ -545,3 +545,62 @@ function validateConfigurations(config) {
 
     return errors;
 }
+
+// SELECT MODEL LSTM
+
+function selectModel(modelName) {
+    Swal.fire({
+        title: "Select Model",
+        html: `Are you sure you want to select <strong>${modelName}</strong> as the active model?`,
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, select this model!",
+        cancelButtonText: "Cancel",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Use the correct route URL
+            fetch("/lstm/select_model", {
+                method: "POST",
+                body: new URLSearchParams({
+                    model_name: modelName,
+                }),
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            })
+                .then((response) => {
+                    // Check if the response is a redirect
+                    if (response.type === "opaqueredirect") {
+                        // If it's a redirect, reload the page
+                        window.location.reload();
+                    } else {
+                        // Handle other response types
+                        return response.url;
+                    }
+                })
+                .then((url) => {
+                    if (url) {
+                        Swal.fire({
+                            title: "Model Selected!",
+                            text: `Model ${modelName} has been set as the active model.`,
+                            icon: "success",
+                            confirmButtonText: "OK",
+                        }).then(() => {
+                            // Redirect to the models page
+                            window.location.href = url;
+                        });
+                    }
+                })
+                .catch((error) => {
+                    Swal.fire({
+                        title: "Error!",
+                        text: `Failed to select model: ${error}`,
+                        icon: "error",
+                        confirmButtonText: "Close",
+                    });
+                });
+        }
+    });
+}

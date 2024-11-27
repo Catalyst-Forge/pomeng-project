@@ -9,6 +9,7 @@ from typing import Dict, Optional
 from utils.finetuning.validator import FineTuningJobSchema, BASE_MODELS
 import logging
 from utils.finetuning.metricsHandler import MetricsHandler
+from utils.finetuning.utils import filter_chatbot_models
 from config import config
 from openai import OpenAI
 from pathlib import Path
@@ -19,14 +20,16 @@ import logging
 logger = logging.getLogger(__name__)
 client = OpenAI()
 metrics_handler = MetricsHandler()
-train_finetuning = Blueprint('train_finetuning', __name__, template_folder='templates')
+train_finetuning = Blueprint('train_finetuning', __name__, 
+                             template_folder='templates', 
+                             url_prefix='/train-finetuning')
 
 
-@train_finetuning.route('/finetunings')
+@train_finetuning.route('/index')
 def index():
     return render_template('pages/training_finetuning/finetuning.html')
 
-@train_finetuning.route('/finetunings/list-models')
+@train_finetuning.route('/list-models')
 def list_models():
     try:
         response_model = client.models.list()
@@ -43,7 +46,18 @@ def list_models():
         
         chat_models = [
             model for model in models 
-            if model['id'].startswith('gpt-') or model['id'].startswith('ft:') and ("turbo" in model['id'] or "4" in model['id'] or "3.5" in model['id'])
+            if (
+                # Include OpenAI and user-owned models
+                model['owned_by'] in ['openai', 'openai-internal', 'system'] or 
+                model['owned_by'].startswith('user')
+            ) and (
+                # Specific chatbot-related models
+                model['id'].startswith(('gpt-', 'chatgpt', 'o1-', 'gpt4o', 'ft:')) or
+                any(keyword in model['id'] for keyword in ['turbo', 'preview', 'mini', '4o'])
+            ) and not any(
+                # Explicitly exclude non-chatbot models
+                keyword in model['id'] for keyword in ['embedding', 'whisper', 'dall-e', 'tts', 'text-', 'davinci', 'babbage', 'audio']
+            )
         ]
         
         return render_template('pages/training_finetuning/list-models.html', models=chat_models, total=len(chat_models))
@@ -52,7 +66,7 @@ def list_models():
         return render_template('pages/training_finetuning/list-models.html', error=str(e), models=[], total=0)
 
 
-@train_finetuning.route('/finetunings/list-models/<model_id>', methods=['POST'])
+@train_finetuning.route('/list-models/<model_id>', methods=['POST'])
 def select_model(model_id: str):
     try:
         validation_error = validate_model_id(model_id, client)
@@ -72,7 +86,7 @@ def select_model(model_id: str):
         flash(str(e), 'error')
         return redirect(url_for('train_finetuning.list_models'))
 
-@train_finetuning.route('/finetunings/list-finetuning')
+@train_finetuning.route('/list-finetuning')
 def list_finetunings():
     success_message = request.args.get('message')
     error_message = request.args.get('error')
@@ -124,7 +138,7 @@ def list_finetunings():
         print(f"Error fetching fine-tuning jobs: {str(e)}")
         return render_template('pages/training_finetuning/list_finetunings.html', finetunings=[])
 
-@train_finetuning.route('/finetunings/<string:fine_tuning_id>')
+@train_finetuning.route('/<string:fine_tuning_id>')
 def finetuning_details(fine_tuning_id):
     try:
         response = client.fine_tuning.jobs.retrieve(fine_tuning_id)
@@ -157,7 +171,7 @@ def finetuning_details(fine_tuning_id):
     except Exception as e:
         return f'Error loading fine-tuning details: {str(e)}'
 
-@train_finetuning.route('/finetunings/show-metrics/<string:fine_tuning_id>')
+@train_finetuning.route('/show-metrics/<string:fine_tuning_id>')
 def show_metrics(fine_tuning_id: str) -> str:
     """
     Display metrics for a specific fine-tuning job.
@@ -230,8 +244,8 @@ def show_metrics(fine_tuning_id: str) -> str:
         logger.error(f"Error in show_metrics: {str(e)}", exc_info=True)
         return f'Error loading metrics: {str(e)}'
     
-@train_finetuning.route('/finetunings/show-steps/<string:fine_tuning_id>')
-@train_finetuning.route('/finetunings/show-steps/<string:fine_tuning_id>/<int:page>')
+@train_finetuning.route('/show-steps/<string:fine_tuning_id>')
+@train_finetuning.route('/show-steps/<string:fine_tuning_id>/<int:page>')
 def show_steps(fine_tuning_id, page=1):
     logger = logging.getLogger('show_metrics')
     items_per_page = 10
@@ -343,7 +357,7 @@ def show_steps(fine_tuning_id, page=1):
 def create_finetuning():
     return render_template('pages/training_finetuning/create-finetunings-jobs.html', base_models=BASE_MODELS)
 
-@train_finetuning.route('/finetunings/create-finetuning/jobs', methods=['POST'])
+@train_finetuning.route('/create-finetuning/jobs', methods=['POST'])
 def create_model():
     schema = FineTuningJobSchema()
     try:
@@ -413,7 +427,7 @@ def create_model():
         flash(f"Validation error: {'; '.join(error_messages)}", "error")
         return redirect(url_for('train_finetuning.list_finetunings'))
     
-@train_finetuning.route('/finetunings/model/<string:fine_tuning_id>', methods=['POST'])
+@train_finetuning.route('/model/<string:fine_tuning_id>', methods=['POST'])
 def delete_finetuning(fine_tuning_id):
     try:
         # Delete fine-tuning job

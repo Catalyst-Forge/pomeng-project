@@ -115,7 +115,7 @@ def list_models() -> List[Dict]:
     return models
 
 #GET MODEL
-@train_lstm.route('/manage/model', methods=['GET'])
+@train_lstm.route('/lstm/manage/model', methods=['GET'])
 def get_models():
     try:
         models = list_models()
@@ -135,7 +135,76 @@ def get_models():
         flash("Error loading models", "danger")
         return render_template('pages/index-train-lstm.html', models=[]), 500
 
-@train_lstm.route('/model/<model_name>/details', methods=['GET'])
+@train_lstm.route('/lstm/select_model', methods=['POST'])
+def select_lstm_model():
+    """
+    Route to select and update the LSTM model in the .env file
+    """
+    try:
+        # Get the model name from the form submission
+        model_name = request.form.get('model_name')
+        
+        if not model_name:
+            flash('No model name provided', 'error')
+            return redirect(url_for('train_lstm.get_models'))
+        
+        # Check if the model exists in the logs directory
+        logs_path = Path(Config.LOGS_DIRECTORY)
+        model_path = logs_path / model_name
+        
+        if not model_path.exists() or not model_path.is_dir():
+            flash(f'Model {model_name} does not exist', 'error')
+            return redirect(url_for('train_lstm.get_models'))
+        
+        # Read the current .env file
+        env_path = Path('.env')
+        
+        if not env_path.exists():
+            flash('.env file not found', 'error')
+            return redirect(url_for('train_lstm.get_models'))
+        
+        # Read the .env file content
+        with open(env_path, 'r') as f:
+            env_lines = f.readlines()
+        
+        # Update the LSTM_MODEL_SELECTED line
+        updated_lines = []
+        model_updated = False
+        
+        for line in env_lines:
+            if line.startswith('LSTM_MODEL_SELECTED='):
+                updated_lines.append(f'LSTM_MODEL_SELECTED={model_name}\n')
+                model_updated = True
+            else:
+                updated_lines.append(line)
+        
+        # If no existing LSTM_MODEL_SELECTED line was found, append it
+        if not model_updated:
+            updated_lines.append(f'LSTM_MODEL_SELECTED={model_name}\n')
+        
+        # Write the updated content back to the .env file
+        with open(env_path, 'w') as f:
+            f.writelines(updated_lines)
+        
+        # Log the model selection
+        logger.info(f"LSTM Model selected: {model_name}")
+        
+        # Flash a success message
+        flash(f'Successfully selected model: {model_name}', 'success')
+        
+        return redirect(url_for('train_lstm.get_models'))
+    
+    except Exception as e:
+        # Log the error
+        logger.error(f"Error selecting LSTM model: {str(e)}")
+        logger.exception(e)
+        
+        # Flash an error message
+        flash('An error occurred while selecting the model', 'error')
+        
+        return redirect(url_for('train_lstm.get_models'))
+
+@train_lstm.route('/lstm/<model_name>/details', methods=['GET'])
 def get_models_details(model_name):
     try:
         logs_path = Path(Config.LOGS_DIRECTORY)
@@ -177,7 +246,7 @@ def get_models_details(model_name):
     
 
 #GET MODEL METRICS
-@train_lstm.route('/model/<model_name>/metrics', methods=['GET'])
+@train_lstm.route('/lstm/<model_name>/metrics', methods=['GET'])
 def get_model_metrics(model_name):
     try:
         logs_path = Path(Config.LOGS_DIRECTORY)
@@ -224,7 +293,7 @@ def get_model_metrics(model_name):
         flash(f"Error loading metrics {e}", "error"), 500
         return redirect(url_for('train_lstm.get_models'))
 
-@train_lstm.route('/train', methods=['POST'])
+@train_lstm.route('/lstm/train', methods=['POST'])
 def train_model():
     try:
         data = request.get_json()
@@ -350,7 +419,7 @@ def train_model():
         logger.error(traceback.format_exc())  # Log full traceback
         return jsonify({"error": str(e)}), 500
 
-@train_lstm.route('/model/<model_name>/delete', methods=['POST'])  # Ubah ke POST karena HTML form tidak support DELETE
+@train_lstm.route('/lstm/<model_name>/delete', methods=['POST'])  # Ubah ke POST karena HTML form tidak support DELETE
 def delete_model(model_name):
     """
     Delete a model directory and all its contents

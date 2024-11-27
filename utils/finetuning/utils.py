@@ -132,3 +132,21 @@ def get_checkpoints(fine_tuning_id):
     except Exception as e:
         print(f"Error fetching checkpoints: {str(e)}")
         return []
+    
+    
+def filter_chatbot_models(models):
+    chatbot_models = [
+        model for model in models 
+        if (
+            # OpenAI models
+            model['owned_by'] in ['openai', 'openai-internal', 'system'] and
+            (
+                # Specific chatbot-related models
+                model['id'].startswith(('gpt-', 'chatgpt', 'o1-', 'gpt4o')) or
+                any(keyword in model['id'] for keyword in ['turbo', 'preview', 'mini', '4o'])
+            ) and
+            # Exclude non-chatbot models
+            not any(keyword in model['id'] for keyword in ['embedding', 'whisper', 'dall-e', 'tts', 'text-', 'davinci', 'babbage'])
+        )
+    ]
+    return chatbot_models
