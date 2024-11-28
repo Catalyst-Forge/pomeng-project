@@ -7,11 +7,22 @@ import json
 fineTuning = Blueprint("fineTuning", __name__)
 
 
-@fineTuning.route("/dashboard/dataset/fine-tuning/list")
+@fineTuning.route("/dashboard/dataset/fine-tuning/list", methods=["GET"])
 @login_required
 def view_finetuning_data():
-    finetuning = Finetuning.query.all()
-    return render_template("pages/dataset-fine-tuning.html", finetuning=finetuning)
+    page = request.args.get("page", 1, type=int)
+    per_page = 10
+    finetuning_query = Finetuning.query.paginate(
+        page=page, per_page=per_page, error_out=False
+    )
+    start_number = (page - 1) * per_page + 1
+
+    return render_template(
+        "pages/dataset-fine-tuning.html",
+        finetuning=finetuning_query.items,
+        pagination=finetuning_query,
+        start_number=start_number,
+    )
 
 
 @fineTuning.route("/dashboard/dataset/fine-tuning/add", methods=["GET", "POST"])

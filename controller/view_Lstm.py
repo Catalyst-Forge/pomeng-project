@@ -6,11 +6,20 @@ lstm = Blueprint("lstm", __name__)
 
 
 # Read all dataset
-@lstm.route("/dashboard/dataset")
+@lstm.route("/dashboard/dataset", methods=["GET"])
 @login_required
 def read_lstm():
-    lstm = Lstm.query.all()
-    return render_template("pages/dataset.html", lstm=lstm)
+    page = request.args.get("page", 1, type=int)
+    per_page = 10
+    lstm_query = Lstm.query.paginate(page=page, per_page=per_page, error_out=False)
+    start_number = (page - 1) * per_page + 1
+
+    return render_template(
+        "pages/dataset.html",
+        lstm=lstm_query.items,
+        pagination=lstm_query,
+        start_number=start_number,
+    )
 
 
 # Create an dataset
