@@ -12,17 +12,19 @@
   <body>
     <div class="container">
       <div class="box">
-        <div class="box__content">
-          <h1 class="box__content-title">Login</h1>
+        <div class="box-container">
+          <div class="box__content">
+            <h1 class="box__content-title">Login</h1>
 
-          <form class="box__content-authentication" method="POST">
-            {{ form.hidden_tag() }}
-            <section class="authentication__field">{{ form.email(class_="authentication__input", placeholder_="Email") }}</section>
-            <section class="authentication__field">{{ form.password(class_="authentication__input", placeholder_="Password") }}</section>
-            {{ form.submit(class_="button authentication__submit") }}
-          </form>
+            <form class="box__content-authentication" method="POST">
+              {{ form.hidden_tag() }}
+              <section class="authentication__field">{{ form.email(class_="authentication__input", placeholder_="Email") }}</section>
+              <section class="authentication__field">{{ form.password(class_="authentication__input", placeholder_="Password") }}</section>
+              {{ form.submit(class_="button authentication__submit") }}
+            </form>
 
-          <a href="{{ url_for('auth.register') }}" class="box__content-register">Register</a>
+            <span>Don't have an account? <a href="{{ url_for('auth.register') }}" class="box__content-register">Register</a></span>
+          </div>
         </div>
 
         <div class="box__background">

@@ -12,23 +12,25 @@
   <body>
     <div class="container">
       <div class="box">
-        <div class="box__content">
-          <h1 class="box__content-title">Register</h1>
+        <div class="box-container">
+          <div class="box__content">
+            <h1 class="box__content-title">Register</h1>
 
-          <form class="box__content-authentication" method="POST">
-            {{ form.hidden_tag() }}
+            <form class="box__content-authentication" method="POST">
+              {{ form.hidden_tag() }}
 
-            <section class="authentication__field">{{ form.username(class_="authentication__input", placeholder_="Username") }}</section>
-            <section class="authentication__field">{{ form.fullname(class_="authentication__input", placeholder_="Full Name") }}</section>
-            <section class="authentication__field">{{ form.email(class_="authentication__input", placeholder_="Email") }}</section>
-            <section class="authentication__field">{{ form.password(class_="authentication__input", placeholder_="Password") }}</section>
-            <section class="authentication__field">
-              {{ form.confirm_password(class_="authentication__input", placeholder_="Confirmation Password") }}
-            </section>
-            {{ form.submit(class_="button authentication__submit") }}
-          </form>
+              <section class="authentication__field">{{ form.username(class_="authentication__input", placeholder_="Username") }}</section>
+              <section class="authentication__field">{{ form.fullname(class_="authentication__input", placeholder_="Full Name") }}</section>
+              <section class="authentication__field">{{ form.email(class_="authentication__input", placeholder_="Email") }}</section>
+              <section class="authentication__field">{{ form.password(class_="authentication__input", placeholder_="Password") }}</section>
+              <section class="authentication__field">
+                {{ form.confirm_password(class_="authentication__input", placeholder_="Confirmation Password") }}
+              </section>
+              {{ form.submit(class_="button authentication__submit") }}
+            </form>
 
-          <a href="{{ url_for('auth.login') }}" class="box__content-register">Login</a>
+            <span>Already have an account? <a href="{{ url_for('auth.login') }}" class="box__content-register">Login</a></span>
+          </div>
         </div>
 
         <div class="box__background">
