@@ -1,0 +1,170 @@
+<div class="container-fluid p-0">
+    <div class="row g-4">
+        <!-- Main Information -->
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0"><i class="bi bi-info-circle me-2"></i>General Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="mb-2">
+                                <label class="text-muted small">Object</label>
+                                <p class="mb-2 fw-medium">{{ finetuning.object }}</p>
+                            </div>
+                            <div class="mb-2">
+                                <label class="text-muted small">Model</label>
+                                <p class="mb-2 fw-medium">{{ finetuning.model }}</p>
+                            </div>
+                            <div class="mb-2">
+                                <label class="text-muted small">Fine-Tuned Model</label>
+                                <p class="mb-2 fw-medium">{{ finetuning.fine_tuned_model }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-2">
+                                <label class="text-muted small">Created At</label>
+                                <p class="mb-2 fw-medium">{{ finetuning.created_at }}</p>
+                            </div>
+                            <div class="mb-2">
+                                <label class="text-muted small">Finished At</label>
+                                <p class="mb-2 fw-medium">{{ finetuning.finished_at or 'Not finished yet' }}</p>
+                            </div>
+                            <div class="mb-2">
+                                <label class="text-muted small">Status</label>
+                                <p class="mb-2">
+                                    <span
+                                        class="badge {% if finetuning.status == 'completed' %}bg-success{% elif finetuning.status == 'running' %}bg-primary{% else %}bg-secondary{% endif %}"
+                                    >
+                                        {{ finetuning.status }}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hyperparameters -->
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0"><i class="bi bi-sliders me-2"></i>Hyperparameters</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="text-muted small">N Epochs</label>
+                        <p class="mb-2 fw-medium">{{ finetuning.hyperparameters.n_epochs }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-muted small">Batch Size</label>
+                        <p class="mb-2 fw-medium">{{ finetuning.hyperparameters.batch_size }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-muted small">Learning Rate Multiplier</label>
+                        <p class="mb-2 fw-medium">{{ finetuning.hyperparameters.learning_rate_multiplier }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Files and Training Info -->
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0"><i class="bi bi-file-earmark-text me-2"></i>Files & Training Info</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="text-muted small">Training File</label>
+                        <p class="mb-2 fw-medium">{{ finetuning.training_file }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-muted small">Validation File</label>
+                        <p class="mb-2 fw-medium">{{ finetuning.validation_file or 'Not provided' }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-muted small">Result Files</label>
+                        <p class="mb-2 fw-medium">{{ finetuning.result_files }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-muted small">Trained Tokens</label>
+                        <p class="mb-2 fw-medium">{{ finetuning.trained_tokens }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0"><i class="bi bi-gear me-2"></i>Additional Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="text-muted small">Organization ID</label>
+                            <p class="mb-2 fw-medium">{{ finetuning.organization_id }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="text-muted small">Seed</label>
+                            <p class="mb-2 fw-medium">{{ finetuning.seed }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="text-muted small">Estimated Finish</label>
+                            <p class="mb-2 fw-medium">{{ finetuning.estimated_finish or 'Not available' }}</p>
+                        </div>
+                        <div class="col-12">
+                            <label class="text-muted small">Integrations</label>
+                            <p class="mb-0 fw-medium">{{ finetuning.integrations or 'None' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkpoints -->
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0"><i class="bi bi-flag me-2"></i>Training Checkpoints</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-muted small">Step</th>
+                                    <th scope="col" class="text-muted small">Created At</th>
+                                    <th scope="col" class="text-muted small">Checkpoint Model</th>
+                                    <th scope="col" class="text-muted small" style="width: 150px">Validation Loss</th>
+                                    <th scope="col" class="text-muted small" style="width: 150px">Validation Accuracy</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for checkpoint in finetuning.checkpoints %}
+                                <tr>
+                                    <td class="fw-medium">{{ checkpoint.step_number }}</td>
+                                    <td class="fw-medium">{{ checkpoint.created_at }}</td>
+                                    <td class="fw-medium text-break">{{ checkpoint.fine_tuned_model_checkpoint }}</td>
+                                    <td class="fw-medium">
+                                        {% if checkpoint.metrics.valid_loss != "N/A" %} {{ "%.3f"|format(checkpoint.metrics.valid_loss) }}
+                                        {% else %} N/A {% endif %}
+                                    </td>
+                                    <td class="fw-medium">
+                                        {% if checkpoint.metrics.valid_accuracy != "N/A" %} {{
+                                        "%.1f"|format(checkpoint.metrics.valid_accuracy * 100) }}% {% else %} N/A {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

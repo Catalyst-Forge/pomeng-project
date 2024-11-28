@@ -18,7 +18,7 @@ def migrate_to_db(file_path, file_type="json"):
             data = json.load(file)
 
         # Iterasi pada setiap intent dalam data JSON
-        for lstm_data in data["intents"]:
+        for lstm_data in data["lstm_data"]:
             # Mengambil data langsung dari tag, patterns, dan responses
             tag = lstm_data.get("tag")
             patterns = ", ".join(

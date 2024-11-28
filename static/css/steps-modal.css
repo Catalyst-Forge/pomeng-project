@@ -1,0 +1,123 @@
+/* Modal specific styles */
+.modal-xl {
+    max-width: 1200px;
+    margin: 1rem auto;
+}
+
+.modal-content {
+    border: none;
+    border-radius: 1rem;
+    background: #f8fafc;
+}
+
+.modal-header {
+    padding: 1rem 1.5rem;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    border-radius: 1rem 1rem 0 0;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.modal-body {
+    background: #ffffff;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    background: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    border-radius: 0 0 1rem 1rem;
+}
+
+/* Steps container modifications */
+.steps-container {
+    padding: 1.5rem;
+    background: #ffffff;
+    /* Remove max-height and overflow to prevent double scrollbar */
+}
+
+/* Table container modifications */
+.table-container {
+    margin: 1.5rem 0;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+/* Responsive table scroll */
+@media (max-width: 992px) {
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Updated pagination styles */
+.pagination {
+    position: sticky;
+    bottom: 0;
+    background: #ffffff;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 0;
+    border-top: 1px solid #e5e7eb;
+}
+
+.page-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    color: #4b5563;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin: 0 0.25rem;
+}
+
+.page-link:hover {
+    background-color: #f9fafb;
+    color: #111827;
+    border-color: #d1d5db;
+    z-index: 2;
+}
+
+.page-link.active {
+    background-color: #2563eb;
+    color: white;
+    border-color: #2563eb;
+    z-index: 3;
+}
+
+/* Stats grid responsiveness */
+.summary-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+/* Chart container */
+#stepsChart {
+    width: 100%;
+    height: 300px;
+    margin: 1.5rem 0;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+}
+
+/* Alert modifications */
+.alert {
+    margin: 1.5rem;
+    border-radius: 0.5rem;
+}
