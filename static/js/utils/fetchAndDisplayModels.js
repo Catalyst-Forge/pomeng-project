@@ -85,8 +85,7 @@ export const fetchAndDisplayModels = async () => {
       const row = document.createElement("tr");
       row.innerHTML =
         /* html */
-        `<td class="align-middle"></td>
-        <td class="align-middle">${model.version}</td>
+        `<td class="align-middle">${model.version}</td>
         <td class="text-center align-middle">${formatDate(model.backup_date)}</td>
         <td class="text-center align-middle">
           <span class="model-status ${model.status === "active" ? "status-active" : "status-inactive"}">
@@ -106,7 +105,7 @@ export const fetchAndDisplayModels = async () => {
         // View Details button
         const viewButton = document.createElement("button");
         viewButton.textContent = "View Details";
-        viewButton.className = "btn btn-primary";
+        viewButton.className = "btn btn-primary btn-sm";
         viewButton.dataset.bsToggle = "modal";
         viewButton.dataset.bsTarget = "#training-model";
         viewButton.addEventListener("click", () => viewModelDetails(model.version));
@@ -115,14 +114,14 @@ export const fetchAndDisplayModels = async () => {
         // Restore button
         const restoreButton = document.createElement("button");
         restoreButton.textContent = "Restore";
-        restoreButton.className = "btn btn-warning";
+        restoreButton.className = "btn btn-warning btn-sm";
         restoreButton.addEventListener("click", () => restoreModel(model.version));
         actionsCell.appendChild(restoreButton);
 
         // Delete button
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
-        deleteButton.className = "btn btn-danger";
+        deleteButton.className = "btn btn-danger btn-sm";
         deleteButton.addEventListener("click", () => deleteModel(model.version));
         actionsCell.appendChild(deleteButton);
       }
