@@ -1,71 +1,109 @@
 <!DOCTYPE html>
 {% extends 'dashboard.html' %} {% block content %}
 
-<header class="my-3">
+<header class="my-4 d-flex justify-content-between align-items-center">
   <h1>Dataset LSTM</h1>
   <button type="button" class="btn btn-primary" id="create-btn" data-bs-toggle="modal" data-bs-target="#createModal">Create Dataset</button>
 </header>
 
 <!-- List of LSTM Dataset -->
-<section>
-  <h2>List LSTM Dataset</h2>
+<section class="table-responsive mb-3">
+  <div class="border rounded shadow-sm">
+    <table class="table table-hover">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">No</th>
+          <th scope="col">Tag</th>
+          <th scope="col" class="w-25">Patterns</th>
+          <th scope="col" class="w-25">Responses</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
 
-  <table class="table table-info table-hover">
-    <thead>
-      <tr class="text-center">
-        <th scope="col">No</th>
-        <th scope="col">Tag</th>
-        <th scope="col">Patterns</th>
-        <th scope="col" class="w-25">Responses</th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
+      <tbody>
+        {% for lstm_data in lstm %}
+        <tr>
+          <td class="text-center" id="dataset-id">{{ start_number + loop.index0 }}</td>
+          <td class="text-center">{{ lstm_data.tag }}</td>
+          <td>
+            <ul class="pattern-container" style="list-style-type: '⫸ '">
+              {% for pattern in lstm_data.patterns.split(',') %}
+              <li class="pattern-item">&OpenCurlyDoubleQuote;{{ pattern.strip() }}&CloseCurlyDoubleQuote;{% if not loop.last %}{% endif %}</li>
+              {% endfor %}
+            </ul>
+          </td>
 
-    <tbody>
-      {% for lstm_data in lstm %}
-      <tr>
-        <td class="text-center" id="dataset-id">{{ loop.index }}</td>
-        <td class="text-center">{{ lstm_data.tag }}</td>
-        <td>
-          <div class="pattern-container">
-            {% for pattern in lstm_data.patterns.split(',') %}
-            <span class="pattern-item"
-              >&OpenCurlyDoubleQuote;{{ pattern.strip() }}&CloseCurlyDoubleQuote;{% if not loop.last %}&comma; {% endif %}</span
-            >
-            {% endfor %}
-          </div>
-        </td>
+          <td class="text-start">&OpenCurlyDoubleQuote;{{ lstm_data.responses }}&CloseCurlyDoubleQuote;</td>
+          <td>
+            <div class="d-flex justify-content-center align-items-center gap-2">
+              <button
+                type="button"
+                class="btn btn-primary open-update-modal-button"
+                data-id="{{ lstm_data.id }}"
+                data-tag="{{ lstm_data.tag }}"
+                data-patterns="{{ lstm_data.patterns }}"
+                data-responses="{{ lstm_data.responses }}"
+                data-bs-toggle="modal"
+                data-bs-target="#updateModal"
+              >
+                Update
+              </button>
+              <form id="delete-form" method="POST" data-id="{{ lstm_data.id }}">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
-        <td class="text-start">&OpenCurlyDoubleQuote;{{ lstm_data.responses }}&CloseCurlyDoubleQuote;</td>
-        <td>
-          <div class="d-flex justify-content-center align-items-center gap-2">
-            <button
-              type="button"
-              class="btn btn-primary open-update-modal-button"
-              data-id="{{ lstm_data.id }}"
-              data-tag="{{ lstm_data.tag }}"
-              data-patterns="{{ lstm_data.patterns }}"
-              data-responses="{{ lstm_data.responses }}"
-              data-bs-toggle="modal"
-              data-bs-target="#updateModal"
-            >
-              Update
-            </button>
-            <form id="delete-form" method="POST" data-id="{{ lstm_data.id }}">
-              <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
-          </div>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <!-- Pagination Num -->
+  <nav class="mt-3" aria-label="Page navigation">
+    <ul class="pagination justify-content-end">
+      {% if pagination.has_prev %}
+      <li class="page-item">
+        <a class="page-link" href="{{ url_for('lstm.read_lstm', page=pagination.prev_num) }}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <span class="page-link" aria-hidden="true">&laquo;</span>
+      </li>
+      {% endif %} {% for page_num in pagination.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=2) %} {% if page_num %} {% if
+      page_num == pagination.page %}
+      <li class="page-item active">
+        <span class="page-link">{{ page_num }}</span>
+      </li>
+      {% else %}
+      <li class="page-item">
+        <a href="{{ url_for('lstm.read_lstm', page=page_num) }}" class="page-link">{{ page_num }}</a>
+      </li>
+      {% endif %} {% else %}
+      <li class="page-item disabled">
+        <span class="page-link">...</span>
+      </li>
+      {% endif %} {% endfor %} {% if pagination.has_next %}
+      <li class="page-item">
+        <a href="{{ url_for('lstm.read_lstm', page=pagination.next_num) }}" class="page-link" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <span class="page-link" aria-hidden="true">&raquo;</span>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
 </section>
 
-<!-- Create Intent Modal -->
+<!-- Create LSTM Data  Modal -->
 <section>
   <div id="createModal" class="modal fade" tabindex="-1" aria-labelledby="createModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <header class="modal-header">
           <h3 class="modal-title">Create New Dataset</h3>
@@ -105,10 +143,10 @@
   </div>
 </section>
 
-<!-- Update Intent Modal -->
+<!-- Update LSTM Data Modal -->
 <section>
   <div id="updateModal" class="modal fade" tabindex="-1" aria-labelledby="updateModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <header class="modal-header">
           <h3 class="modal-title">Update Intent</h3>
