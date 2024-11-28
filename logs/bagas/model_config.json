@@ -1,0 +1,40 @@
+{
+    "embedding_dim": 100,
+    "embedding_dropout": 0.2,
+    "mask_zero": true,
+    "layers": [
+        {
+            "type": "LSTM",
+            "params": {
+                "units": 32,
+                "dropout": 0.5,
+                "recurrent_dropout": 0.2,
+                "return_sequences": true
+            }
+        },
+        {
+            "type": "Dense",
+            "params": {
+                "units": 32,
+                "activation": "relu"
+            }
+        }
+    ],
+    "optimizer": {
+        "name": "adam",
+        "params": {
+            "learning_rate": 0.001,
+            "beta_1": 0.9,
+            "beta_2": 0.999,
+            "epsilon": 1e-07,
+            "amsgrad": false
+        }
+    },
+    "batch_size": 32,
+    "epochs": 10,
+    "output_activation": "softmax",
+    "vocab_size": 400,
+    "num_classes": 74,
+    "sequence_length": 15,
+    "training_date": "2024-11-25T05:05:01.052539"
+}

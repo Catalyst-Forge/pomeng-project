@@ -1,5 +1,5 @@
 {
-    "intents": [
+    "lstm_data": [
         {
             "tag": "salam",
             "patterns": [
@@ -36,9 +36,7 @@
                 "Ada orang?",
                 "ass"
             ],
-            "responses": [
-                "Halo, ada yang bisa saya bantu?"
-            ]
+            "responses": ["Halo, ada yang bisa saya bantu?"]
         },
         {
             "tag": "tentang_lili",
@@ -199,9 +197,7 @@
                 "Rumah sakit arun ada di mana sih?",
                 "Cari tahu dong, di mana letak rumah sakit arun?"
             ],
-            "responses": [
-                " Komplek Perumahan PT. Arun NGL, Jl. Plaju, Batuphat Timur, Muara Satu, Kota Lhokseumawe, Aceh 24353."
-            ]
+            "responses": [" Komplek Perumahan PT. Arun NGL, Jl. Plaju, Batuphat Timur, Muara Satu, Kota Lhokseumawe, Aceh 24353."]
         },
         {
             "tag": "tahun_didirikan",
@@ -221,9 +217,7 @@
                 "Berikan penjelasan kapan rs arun didirikan",
                 "Tolong berikan informasi tentang tanggal dan tahun didirikan nya rs arun"
             ],
-            "responses": [
-                " Rumah Sakit Arun Lhokseumawe didirikan pada tanggal 1 November 1984."
-            ]
+            "responses": [" Rumah Sakit Arun Lhokseumawe didirikan pada tanggal 1 November 1984."]
         },
         {
             "tag": "visi_dan_misi",
@@ -280,9 +274,7 @@
                 "Aku belum tau nih nama direktur di rumah sakit arun lhokseumawe?",
                 "Aku pengen tau nama direktur di rs arun?"
             ],
-            "responses": [
-                "Direktur rumah sakit arun lhokseumawe adalah dr Januar Sp.S "
-            ]
+            "responses": ["Direktur rumah sakit arun lhokseumawe adalah dr Januar Sp.S "]
         },
         {
             "tag": "ruangan_inap",
@@ -321,9 +313,7 @@
                 "beritahu aku berapa tingkatan kelas ruangan di rumah sakit arun",
                 "kelas ruangan di rs arun?"
             ],
-            "responses": [
-                "tingkatan kelas ruangan dirumah sakit arun adalah VIP, kelas I, kelas II dan kelas III"
-            ]
+            "responses": ["tingkatan kelas ruangan dirumah sakit arun adalah VIP, kelas I, kelas II dan kelas III"]
         },
         {
             "tag": "jumlah_vip",
@@ -342,9 +332,7 @@
                 "ruang vip dapat menampung berapa pasien?",
                 "total tempat tidur yang ada di ruangan vip rumah sakit lhokseumawe?"
             ],
-            "responses": [
-                "total tempat tidur di ruangan VIP pada rumah sakit lhokseumawe berjumlah 7 tempat tidur"
-            ]
+            "responses": ["total tempat tidur di ruangan VIP pada rumah sakit lhokseumawe berjumlah 7 tempat tidur"]
         },
         {
             "tag": "jumlah_I",
@@ -363,9 +351,7 @@
                 "ruang kelas I  dapat menampung berapa pasien?",
                 "total tempat tidur yang ada di ruangan kelas I  rumah sakit lhokseumawe?"
             ],
-            "responses": [
-                "total tempat tidur di ruangan kelas I  pada rumah sakit lhokseumawe berjumlah 16 tempat tidur"
-            ]
+            "responses": ["total tempat tidur di ruangan kelas I  pada rumah sakit lhokseumawe berjumlah 16 tempat tidur"]
         },
         {
             "tag": "Jumlah_dokter",
@@ -410,9 +396,7 @@
                 "ruang kelas II  dapat menampung berapa pasien?",
                 "total tempat tidur yang ada di ruangan kelas II  rumah sakit lhokseumawe?"
             ],
-            "responses": [
-                "total tempat tidur di ruangan kelas II  pada rumah sakit lhokseumawe berjumlah 14 tempat tidur"
-            ]
+            "responses": ["total tempat tidur di ruangan kelas II  pada rumah sakit lhokseumawe berjumlah 14 tempat tidur"]
         },
         {
             "tag": "jumlah_III",
@@ -431,9 +415,7 @@
                 "ruang kelas III  dapat menampung berapa pasien?",
                 "total tempat tidur yang ada di ruangan kelas III  rumah sakit lhokseumawe?"
             ],
-            "responses": [
-                "total tempat tidur di ruangan kelas III pada rumah sakit lhokseumawe berjumlah 121 tempat tidur"
-            ]
+            "responses": ["total tempat tidur di ruangan kelas III pada rumah sakit lhokseumawe berjumlah 121 tempat tidur"]
         },
         {
             "tag": "jumlah_I",
@@ -452,9 +434,7 @@
                 "rumah sakit lhokseumawe dapat menerima pasien rawat inap berapa pasien?",
                 "total tempat tidur rawat inap yang ada di ruangan rumah sakit lhokseumawe?"
             ],
-            "responses": [
-                "total tempat tidur rawat inap pada rumah sakit lhokseumawe berjumlah 158 tempat tidur"
-            ]
+            "responses": ["total tempat tidur rawat inap pada rumah sakit lhokseumawe berjumlah 158 tempat tidur"]
         },
         {
             "tag": "jumlah_igd",
@@ -474,9 +454,7 @@
                 "total tempat tidur yang ada di ruangan igd rumah sakit lhokseumawe?",
                 "berapa banyak tempat tidur yang disediakan rumah sakit arun pada ruang igd"
             ],
-            "responses": [
-                "total tempat tidur pada ruang IGD rumah sakit lhokseumawe berjumlah 11 tempat tidur"
-            ]
+            "responses": ["total tempat tidur pada ruang IGD rumah sakit lhokseumawe berjumlah 11 tempat tidur"]
         },
         {
             "tag": "jumlah_ponek",
@@ -496,9 +474,7 @@
                 "total tempat tidur yang ada di ruangan ponek rumah sakit lhokseumawe?",
                 "berapa banyak tempat tidur yang disediakan rumah sakit arun pada ruang ponek"
             ],
-            "responses": [
-                "total tempat tidur pada ruang IGD rumah sakit lhokseumawe berjumlah 4 tempat tidur"
-            ]
+            "responses": ["total tempat tidur pada ruang IGD rumah sakit lhokseumawe berjumlah 4 tempat tidur"]
         },
         {
             "tag": "jumlah_vk",
@@ -518,9 +494,7 @@
                 "total tempat tidur yang ada di ruangan vk rumah sakit lhokseumawe?",
                 "berapa banyak tempat tidur yang disediakan rumah sakit arun pada ruang vk"
             ],
-            "responses": [
-                "total tempat tidur pada ruang vk rumah sakit lhokseumawe berjumlah 2 tempat tidur"
-            ]
+            "responses": ["total tempat tidur pada ruang vk rumah sakit lhokseumawe berjumlah 2 tempat tidur"]
         },
         {
             "tag": "jumlah_operasi",
@@ -540,9 +514,7 @@
                 "total tempat tidur yang ada di ruangan kamar operasi rumah sakit lhokseumawe?",
                 "berapa banyak tempat tidur yang disediakan rumah sakit arun pada ruang kamar operasi"
             ],
-            "responses": [
-                "total tempat tidur pada ruang kamar operasi rumah sakit arun lhokseumawe berjumlah 3 tempat tidur"
-            ]
+            "responses": ["total tempat tidur pada ruang kamar operasi rumah sakit arun lhokseumawe berjumlah 3 tempat tidur"]
         },
         {
             "tag": "jumlah_box_bayi",
@@ -562,9 +534,7 @@
                 "total box bayi yang ada di rumah sakit lhokseumawe?",
                 "berapa banyak box bayi yang disediakan rumah sakit arun"
             ],
-            "responses": [
-                "total box bayi rumah sakit arun lhokseumawe berjumlah 23 box bayi"
-            ]
+            "responses": ["total box bayi rumah sakit arun lhokseumawe berjumlah 23 box bayi"]
         },
         {
             "tag": "jumlah_transit",
@@ -584,9 +554,7 @@
                 "total tempat tidur yang ada di ruangan transit rumah sakit lhokseumawe?",
                 "berapa banyak tempat tidur yang disediakan rumah sakit arun pada ruang transit"
             ],
-            "responses": [
-                "total tempat tidur pada ruang transit rumah sakit lhokseumawe berjumlah 5 tempat tidur"
-            ]
+            "responses": ["total tempat tidur pada ruang transit rumah sakit lhokseumawe berjumlah 5 tempat tidur"]
         },
         {
             "tag": "jumlah_dialis",
@@ -606,9 +574,7 @@
                 "total tempat tidur yang ada di ruangan dialis rumah sakit lhokseumawe?",
                 "berapa banyak tempat tidur yang disediakan rumah sakit arun pada ruang dialis"
             ],
-            "responses": [
-                "total tempat tidur pada ruang dialis rumah sakit lhokseumawe berjumlah 11 tempat tidur"
-            ]
+            "responses": ["total tempat tidur pada ruang dialis rumah sakit lhokseumawe berjumlah 11 tempat tidur"]
         },
         {
             "tag": "jumlah_NICU",
@@ -628,9 +594,7 @@
                 "total tempat tidur yang ada di ruangan NICU rumah sakit lhokseumawe?",
                 "berapa banyak tempat tidur yang disediakan rumah sakit arun pada ruang NICU"
             ],
-            "responses": [
-                "total tempat tidur pada ruang NICU rumah sakit lhokseumawe berjumlah 9 tempat tidur"
-            ]
+            "responses": ["total tempat tidur pada ruang NICU rumah sakit lhokseumawe berjumlah 9 tempat tidur"]
         },
         {
             "tag": "jumlah_ICU",
@@ -650,9 +614,7 @@
                 "total tempat tidur yang ada di ruangan ICU rumah sakit lhokseumawe?",
                 "berapa banyak tempat tidur yang disediakan rumah sakit arun pada ruang ICU"
             ],
-            "responses": [
-                "total tempat tidur pada ruang ICU rumah sakit lhokseumawe berjumlah 9 tempat tidur"
-            ]
+            "responses": ["total tempat tidur pada ruang ICU rumah sakit lhokseumawe berjumlah 9 tempat tidur"]
         },
         {
             "tag": "jumlah_Isolasi",
@@ -784,9 +746,7 @@
                 "Aku belum tau nih nama-nama dokter kandungan di rumah sakit arun lhokseumawe?",
                 "Aku pengen tau nih nama-nama dokter kandungan di rs arun?"
             ],
-            "responses": [
-                "dokter kandungan di rumah sakit arun ada 2 yaitu: 1. dr. Nurmianda, Sp.OG dan dr. Handri Rezki, Sp. OG."
-            ]
+            "responses": ["dokter kandungan di rumah sakit arun ada 2 yaitu: 1. dr. Nurmianda, Sp.OG dan dr. Handri Rezki, Sp. OG."]
         },
         {
             "tag": "dokter_jantung",
@@ -812,9 +772,7 @@
                 "Aku belum tau nih nama-nama dokter jantung di rumah sakit arun lhokseumawe?",
                 "Aku pengen tau nih nama-nama dokter jantung di rs arun?"
             ],
-            "responses": [
-                "nama dokter jantung pada rumah sakit arun adalah dr. EMELDA, Sp.JP."
-            ]
+            "responses": ["nama dokter jantung pada rumah sakit arun adalah dr. EMELDA, Sp.JP."]
         },
         {
             "tag": "dokter_orthopedi",
@@ -840,9 +798,7 @@
                 "Aku belum tau nih nama-nama dokter orthopedi di rumah sakit arun lhokseumawe?",
                 "Aku pengen tau nih nama-nama dokter orthopedi di rs arun?"
             ],
-            "responses": [
-                "nama dokter orthopedi pada rumah sakit arun adalah dr. M. Bayu Rizaldy, Sp. OT."
-            ]
+            "responses": ["nama dokter orthopedi pada rumah sakit arun adalah dr. M. Bayu Rizaldy, Sp. OT."]
         },
         {
             "tag": "dokter_jiwa",
@@ -868,9 +824,7 @@
                 "Aku belum tau nih nama-nama dokter jiwa di rumah sakit arun lhokseumawe?",
                 "Aku pengen tau nih nama-nama dokter jiwa di rs arun?"
             ],
-            "responses": [
-                "nama dokter jiwa pada rumah sakit arun adalah dr. Afrina, Sp.KJ. "
-            ]
+            "responses": ["nama dokter jiwa pada rumah sakit arun adalah dr. Afrina, Sp.KJ. "]
         },
         {
             "tag": "dokter_anak",
@@ -896,9 +850,7 @@
                 "Aku belum tau nih nama-nama dokter anak di rumah sakit arun lhokseumawe?",
                 "Aku pengen tau nih nama-nama dokter anak di rs arun?"
             ],
-            "responses": [
-                "nama-nama dokter anak pada rumah sakit arun adalah: 1.dr. Ade Saifan Surya, SP. A. 2.dr. Dika Amalia, Sp. A."
-            ]
+            "responses": ["nama-nama dokter anak pada rumah sakit arun adalah: 1.dr. Ade Saifan Surya, SP. A. 2.dr. Dika Amalia, Sp. A."]
         },
         {
             "tag": "dokter_paru-paru",
@@ -980,9 +932,7 @@
                 "Aku belum tau nih nama-nama dokter bedah umum di rumah sakit arun lhokseumawe?",
                 "Aku pengen tau nih nama-nama dokter bedah umum di rs arun?"
             ],
-            "responses": [
-                "nama dokter THT di rumah sakit arun adalah dr. RAHMI SURAIYA, Sp.T.H.T ."
-            ]
+            "responses": ["nama dokter THT di rumah sakit arun adalah dr. RAHMI SURAIYA, Sp.T.H.T ."]
         },
         {
             "tag": "jadwal_dokter_januar",
@@ -1036,9 +986,7 @@
                 "Aku belum tau nih jadwal dokter intan kapan?",
                 "Aku pengen tau nih jadwal dokter intan?"
             ],
-            "responses": [
-                "jadwal prakter dr. Intan Sahara Zein, Sp.S pada hari kamis pukul 16:00-18:00 sore."
-            ]
+            "responses": ["jadwal prakter dr. Intan Sahara Zein, Sp.S pada hari kamis pukul 16:00-18:00 sore."]
         },
         {
             "tag": "jadwal_dokter_ade_alia",
@@ -1092,9 +1040,7 @@
                 "Aku belum tau nih jadwal dokter bayu kapan?",
                 "Aku pengen tau nih jadwal dokter bayu?"
             ],
-            "responses": [
-                "jadwal praktek dr. M. Bayu Rizaldy, Sp. OT pada hari rabu pukul 14:00-16:00 sore."
-            ]
+            "responses": ["jadwal praktek dr. M. Bayu Rizaldy, Sp. OT pada hari rabu pukul 14:00-16:00 sore."]
         },
         {
             "tag": "jadwal_dokter_emelda",
@@ -1148,9 +1094,7 @@
                 "Aku belum tau nih jadwal dokter mirzal kapan?",
                 "Aku pengen tau nih jadwal dokter mirzal?"
             ],
-            "responses": [
-                "jadwal praktek dr. T. Mirzal Safari. Sp.PD pada hari kamis pukul 14:00-16:00 sore. "
-            ]
+            "responses": ["jadwal praktek dr. T. Mirzal Safari. Sp.PD pada hari kamis pukul 14:00-16:00 sore. "]
         },
         {
             "tag": "jadwal_dokter_afrina",
@@ -1176,9 +1120,7 @@
                 "Aku belum tau nih jadwal dokter afrina kapan?",
                 "Aku pengen tau nih jadwal dokter afrina?"
             ],
-            "responses": [
-                "jadwal praktek dr. Afrina, Sp.KJ pada hari senin pukul 14:30-16:30 dan rabu pukul 14:00-16:00 ."
-            ]
+            "responses": ["jadwal praktek dr. Afrina, Sp.KJ pada hari senin pukul 14:30-16:30 dan rabu pukul 14:00-16:00 ."]
         },
         {
             "tag": "jadwal_dokter_Mawaddah",
@@ -1260,9 +1202,7 @@
                 "Aku belum tau nih jadwal dokter hendra kapan?",
                 "Aku pengen tau nih jadwal dokter hendra?"
             ],
-            "responses": [
-                "jadwal dokter dr. Hendra Kastiaji, Sp. B pada hari 14:00-16:00 sore dan kamis 14:00-16:00 sore."
-            ]
+            "responses": ["jadwal dokter dr. Hendra Kastiaji, Sp. B pada hari 14:00-16:00 sore dan kamis 14:00-16:00 sore."]
         },
         {
             "tag": "dokter_nina",
@@ -1288,9 +1228,7 @@
                 "Aku belum tau nih jadwal dokter nina kapan?",
                 "Aku pengen tau nih jadwal dokter nina?"
             ],
-            "responses": [
-                "jadwal dr. Nina Herlina, Sp pada hari senin 14:00-16:00 dan rabu 14:00-16:00 sore."
-            ]
+            "responses": ["jadwal dr. Nina Herlina, Sp pada hari senin 14:00-16:00 dan rabu 14:00-16:00 sore."]
         },
         {
             "tag": "jadwal_dokter_handri",
@@ -1316,9 +1254,7 @@
                 "Aku belum tau nih jadwal dokter handri kapan?",
                 "Aku pengen tau nih jadwal dokter handri?"
             ],
-            "responses": [
-                "jadwal praktek dr. Handri Rezki, Sp. OG pada hari selasa 14:30-16:00 sore dan kamis 09:00-12:00 siang,  ."
-            ]
+            "responses": ["jadwal praktek dr. Handri Rezki, Sp. OG pada hari selasa 14:30-16:00 sore dan kamis 09:00-12:00 siang,  ."]
         },
         {
             "tag": "jadwal_dokter_halida",
@@ -1372,9 +1308,7 @@
                 "Aku belum tau nih jadwal dokter ade saifan kapan?",
                 "Aku pengen tau nih jadwal dokter ade saifan?"
             ],
-            "responses": [
-                "jadwal praktek dr. Ade Saifan Surya, SP. A pada hari selasa 14:00-16:00, sore dan kamis 14:00-16:00 sore, ."
-            ]
+            "responses": ["jadwal praktek dr. Ade Saifan Surya, SP. A pada hari selasa 14:00-16:00, sore dan kamis 14:00-16:00 sore, ."]
         },
         {
             "tag": "jadwal_dokter_suraiya",
@@ -1456,9 +1390,7 @@
                 "Aku belum tau nih jadwal dokter mila kapan?",
                 "Aku pengen tau nih jadwal dokter mila?"
             ],
-            "responses": [
-                "jadwal praktek dr. Mila Astari Harahap, Sp.KJ pada hari rabu 14:00-16:00 sore,."
-            ]
+            "responses": ["jadwal praktek dr. Mila Astari Harahap, Sp.KJ pada hari rabu 14:00-16:00 sore,."]
         },
         {
             "tag": "jadwal_dokter_puspa",
@@ -1484,9 +1416,7 @@
                 "Aku belum tau nih jadwal dokter puspa kapan?",
                 "Aku pengen tau nih jadwal dokter puspa?"
             ],
-            "responses": [
-                "jadwal praktek dr. Puspa Rosfadilla, Sp. P pada hari selasa 14:00-16:00 sore dan kamis 14:00-16:00 sore."
-            ]
+            "responses": ["jadwal praktek dr. Puspa Rosfadilla, Sp. P pada hari selasa 14:00-16:00 sore dan kamis 14:00-16:00 sore."]
         },
         {
             "tag": "jadwal_dokter_syarifah",
@@ -1512,9 +1442,7 @@
                 "Aku belum tau nih jadwal dokter syarifah kapan?",
                 "Aku pengen tau nih jadwal dokter syarifah?"
             ],
-            "responses": [
-                "jadwal praktek dr. Syarifah Rohaya, Sp.M pada hari selasa 14:00-16:00 sore dan rabu 14:00-16:00 sore."
-            ]
+            "responses": ["jadwal praktek dr. Syarifah Rohaya, Sp.M pada hari selasa 14:00-16:00 sore dan rabu 14:00-16:00 sore."]
         },
         {
             "tag": "jadwal_dokter_basli",
@@ -1540,9 +1468,7 @@
                 "Aku belum tau nih jadwal dokter basli kapan?",
                 "Aku pengen tau nih jadwal dokter basli?"
             ],
-            "responses": [
-                "jadwal praktek dr. Basli, Sp. S pada hari senin 14:00-16:00 sore."
-            ]
+            "responses": ["jadwal praktek dr. Basli, Sp. S pada hari senin 14:00-16:00 sore."]
         },
         {
             "tag": "jadwal_dokter_muhammad_sayuti",
@@ -1568,9 +1494,7 @@
                 "Aku belum tau nih jadwal dokter muhammad sayuti kapan?",
                 "Aku pengen tau nih jadwal dokter muhammad sayuti?"
             ],
-            "responses": [
-                "jadwal praktek dr. Muhammad Sayuti, Sp.B pada hari selasa 14:00-17:00 sore."
-            ]
+            "responses": ["jadwal praktek dr. Muhammad Sayuti, Sp.B pada hari selasa 14:00-17:00 sore."]
         },
         {
             "tag": "jadwal_dokter_dika",
@@ -1596,9 +1520,7 @@
                 "Aku belum tau nih jadwal dokter dika kapan?",
                 "Aku pengen tau nih jadwal dokter dika?"
             ],
-            "responses": [
-                "jadwal praktek dr. Dika Amalia, Sp. A pada hari senin 14:00-16:00 sore dan rabu 14:00-16:00 sore."
-            ]
+            "responses": ["jadwal praktek dr. Dika Amalia, Sp. A pada hari senin 14:00-16:00 sore dan rabu 14:00-16:00 sore."]
         },
         {
             "tag": "tata_tertib_arun",
@@ -1774,9 +1696,7 @@
                 "apa kegunaan ruang igd?",
                 "jelaskan  fungsi ruang igd kepadaku"
             ],
-            "responses": [
-                "kegunaan dan fungsi ruang IGD rumah sakit arun adalah"
-            ]
+            "responses": ["kegunaan dan fungsi ruang IGD rumah sakit arun adalah"]
         },
         {
             "tag": "ruang_ICU",
@@ -1800,9 +1720,7 @@
                 "apa kegunaan ruang igd?",
                 "jelaskan  fungsi ruang igd kepadaku"
             ],
-            "responses": [
-                "kegunaan dan fungsi ruang IGD rumah sakit arun adalah"
-            ]
+            "responses": ["kegunaan dan fungsi ruang IGD rumah sakit arun adalah"]
         },
         {
             "tag": "website",
@@ -1847,9 +1765,7 @@
                 "Bisa kasih info gak, apa nama Website rumah sakit arun?",
                 "Nama Website rumah sakit arun itu apa ya?"
             ],
-            "responses": [
-                "Silahkan kunjungi website resmi rumah sakit arun di https://rsuarun.com/"
-            ]
+            "responses": ["Silahkan kunjungi website resmi rumah sakit arun di https://rsuarun.com/"]
         },
         {
             "tag": "Instagram",
@@ -2012,9 +1928,7 @@
                 "Good Bye",
                 "Okelah"
             ],
-            "responses": [
-                "Baik. Kalau ada masalah, hubungi aku lagi ya"
-            ]
+            "responses": ["Baik. Kalau ada masalah, hubungi aku lagi ya"]
         },
         {
             "tag": "Terima_kasih",
@@ -2052,19 +1966,7 @@
                 "Yups",
                 "terimong geunaseh"
             ],
-            "responses": [
-                "Sama-sama kak, senang bisa membantu"
-            ]
-        },
-        {
-            "tag": "jalan ",
-            "patterns": [
-                "jalan raya",
-                " jalan kami"
-            ],
-            "responses": [
-                "ini adalah jalan rumah sakit"
-            ]
+            "responses": ["Sama-sama kak, senang bisa membantu"]
         }
     ]
 }

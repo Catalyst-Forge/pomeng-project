@@ -1,0 +1,8 @@
+{
+    "preprocessing_date": "2024-11-24T21:00:27.126153",
+    "vocab_size": 404,
+    "num_classes": 74,
+    "num_patterns": 1539,
+    "max_sequence_length": 15,
+    "model_name": "Alan Rahmatahalu"
+}
