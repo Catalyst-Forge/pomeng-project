@@ -3,9 +3,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 
+
 class User(db.Model, UserMixin):
     """User model for authentication and user management"""
-    
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True, nullable=False, index=True)
     fullname = db.Column(db.String(255), nullable=False)
@@ -14,12 +15,12 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     last_login = db.Column(db.DateTime)
     is_active = db.Column(db.Boolean, default=True)
-    role = db.Column(db.String(50), nullable=False, default='user')  # New role column
+    role = db.Column(db.String(50), nullable=False, default="user")  # New role column
 
     def set_password(self, password):
         """Set the user's password using SHA-256 hashing"""
         try:
-            self.password = generate_password_hash(password, method='sha256')
+            self.password = generate_password_hash(password)
         except Exception as e:
             raise ValueError(f"Error setting password: {str(e)}")
 
@@ -61,15 +62,15 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         """Convert user object to dictionary"""
         return {
-            'id': self.id,
-            'username': self.username,
-            'fullname': self.fullname,
-            'email': self.email,
-            'created_at': self.created_at.isoformat() if self.created_at else None,
-            'last_login': self.last_login.isoformat() if self.last_login else None,
-            'is_active': self.is_active,
-            'role': self.role  # Include role in the dictionary
+            "id": self.id,
+            "username": self.username,
+            "fullname": self.fullname,
+            "email": self.email,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "last_login": self.last_login.isoformat() if self.last_login else None,
+            "is_active": self.is_active,
+            "role": self.role,  # Include role in the dictionary
         }
 
     def __repr__(self):
-        return f'<User {self.username}>'
+        return f"<User {self.username}>"
