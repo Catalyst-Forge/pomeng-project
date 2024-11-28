@@ -11,20 +11,21 @@
 <div id="liveAlertPlaceholder"></div>
 
 <!-- Models Table -->
-<section>
-  <table class="table table-info table-hover">
-    <thead>
-      <tr class="text-center">
-        <th scope="col">No</th>
-        <th scope="col">Version</th>
-        <th scope="col">Created Date</th>
-        <th scope="col">Status</th>
-        <th scope="col">Accuracy</th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody id="models-table-body"></tbody>
-  </table>
+<section class="table-responsive mb-3">
+  <div class="border rounded shadow-sm">
+    <table class="table table-hover">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Version</th>
+          <th scope="col">Created Date</th>
+          <th scope="col">Status</th>
+          <th scope="col">Accuracy</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="models-table-body"></tbody>
+    </table>
+  </div>
 </section>
 
 {% include 'partials/create-training-lstm-modal.html' %} {% endblock content %}
