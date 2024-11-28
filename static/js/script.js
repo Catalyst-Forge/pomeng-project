@@ -76,11 +76,24 @@ if (currentPage === "/") {
  *  Function for Dashboard Page
  */
 if (currentPage.startsWith("/dashboard")) {
+  window.addEventListener("load", function () {
+    const breadcrumbLinks = document.querySelectorAll(".breadcrumb-link");
+
+    breadcrumbLinks.forEach((bcLink) => {
+      if (bcLink.href.endsWith("/dashboard/dataset/fine-tuning")) {
+        bcLink.setAttribute("href", "/dashboard/dataset/fine-tuning/list");
+      }
+
+      if (bcLink.href.endsWith("/dashboard/dataset")) {
+        bcLink.setAttribute("href", "/dashboard/dataset/list");
+      }
+    });
+  });
+
   document.addEventListener("DOMContentLoaded", function () {
     const segments = currentPage.split("/");
     const sidebarItems = document.querySelectorAll(".sidebar-item");
     const hasSubItems = document.querySelectorAll(".sidebar-item.has-sub");
-    const breadcrumbLinks = document.querySelectorAll(".breadcrumb-link");
 
     const toggleSubmenu = (item) => {
       closeAllSubmenus(item); // Tutup semua submenu kecuali yang sedang diklik
@@ -106,8 +119,11 @@ if (currentPage.startsWith("/dashboard")) {
     const activateLinkBasedOnURL = () => {
       sidebarItems.forEach((item) => {
         const links = item.querySelectorAll(".sidebar-link, .submenu-link");
+
         links.forEach((link) => {
-          if (window.location.href === link.href) {
+          const linkUrl = new URL(link.href, window.location.href).pathname;
+
+          if (linkUrl === currentPage) {
             item.classList.add("active");
             link.classList.add("active");
 
@@ -135,31 +151,10 @@ if (currentPage.startsWith("/dashboard")) {
 
       // Activate links based on URL if dashboard has sub-items
       activateLinkBasedOnURL();
-    } else {
-      // No sub-items, activate links directly
-      sidebarItems.forEach((item) => {
-        const link = item.querySelector(".sidebar-link");
-
-        // Aktifkan hanya jika URL cocok secara persis
-        if (link && window.location.href === link.href) {
-          item.classList.add("active");
-          link.classList.add("active");
-        }
-      });
     }
 
     // Generate breadcrumb on page load
     generateBreadcrumb(currentPage);
-
-    breadcrumbLinks.forEach((bcLink) => {
-      if (bcLink.href.endsWith("/dashboard/dataset/fine-tuning")) {
-        bcLink.setAttribute("href", "/dashboard/dataset/fine-tuning/list");
-      }
-
-      if (bcLink.href.endsWith("/dashboard/dataset")) {
-        bcLink.setAttribute("href", "/dashboard/dataset/list");
-      }
-    });
   });
 }
 
@@ -169,6 +164,27 @@ if (currentPage.startsWith("/dashboard")) {
 if (currentPage === "/dashboard/dataset") {
   const container = document.querySelector("#content");
   CRUDDatasetHandler(container);
+
+  // Inisialisasi Tagify untuk input patterns
+  const input = document.querySelector("#update-patterns");
+  const tagify = new Tagify(input);
+
+  // Event listener untuk menangani tombol modal dan form submit
+  document.addEventListener("click", (event) => {
+    // Cek jika tombol yang diklik adalah untuk membuka modal
+    if (event.target.classList.contains("open-update-modal-button")) {
+      // Ambil data patterns dari tombol dan set ke Tagify
+      let patterns = event.target.getAttribute("data-patterns"); // Contoh: "web,java,python"
+      tagify.loadOriginalValues(); // Reset Tagify
+      input.value = patterns; // Set nilai patterns
+      tagify.update(); // Update Tagify
+    }
+  });
+
+  document.querySelector("#updateModal").addEventListener("submit", (event) => {
+    // Convert Tagify data ke string dipisahkan koma sebelum submit
+    input.value = tagify.value.map((tag) => tag.value).join(", ");
+  });
 }
 
 /**
