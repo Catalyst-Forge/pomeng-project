@@ -16,7 +16,7 @@ export const CRUDDatasetHandler = (container) => {
 
     const removeBtn = document.createElement("button");
     removeBtn.type = "button";
-    removeBtn.classList.add("remove-pattern", "btn", "btn-primary");
+    removeBtn.classList.add("remove-pattern", "btn", "btn-danger");
     removeBtn.textContent = "Remove";
     removeBtn.addEventListener("click", () => removePattern(removeBtn));
 
