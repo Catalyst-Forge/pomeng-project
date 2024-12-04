@@ -31,10 +31,12 @@
           {% if loop.first %}
           <td rowspan="{{ conversation.messages | length }}" class="align-middle">
             <div class="d-flex justify-content-between align-items-center gap-2">
-              <a href="{{ url_for('fineTuning.update_finetuning_data', id=conversation.id) }}" class="btn btn-primary" role="button">Update</a>
+              <a href="{{ url_for('fineTuning.update_finetuning_data', id=conversation.id) }}" class="btn btn-outline-primary" role="button"
+                >Update</a
+              >
 
               <form class="delete-form" method="POST" data-id="{{ conversation.id }}">
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-outline-danger">Delete</button>
               </form>
             </div>
           </td>
@@ -58,7 +60,7 @@
       <li class="page-item disabled">
         <span class="page-link" aria-hidden="true">&laquo;</span>
       </li>
-      {% endif %} {% for page_num in pagination.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=2) %} {% if page_num %} {% if
+      {% endif %} {% for page_num in pagination.iter_pages(left_edge=2, right_edge=2, left_current=1, right_current=1) %} {% if page_num %} {% if
       page_num == pagination.page %}
       <li class="page-item active">
         <span class="page-link">{{ page_num }}</span>
