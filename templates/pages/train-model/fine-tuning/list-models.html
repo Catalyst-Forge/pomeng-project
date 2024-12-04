@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% extends 'dashboard.html' %} {% block content %}
+
+<header class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="card-title mb-0"><i class="fas fa-microchip me-2"></i>Model List</h1>
+  <span class="badge bg-info badge-custom"> Total: {{ total }} models </span>
+</header>
+
+<section class="table-responsive">
+  <div class="border rounded shadow-sm">
+    <table class="table table-hover">
+      <thead>
+        <tr class="text-center">
+          <th>Model ID</th>
+          <th>Type</th>
+          <th>Created Date</th>
+          <th>Owner</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% if models %} {% for model in models %}
+        <tr class="model-card">
+          <td>
+            <div class="d-flex align-items-center">
+              <i class="fas fa-robot me-2 text-primary"></i>
+              {{ model.id }}
+            </div>
+          </td>
+
+          <td>
+            <span class="badge {% if 'ft:' in model.id %}bg-success{% else %}bg-info{% endif %} badge-custom">
+              {% if 'ft:' in model.id %}Fine-tuned{% else %}Base Model{% endif %}
+            </span>
+          </td>
+          <td>{{ model.created }}</td>
+
+          <td class="text-center">
+            <span class="badge bg-secondary badge-custom"> {{ model.owned_by }} </span>
+          </td>
+
+          <td>
+            <form action="{{ url_for('train_finetuning.select_model', model_id=model.id) }}" method="POST" style="display: inline">
+              <button type="submit" class="btn btn-primary btn-sm">Use Model</button>
+            </form>
+          </td>
+        </tr>
+
+        {% endfor %} {% else %}
+
+        <tr>
+          <td colspan="5" class="text-center text-muted py-4">
+            <i class="fas fa-info-circle me-2"></i>
+            No models available at the moment
+          </td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

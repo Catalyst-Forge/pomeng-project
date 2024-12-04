@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<div class="steps-container">
+  <div class="steps-header">
+    <h3>Fine-Tuning Metrics</h3>
+    <h4>Job ID: {{ fine_tuning_id }}</h4>
+  </div>
+
+  {% if metrics and metrics.get('data_points', 0) > 0 %}
+  <div class="summary-stats">
+    {% if metrics.get('avg_train_loss') is not none %}
+    <div class="stat-card">
+      <div class="stat-label">Average Training Loss</div>
+      <div class="stat-value">{{ "%.6g"|format(metrics['avg_train_loss']) }}</div>
+    </div>
+    {% endif %} {% if metrics.get('avg_valid_loss') is not none %}
+    <div class="stat-card">
+      <div class="stat-label">Average Validation Loss</div>
+      <div class="stat-value">{{ "%.6g"|format(metrics['avg_valid_loss']) }}</div>
+    </div>
+    {% endif %} {% if metrics.get('max_train_accuracy') is not none %}
+    <div class="stat-card">
+      <div class="stat-label">Max Training Accuracy</div>
+      <div class="stat-value">{{ "%.2f%%"|format(metrics['max_train_accuracy'] * 100) }}</div>
+    </div>
+    {% endif %} {% if metrics.get('max_valid_accuracy') is not none %}
+    <div class="stat-card">
+      <div class="stat-label">Max Validation Accuracy</div>
+      <div class="stat-value">{{ "%.2f%%"|format(metrics['max_valid_accuracy'] * 100) }}</div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="table-responsive">
+    <div class="border rounded shadow-sm">
+      <table class="table">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">Step</th>
+            <th scope="col">Training Loss</th>
+            <th scope="col">Validation Loss</th>
+            <th scope="col">Training Accuracy</th>
+            <th scope="col">Validation Accuracy</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for i in range(metrics['step']|length) %}
+          <tr class="text-center">
+            <td>{{ metrics['step'][i] if metrics['step'][i] is not none else 'N/A' }}</td>
+            <td>
+              {% if metrics['train_loss'] and metrics['train_loss'][i] is not none %} {{ "%.6g"|format(metrics['train_loss'][i]) }} {% else %} N/A {%
+              endif %}
+            </td>
+            <td>
+              {% if metrics['valid_loss'] and metrics['valid_loss'][i] is not none %} {{ "%.6g"|format(metrics['valid_loss'][i]) }} {% else %} N/A {%
+              endif %}
+            </td>
+            <td>
+              {% if metrics['train_accuracy'] and metrics['train_accuracy'][i] is not none %} {{ "%.2f%%"|format(metrics['train_accuracy'][i] * 100)
+              }} {% else %} N/A {% endif %}
+            </td>
+            <td>
+              {% if metrics['valid_mean_token_accuracy'] and metrics['valid_mean_token_accuracy'][i] is not none %} {{
+              "%.2f%%"|format(metrics['valid_mean_token_accuracy'][i] * 100) }} {% else %} N/A {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if total_pages and total_pages > 1 %}
+    <nav class="mt-3" aria-label="Page navigation">
+      <ul class="pagination justify-content-end">
+        {% if current_page > 1 %}
+        <li class="page-item">
+          <a href="#" class="page-link" onclick="loadStepsPage('{{ fine_tuning_id }}', 1); return false;" aria-label="First">First</a>
+        </li>
+
+        <li class="page-item">
+          <a href="#" class="page-link" onclick="loadStepsPage('{{ fine_tuning_id }}', {{ current_page-1 }}); return false;" aria-label="Previous"
+            >&laquo;</a
+          >
+        </li>
+        {% endif %} {% set window_size = 5 %}
+        <!--  -->
+        {% set window_start = [(current_page - (window_size//2)), 1]|max %}
+        <!--  -->
+        {% set window_end = [(window_start + window_size - 1), total_pages]|min %}
+        <!--  -->
+        {% set window_start = [(window_end - window_size + 1), 1]|max %}
+        <!--  -->
+        {% if window_start > 1 %}
+        <li class="page-item">
+          <a href="#" class="page-link" onclick="loadStepsPage('{{ fine_tuning_id }}', 1); return false;">1</a>
+        </li>
+
+        {% if window_start > 2 %}
+        <li class="page-item disabled"><span class="page-link">...</span></li>
+        {% endif %}
+        <!--  -->
+        {% endif %}
+        <!--  -->
+        {% for p in range(window_start, window_end + 1) %}
+        <li class="page-item">
+          <a
+            href="#"
+            onclick="loadStepsPage('{{ fine_tuning_id }}', {{ p }}); return false;"
+            class="page-link {{ 'active' if p == current_page else '' }}"
+            >{{ p }}</a
+          >
+        </li>
+        {% endfor %}
+        <!--  -->
+        {% if window_end < total_pages %} {% if window_end < total_pages - 1 %}
+        <li class="page-item disabled">
+          <span class="page-link">...</span>
+        </li>
+        {% endif %}
+
+        <li class="page-item">
+          <a href="#" class="page-link" onclick="loadStepsPage('{{ fine_tuning_id }}', {{ total_pages }}); return false;">{{ total_pages }}</a>
+        </li>
+        {% endif %}
+        <!--  -->
+        {% if current_page < total_pages %}
+        <li class="page-item">
+          <a href="#" class="page-link" onclick="loadStepsPage('{{ fine_tuning_id }}', {{ current_page+1 }}); return false;" aria-label="Next"
+            >&raquo;</a
+          >
+        </li>
+
+        <li class="page-item">
+          <a href="#" class="page-link" onclick="loadStepsPage('{{ fine_tuning_id }}', {{ total_pages }}); return false;" aria-label="Last">Last</a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %} {% else %}
+    <div class="alert alert-warning">No metrics data available. Please check if the fine-tuning job has started generating metrics.</div>
+    {% endif %}
+  </div>
+</div>

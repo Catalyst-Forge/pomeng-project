@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!-- templates/partials/details.html -->
+{% extends 'dashboard.html' %} {% block content %}
+
+<header class="d-flex justify-content-end">
+  <a
+    href="{{ referrer }}"
+    class="icon-link icon-link-hover link-secondary link-underline-opacity-25 link-underline-opacity-100-hover align-items-baseline mb-3"
+    style="--bs-icon-link-transform: translate3d(-0.25rem, 0, 0)"
+  >
+    <i class="bi bi-arrow-left"></i> Kembali
+  </a>
+</header>
+
+<div class="card mb-3">
+  <div class="card-header">
+    <h1 class="fs-3">Model Information</h1>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="card-title fs-4">Basic Info</h2>
+
+        <ul class="list-unstyled">
+          <li><strong>Name:</strong> {{ data.training_metadata.model_info.name }}</li>
+          <li><strong>Creation Date:</strong> {{ data.training_metadata.model_info.creation_date }}</li>
+          <li><strong>Framework Version:</strong> {{ data.training_metadata.model_info.framework_version }}</li>
+        </ul>
+      </div>
+
+      <div class="col-md-6">
+        <h2 class="card-title fs-4">Data Information</h2>
+
+        <ul class="list-unstyled">
+          <li><strong>Training Samples:</strong> {{ data.training_metadata.data_info.training_samples }}</li>
+          <li><strong>Vocabulary Size:</strong> {{ data.training_metadata.data_info.vocab_size }}</li>
+          <li><strong>Number of Classes:</strong> {{ data.training_metadata.data_info.num_classes }}</li>
+          <li><strong>Sequence Length:</strong> {{ data.training_metadata.data_info.sequence_length }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">
+    <h1 class="fs-3">Model Architecture</h1>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="card-title fs-4">Embedding Configuration</h2>
+
+        <ul class="list-unstyled">
+          <li><strong>Dimension:</strong> {{ data.training_metadata.model_architecture.embedding.dim }}</li>
+          <li><strong>Mask Zero:</strong> {{ data.training_metadata.model_architecture.embedding.mask_zero }}</li>
+          <li><strong>Dropout:</strong> {{ data.training_metadata.model_architecture.embedding.dropout }}</li>
+        </ul>
+
+        <h2 class="card-title fs-4">Output Activation: {{ data.training_metadata.model_architecture.output_activation }}</h2>
+      </div>
+
+      <div class="col-md-6">
+        <h2 class="card-title fs-4">Layers</h2>
+
+        {% for layer in data.training_metadata.model_architecture.layers %}
+        <div class="layer-info mb-3">
+          <h3 class="fs-5">Layer Type: {{ layer.type }}</h3>
+
+          <ul class="list-unstyled">
+            {% for param_name, param_value in layer.params.items() %}
+            <li><strong>{{ param_name }}:</strong> {{ param_value }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">
+    <h1 class="fs-3">Training Configuration</h1>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="card-title fs-4">Optimizer</h2>
+
+        <ul class="list-unstyled">
+          <li><strong>Name:</strong> {{ data.training_metadata.training_config.optimizer.name }}</li>
+          {% for param_name, param_value in data.training_metadata.training_config.optimizer.params.items() %}
+          <li><strong>{{ param_name }}:</strong> {{ param_value }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="col-md-6">
+        <h2 class="card-title fs-4">Training Parameters</h2>
+
+        <ul class="list-unstyled">
+          <li><strong>Batch Size:</strong> {{ data.training_metadata.training_config.batch_size }}</li>
+          <li><strong>Epochs:</strong> {{ data.training_metadata.training_config.epochs }}</li>
+          <li><strong>Metrics:</strong> {{ data.training_metadata.training_config.metrics|join(', ') }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">
+    <h1 class="fs-3">Training Results</h1>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="card-title fs-4">Timing</h2>
+
+        <ul class="list-unstyled">
+          <li><strong>Start Time:</strong> {{ data.training_metadata.training_results.start_time }}</li>
+          <li><strong>End Time:</strong> {{ data.training_metadata.training_results.end_time }}</li>
+          <li><strong>Total Duration:</strong> {{ data.training_metadata.training_results.total_duration }}</li>
+          <li><strong>Total Steps:</strong> {{ data.training_metadata.training_results.total_steps }}</li>
+        </ul>
+      </div>
+
+      <div class="col-md-6">
+        <h2 class="card-title fs-4">Performance Metrics</h2>
+
+        <ul class="list-unstyled">
+          <li><strong>Final Accuracy:</strong> {{ "%.2f"|format(data.training_metadata.training_results.final_accuracy * 100) }}%</li>
+          <li><strong>Final Loss:</strong> {{ "%.4f"|format(data.training_metadata.training_results.final_loss) }}</li>
+          <li><strong>Best Accuracy:</strong> {{ "%.2f"|format(data.training_metadata.training_results.best_accuracy * 100) }}%</li>
+          <li><strong>Best Epoch:</strong> {{ data.training_metadata.training_results.best_epoch }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">
+    <h1 class="fs-3">System Information</h1>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="card-title fs-4">Environment</h2>
+
+        <ul class="list-unstyled">
+          <li><strong>Python Version:</strong> {{ data.training_metadata.system_info.python_version }}</li>
+          <li><strong>OS Platform:</strong> {{ data.training_metadata.system_info.os_platform }}</li>
+          <li><strong>CPU Count:</strong> {{ data.training_metadata.system_info.cpu_count }}</li>
+        </ul>
+      </div>
+
+      <div class="col-md-6">
+        <h2 class="card-title fs-4">Memory Information</h2>
+
+        <ul class="list-unstyled">
+          <li><strong>Total Memory:</strong> {{ (data.training_metadata.system_info.memory_info.total / (1024**3))|round(2) }} GB</li>
+          <li><strong>Available Memory:</strong> {{ (data.training_metadata.system_info.memory_info.available / (1024**3))|round(2) }} GB</li>
+          <li><strong>Memory Usage:</strong> {{ data.training_metadata.system_info.memory_info.percent }}%</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h2 class="card-title fs-4">GPU Information</h2>
+
+      <ul class="list-unstyled">
+        {% for gpu in data.training_metadata.system_info.gpu_info %}
+        <li><strong>Device:</strong> {{ gpu[0] }} ({{ gpu[1] }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock content %}

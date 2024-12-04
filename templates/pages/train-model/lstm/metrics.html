@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+{% extends "dashboard.html" %} {% block head %}
+<!-- Add Chart.js -->
+{% endblock %} {% block content %}
+<header class="d-flex justify-content-between align-items-center">
+  <h1 class="">Training Metrics for {{ model_name }}</h1>
+  <a
+    href="{{ referrer }}"
+    class="icon-link icon-link-hover link-secondary link-underline-opacity-25 link-underline-opacity-100-hover align-items-baseline mb-3"
+    style="--bs-icon-link-transform: translate3d(-0.25rem, 0, 0)"
+  >
+    <i class="bi bi-arrow-left"></i> Kembali
+  </a>
+</header>
+
+<!-- Summary Cards -->
+
+<section class="row">
+  <div class="col-md-6 p-2">
+    <div class="card shadow-sm">
+      <div class="card-header">
+        <h2 class="card-title fs-4">Final Accuracy</h2>
+      </div>
+
+      <div class="card-body">
+        <p class="card-text">{{ "%.2f"|format(summary.final_accuracy) }}%</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 p-2">
+    <div class="card shadow-sm">
+      <div class="card-header">
+        <h2 class="card-title fs-4">Final Loss</h2>
+      </div>
+
+      <div class="card-body">
+        <p class="card-text">{{ "%.4f"|format(summary.final_loss) }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 p-2">
+    <div class="card shadow-sm">
+      <div class="card-header">
+        <h2 class="card-title fs-4">Best Accuracy (Epoch {{ summary.best_epoch }})</h2>
+      </div>
+
+      <div class="card-body">
+        <p class="card-text">{{ "%.2f"|format(summary.best_accuracy) }}%</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 p-2">
+    <div class="card shadow-sm">
+      <div class="card-header">
+        <h2 class="card-title fs-4">Total Duration</h2>
+      </div>
+
+      <div class="card-body">
+        <p class="card-text">{{ summary.total_duration }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Training Progress Chart -->
+<section class="card shadow-sm mt-2 mb-4">
+  <div class="card-header">
+    <h2 class="card-title fs-4">Trainig Graph</h2>
+  </div>
+
+  <div class="card-body">
+    <canvas id="metricsChart"></canvas>
+  </div>
+</section>
+
+<script>
+  // Create the chart
+  const ctx = document.getElementById('metricsChart').getContext('2d');
+  new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: {{ epochs|tojson|safe }},
+          datasets: [
+              {
+                  label: 'Accuracy',
+                  data: {{ accuracies|tojson|safe }},
+                  borderColor: 'rgb(75, 192, 192)',
+                  backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                  yAxisID: 'y-accuracy',
+              },
+              {
+                  label: 'Loss',
+                  data: {{ losses|tojson|safe }},
+                  borderColor: 'rgb(255, 99, 132)',
+                  backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                  yAxisID: 'y-loss',
+              }
+          ]
+      },
+      options: {
+          responsive: true,
+          interaction: {
+              mode: 'index',
+              intersect: false,
+          },
+          scales: {
+              x: {
+                  display: true,
+                  title: {
+                      display: true,
+                      text: 'Epoch'
+                  }
+              },
+              'y-accuracy': {
+                  display: true,
+                  position: 'left',
+                  title: {
+                      display: true,
+                      text: 'Accuracy'
+                  },
+                  min: 0,
+                  max: 1,
+              },
+              'y-loss': {
+                  display: true,
+                  position: 'right',
+                  title: {
+                      display: true,
+                      text: 'Loss'
+                  },
+                  grid: {
+                      drawOnChartArea: false,
+                  },
+              }
+          }
+      }
+  });
+</script>
+{% endblock %}

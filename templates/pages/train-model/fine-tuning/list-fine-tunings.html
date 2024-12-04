@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% extends "dashboard.html" %} {% block content %}
+<!-- Alert Messages -->
+{% if success_message %}
+<div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+  <i class="bi bi-check-circle me-2"></i>{{ success_message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %} {% if error_message %}
+<div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+  <i class="bi bi-exclamation-circle me-2"></i>{{ error_message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<!-- Header -->
+<header class="my-4 d-flex justify-content-between align-items-center">
+  <h2 class="h3 mb-0">Fine-Tuning Jobs</h2>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createFinetuningModal">Create Fine-Tuning Job</button>
+</header>
+
+<!-- Table Content -->
+{% if finetunings %}
+<div class="table-responsive mb-3">
+  <div class="border rounded shadow-sm">
+    <table class="table table-hover">
+      <thead>
+        <tr class="align-middle">
+          <th class="text-center">Job ID</th>
+          <th>Base Model</th>
+          <th>Fine-Tuned Model</th>
+          <th>Trained Tokens</th>
+          <th>Status</th>
+          <th>Progress</th>
+          <th>Created At</th>
+          <th>Finished At</th>
+          <th class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for finetuning in finetunings %}
+        <tr>
+          <td class="text-center">{{ finetuning.id }}</td>
+          <td>{{ finetuning.data.base_model }}</td>
+          <td>{{ finetuning.data.fine_tuned_model }}</td>
+          <td>{{ finetuning.data.trained_tokens or '-' }}</td>
+          <td>
+            <span
+              class="badge {% if finetuning.data.status == 'succeeded' %}bg-success {% elif finetuning.data.status == 'running' %}bg-primary {% elif finetuning.data.status == 'validating_files' %}bg-info {% elif finetuning.data.status == 'queued' %}bg-secondary {% elif finetuning.data.status == 'failed' %}bg-danger {% elif finetuning.data.status == 'cancelled' %}bg-warning {% else %}bg-light text-dark {% endif %}"
+            >
+              {{ finetuning.data.status.replace('_', ' ') | title }}
+            </span>
+          </td>
+          <td style="min-width: 200px">
+            {% if finetuning.data.status in ['validating_files', 'queued', 'running'] %}
+            <div class="progress" style="height: 10px">
+              <div
+                class="progress-bar progress-bar-striped {% if finetuning.data.status == 'validating_files' %}bg-info {% elif finetuning.data.status == 'queued' %}bg-secondary {% elif finetuning.data.status == 'running' %} {% if finetuning.data.progress < 30 %}bg-danger {% elif finetuning.data.progress < 70 %}bg-warning {% else %}bg-success {% endif %} {% endif %}"
+                role="progressbar"
+                style="width: {{ finetuning.data.progress or 0 }}%;"
+                aria-valuenow="{{ finetuning.data.progress or 0 }}"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                {{ finetuning.data.progress or 0 }}%
+              </div>
+            </div>
+            {% else %} - {% endif %}
+          </td>
+          <td>{{ finetuning.data.created_at }}</td>
+          <td>{{ finetuning.data.finished_at or '-' }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <!-- View Details -->
+              <button class="btn btn-outline-primary btn-sm" type="button" onclick="loadDetails('{{ finetuning.id }}')" title="View Details">
+                <i class="bi bi-info-circle"></i>
+              </button>
+
+              <!-- Show Steps -->
+              <button
+                class="btn btn-outline-info btn-sm"
+                type="button"
+                onclick="showSteps('{{ finetuning.id }}')"
+                {%
+                if
+                not
+                finetuning.data.result_files
+                or
+                finetuning.data.status
+                !="succeeded"
+                %}disabled{%
+                endif
+                %}
+                title="Show Steps"
+              >
+                <i class="bi bi-graph-up"></i>
+              </button>
+
+              <!-- Show Metrics -->
+              <a
+                href="{{ url_for('train_finetuning.show_metrics', fine_tuning_id=finetuning.id) }}"
+                class="btn btn-outline-success btn-sm {% if not finetuning.data.result_files or finetuning.data.status != 'succeeded' %}disabled{% endif %}"
+                title="Show Metrics"
+              >
+                <i class="bi bi-bar-chart"></i>
+              </a>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<div class="card shadow-sm">
+  <div class="card-body text-center py-5">
+    <i class="bi bi-inbox text-muted" style="font-size: 2rem"></i>
+    <p class="h5 mt-3 text-muted">No fine-tuning jobs found</p>
+    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#createFinetuningModal">
+      <i class="bi bi-plus-circle me-2"></i>Create Your First Job
+    </button>
+  </div>
+</div>
+{% endif %}
+
+<!-- Modals -->
+{% include 'partials/create-training-fine-tuning-jobs-modal.html' %} {% include 'partials/fine-tuning-detail-modal.html' %} {% include
+'partials/fine-tuning-steps-graph-modal.html' %} {% endblock %}

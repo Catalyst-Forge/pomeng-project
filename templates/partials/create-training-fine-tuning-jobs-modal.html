@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!-- Modal -->
+<div class="modal fade" id="createFinetuningModal" tabindex="-1" aria-labelledby="createFinetuningModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createFinetuningModalLabel">Create Fine-tuning Job</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/dashboard/train-model/fine-tuning/create-finetuning/jobs" method="POST">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="suffix" class="form-label">Model Suffix <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="suffix" name="suffix" required placeholder="Enter model suffix" />
+            <div class="form-text">A unique identifier for your model</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="model" class="form-label">Model</label>
+            <select class="form-select" id="model" name="model">
+              {% for model in base_models %}
+              <option value="{{ model }}">{{ model.upper() }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="seed" class="form-label">Seed <span class="text-danger">*</span></label>
+            <input type="number" class="form-control" id="seed" name="seed" required placeholder="Enter seed value" />
+            <div class="form-text">Numeric seed for reproducibility</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="batch_size" class="form-label">Batch Size</label>
+                <input type="text" class="form-control disabled" id="batch_size" name="batch_size" placeholder="auto" disabled />
+                <div class="form-text">Leave empty for auto</div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="lr_multiplier" class="form-label">Learning Rate Multiplier</label>
+                <input type="text" class="form-control disabled" id="lr_multiplier" name="lr_multiplier" placeholder="auto" disabled />
+                <div class="form-text">Leave empty for auto</div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="epochs" class="form-label">Epochs</label>
+                <input type="text" class="form-control disabled" id="epochs" name="epochs" placeholder="auto" disabled />
+                <div class="form-text">Leave empty for auto</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Create Model</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

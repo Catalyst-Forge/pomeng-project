@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends 'dashboard.html' %} {% block content %}
+<section class="min-h-screen bg-gray-100">
+  <div class="container mx-auto px-4 py-12">
+    <header>
+      <h1 class="">Fine-tuning Dashboard</h1>
+    </header>
+
+    <div class="row mt-4">
+      <!-- Model List Card -->
+      <div class="col-6">
+        <a href="{{ url_for('train_finetuning.list_models') }}" class="card card-hover rounded-4 text-decoration-none overflow-hidden h-100">
+          <div class="card-shadow gradient-bg p-4 text-white d-flex flex-column justify-content-between h-100">
+            <div class="icon-container d-flex align-items-center justify-content-center rounded-circle mb-3">
+              <i class="bi bi-collection"></i>
+            </div>
+
+            <h2>Available Models</h2>
+
+            <p>View and Select available GPT models or Finetuning Jobs for your Chatbot</p>
+
+            <div>
+              <span>Explore Models</span>
+              <i class="bi bi-chevron-right"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-6">
+        <!-- Fine-tuning List Card -->
+        <a href="{{ url_for('train_finetuning.list_finetunings') }}" class="card card-hover rounded-4 text-decoration-none overflow-hidden h-100">
+          <div class="card-shadow gradient-bg p-4 text-white d-flex flex-column justify-content-between h-100">
+            <div class="icon-container d-flex align-items-center justify-content-center rounded-circle mb-3">
+              <i class="bi bi-lightning-charge"></i>
+            </div>
+
+            <h2>Fine-tuning Jobs</h2>
+
+            <p>Monitor and track your ongoing fine-tuning processes</p>
+
+            <div>
+              <span>View Jobs</span>
+              <i class="bi bi-chevron-right"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
