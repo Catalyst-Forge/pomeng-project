@@ -1,142 +1,129 @@
+<!DOCTYPE html>
 <div class="modal fade" id="createTrainingModal" tabindex="-1" aria-labelledby="createTrainingModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="createTrainingModalLabel"><i class="bi bi-graph-up"></i> Configure Model Training</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="model-form">
-                    <!-- Basic Configuration -->
-                    <div class="card mb-3">
-                        <div class="card-header bg-light">
-                            <h6 class="mb-0">Basic Configuration</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Model Name</label>
-                                    <input type="text" class="form-control" name="model_name" required />
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Batch Size</label>
-                                    <input type="number" class="form-control" name="batch_size" min="16" max="256" value="32" required />
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Epochs</label>
-                                    <input type="number" class="form-control" name="epochs" min="1" max="100" value="10" required />
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Output Activation</label>
-                                    <select class="form-select" name="output_activation">
-                                        <option value="softmax">Softmax</option>
-                                        <option value="sigmoid">Sigmoid</option>
-                                        <option value="linear">Linear</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createTrainingModalLabel"><i class="bi bi-graph-up me-2"></i> Configure Model Training</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-                    <!-- Embedding Configuration -->
-                    <div class="card mb-3">
-                        <div class="card-header bg-light">
-                            <h6 class="mb-0">Embedding Configuration</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-md-4">
-                                    <label class="form-label">Embedding Dimension</label>
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        name="embedding_dim"
-                                        min="50"
-                                        max="300"
-                                        value="100"
-                                        required
-                                    />
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Embedding Dropout</label>
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        name="embedding_dropout"
-                                        min="0"
-                                        max="1"
-                                        step="0.1"
-                                        value="0.2"
-                                    />
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Mask Zero</label>
-                                    <select class="form-select" name="mask_zero">
-                                        <option value="true">True</option>
-                                        <option value="false">False</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Layer Configuration -->
-                    <div class="card mb-3">
-                        <div class="card-header bg-light d-flex justify-content-between align-items-center">
-                            <h6 class="mb-0">Layer Configuration</h6>
-                            <button type="button" class="btn btn-sm btn-primary" onclick="addLayer()">
-                                <i class="bi bi-plus-circle"></i> Add Layer
-                            </button>
-                        </div>
-                        <div class="card-body">
-                            <div id="layers-container"></div>
-                        </div>
-                    </div>
-
-                    <!-- Optimizer Configuration -->
-                    <div class="card mb-3">
-                        <div class="card-header bg-light">
-                            <h6 class="mb-0">Optimizer Configuration</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Optimizer</label>
-                                    <select class="form-select" name="optimizer_name" onchange="updateOptimizerParams()">
-                                        <option value="adam">Adam</option>
-                                        <option value="sgd">SGD</option>
-                                        <option value="rmsprop">RMSprop</option>
-                                        <option value="adagrad">Adagrad</option>
-                                        <option value="adadelta">Adadelta</option>
-                                        <option value="adamax">Adamax</option>
-                                        <option value="nadam">Nadam</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Learning Rate</label>
-                                    <input
-                                        type="number"
-                                        class="form-control"
-                                        name="learning_rate"
-                                        step="0.0001"
-                                        min="0.0001"
-                                        max="0.1"
-                                        value="0.001"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div id="optimizer-params" class="row"></div>
-                        </div>
-                    </div>
-                </form>
+      <div class="modal-body">
+        <form id="model-form">
+          <!-- Basic Configuration -->
+          <div class="card mb-3">
+            <div class="card-header bg-light">
+              <h6 class="mb-0">Basic Configuration</h6>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="trainModel()"><i class="bi bi-play-circle"></i> Train Model</button>
+
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Model Name</label>
+                  <input type="text" class="form-control" name="model_name" required />
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Batch Size</label>
+                  <input type="number" class="form-control" name="batch_size" min="16" max="256" value="32" required />
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Epochs</label>
+                  <input type="number" class="form-control" name="epochs" min="1" max="100" value="10" required />
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Output Activation</label>
+                  <select class="form-select" name="output_activation">
+                    <option value="softmax">Softmax</option>
+                    <option value="sigmoid">Sigmoid</option>
+                    <option value="linear">Linear</option>
+                  </select>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
+
+          <!-- Embedding Configuration -->
+          <div class="card mb-3">
+            <div class="card-header bg-light">
+              <h6 class="mb-0">Embedding Configuration</h6>
+            </div>
+
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-md-4">
+                  <label class="form-label">Embedding Dimension</label>
+                  <input type="number" class="form-control" name="embedding_dim" min="50" max="300" value="100" required />
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Embedding Dropout</label>
+                  <input type="number" class="form-control" name="embedding_dropout" min="0" max="1" step="0.1" value="0.2" />
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Mask Zero</label>
+                  <select class="form-select" name="mask_zero">
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Layer Configuration -->
+          <div class="card mb-3">
+            <div class="card-header bg-light d-flex justify-content-between align-items-center">
+              <h6 class="mb-0">Layer Configuration</h6>
+              <button type="button" class="btn btn-sm btn-primary" onclick="addLayer()"><i class="bi bi-plus-circle"></i> Add Layer</button>
+            </div>
+
+            <div class="card-body">
+              <div id="layers-container"></div>
+            </div>
+          </div>
+
+          <!-- Optimizer Configuration -->
+          <div class="card mb-3">
+            <div class="card-header bg-light">
+              <h6 class="mb-0">Optimizer Configuration</h6>
+            </div>
+
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label">Optimizer</label>
+                  <select class="form-select" name="optimizer_name" onchange="updateOptimizerParams()">
+                    <option value="adam">Adam</option>
+                    <option value="sgd">SGD</option>
+                    <option value="rmsprop">RMSprop</option>
+                    <option value="adagrad">Adagrad</option>
+                    <option value="adadelta">Adadelta</option>
+                    <option value="adamax">Adamax</option>
+                    <option value="nadam">Nadam</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Learning Rate</label>
+                  <input type="number" class="form-control" name="learning_rate" step="0.0001" min="0.0001" max="0.1" value="0.001" required />
+                </div>
+              </div>
+
+              <div id="optimizer-params" class="row"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="trainModel()"><i class="bi bi-play-circle"></i> Train Model</button>
+      </div>
     </div>
+  </div>
 </div>
