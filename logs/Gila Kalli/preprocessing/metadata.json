@@ -1,8 +1,0 @@
-{
-    "preprocessing_date": "2024-11-25T05:31:33.148653",
-    "vocab_size": 402,
-    "num_classes": 73,
-    "num_patterns": 1464,
-    "max_sequence_length": 15,
-    "model_name": "Gila Kalli"
-}

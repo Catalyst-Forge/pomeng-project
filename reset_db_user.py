@@ -23,7 +23,8 @@ def reset_database(app):
                 username="admin",
                 fullname="Administrator",
                 email="admin@example.com",
-                is_active=True
+                is_active=True,
+                role='admin'
             )
             admin_user.set_password("admin123")  # Remember to change this in production
             

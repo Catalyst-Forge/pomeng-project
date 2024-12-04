@@ -1,8 +1,0 @@
-{
-    "preprocessing_date": "2024-11-24T21:20:48.350872",
-    "vocab_size": 404,
-    "num_classes": 74,
-    "num_patterns": 1539,
-    "max_sequence_length": 15,
-    "model_name": "Alan Sange"
-}
