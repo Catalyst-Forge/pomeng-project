@@ -2,11 +2,11 @@ from flask import Blueprint, request, jsonify, redirect, url_for, render_templat
 from models.lstm_model import db, Lstm, save_to_json
 from flask_login import login_required
 
-lstm = Blueprint("lstm", __name__)
+lstm = Blueprint("lstm", __name__, url_prefix="/dashboard/dataset/lstm")
 
 
 # Read all dataset
-@lstm.route("/dashboard/dataset", methods=["GET"])
+@lstm.route("/list", methods=["GET"])
 @login_required
 def read_lstm():
     page = request.args.get("page", 1, type=int)
@@ -15,7 +15,7 @@ def read_lstm():
     start_number = (page - 1) * per_page + 1
 
     return render_template(
-        "pages/dataset.html",
+        "pages/dataset-lstm.html",
         lstm=lstm_query.items,
         pagination=lstm_query,
         start_number=start_number,
@@ -23,7 +23,7 @@ def read_lstm():
 
 
 # Create an dataset
-@lstm.route("/dashboard/dataset/create", methods=["POST"])
+@lstm.route("/create", methods=["POST"])
 @login_required
 def create_lstm():
     tag = request.form["tag"]
@@ -40,7 +40,7 @@ def create_lstm():
 
 
 # Update an dataset
-@lstm.route("/dashboard/dataset/<int:id>/update", methods=["POST"])
+@lstm.route("/<int:id>/update", methods=["POST"])
 @login_required
 def update_lstm(id):
     lstm = Lstm.query.get(id)
@@ -61,7 +61,7 @@ def update_lstm(id):
 
 
 # Delete an dataset
-@lstm.route("/dashboard/dataset/<int:id>/delete", methods=["POST"])
+@lstm.route("/<int:id>/delete", methods=["POST"])
 @login_required
 def delete_lstm(id):
     lstm = Lstm.query.get(id)
