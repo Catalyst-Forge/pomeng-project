@@ -80,13 +80,9 @@ if (currentPage.startsWith("/dashboard")) {
     const breadcrumbLinks = document.querySelectorAll(".breadcrumb-link");
 
     breadcrumbLinks.forEach((bcLink) => {
-      if (bcLink.href.endsWith("/dashboard/dataset/fine-tuning")) {
-        bcLink.setAttribute("href", "/dashboard/dataset/fine-tuning/list");
-      }
-
-      if (bcLink.href.endsWith("/dashboard/dataset")) {
-        bcLink.setAttribute("href", "/dashboard/dataset/list");
-      }
+      if (bcLink.href.endsWith("/dashboard/dataset/fine-tuning")) bcLink.setAttribute("href", "/dashboard/dataset/fine-tuning/list");
+      if (bcLink.href.endsWith("/dashboard/dataset")) bcLink.setAttribute("href", "/dashboard/dataset/lstm/list");
+      if (bcLink.href.endsWith("/dashboard/train-model/lstm")) bcLink.setAttribute("href", "/dashboard/train-model/lstm/manage/model");
     });
   });
 
@@ -161,7 +157,7 @@ if (currentPage.startsWith("/dashboard")) {
 /**
  *  Function for Dataset Page
  */
-if (currentPage === "/dashboard/dataset") {
+if (currentPage === "/dashboard/dataset/lstm/list") {
   const container = document.querySelector("#content");
   CRUDDatasetHandler(container);
 
