@@ -1,0 +1,41 @@
+<section>
+  <div id="createModal" class="modal fade" tabindex="-1" aria-labelledby="createModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h3 class="modal-title">Create New LSTM Dataset</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </header>
+
+        <form id="create-form" class="modal-body" action="{{ url_for('lstm.create_lstm') }}" method="POST">
+          <div class="mb-3">
+            <label for="create-tag" class="form-label">Tag:</label>
+            <input type="text" class="form-control" id="create-tag" name="tag" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="create-patterns" class="form-label">Patterns:</label>
+            <div id="create-patterns-list" class="patterns-list">
+              <div class="pattern-input input-group mb-2">
+                <input type="text" class="form-control" name="patterns[]" placeholder="Enter pattern" required />
+                <button type="button" class="remove-pattern btn btn-danger">Remove</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <button type="button" class="btn btn-primary" id="add-create-pattern">Add Pattern</button>
+          </div>
+
+          <div class="mb-3">
+            <label for="create-responses" class="form-label">Responses:</label>
+            <input type="text" class="form-control" id="create-responses" name="responses" required />
+          </div>
+
+          <input type="hidden" id="create-patterns-hidden" name="patterns_hidden" />
+          <button type="submit" class="btn btn-success">Add Dataset</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

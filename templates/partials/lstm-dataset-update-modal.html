@@ -1,0 +1,33 @@
+<section>
+  <div id="updateModal" class="modal fade" tabindex="-1" aria-labelledby="updateModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h3 class="modal-title">Update LSTM Dataset</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </header>
+
+        <form id="update-form" class="modal-body" method="POST">
+          <input type="hidden" id="intent-id" name="id" value="" />
+
+          <div class="mb-3">
+            <label for="update-tag" class="form-label">Tag</label>
+            <input type="text" class="form-control" id="update-tag" name="tag" value="" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="update-patterns" class="form-label">Patterns</label>
+            <input type="text" class="form-control" id="update-patterns" name="patterns" value="" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="update-responses" class="form-label">Responses</label>
+            <input type="text" class="form-control" id="update-responses" name="responses" value="" required />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Update Dataset</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
