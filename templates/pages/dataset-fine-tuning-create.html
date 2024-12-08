@@ -4,27 +4,27 @@
 
 <h1 class="my-3">Tambah Percakapan</h1>
 
-<form method="POST">
+<form id="create-form" method="POST">
   <div class="mb-3">
     <label for="system" class="form-label">System:</label>
-    <textarea class="form-control" name="system" required></textarea>
+    <textarea class="form-control" id="systemConversation" name="system"></textarea>
   </div>
 
   <div class="mb-3">
     <label for="user" class="form-label">User:</label>
-    <textarea class="form-control" name="user" required></textarea>
+    <textarea class="form-control" id="userConversation" name="user"></textarea>
   </div>
 
   <div class="mb-3">
     <label for="assistant" class="form-label">Assistant:</label>
-    <textarea class="form-control" name="assistant" required></textarea>
+    <textarea class="form-control" id="assistantConversation" name="assistant"></textarea>
   </div>
   <button type="submit" class="btn btn-outline-success">Tambah Percakapan</button>
 </form>
 
 <a
   href="{{ url_for('fineTuning.view_finetuning_data') }}"
-  class="icon-link icon-link-hover link-secondary link-underline-opacity-25 link-underline-opacity-100-hover align-items-baseline mt-3"
+  class="icon-link icon-link-hover link-body-emphasis link-underline-opacity-25 link-underline-opacity-100-hover align-items-baseline my-3"
   style="--bs-icon-link-transform: translate3d(-0.25rem, 0, 0)"
 >
   <i class="bi bi-arrow-left"></i> Kembali ke daftar percakapan

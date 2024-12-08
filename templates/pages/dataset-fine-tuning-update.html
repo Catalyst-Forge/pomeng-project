@@ -4,11 +4,12 @@
 
 <h1 class="my-3">Perbarui Percakapan</h1>
 
-<form method="POST">
+<form id="update-form" method="POST">
   {% for message in finetuning.messages %}
   <div class="mb-3">
     <label for="{{ message.role }}" class="form-label">{{ message.role | capitalize }}</label>
-    <input type="text" class="form-control" name="{{ message.role }}" value="{{ message.content }}" required />
+    <!-- <input type="text" class="form-control" name="{{ message.role }}" value="{{ message.content }}" required /> -->
+    <textarea class="form-control" name="{{ message.role }}" id="{{ message.role }}Conversation">{{ message.content }}</textarea>
   </div>
   {% endfor %}
   <button type="submit" class="btn btn-outline-success">Perbarui</button>
@@ -16,7 +17,7 @@
 
 <a
   href="{{ url_for('fineTuning.view_finetuning_data') }}"
-  class="icon-link icon-link-hover link-secondary link-underline-opacity-25 link-underline-opacity-100-hover align-items-baseline mt-3"
+  class="icon-link icon-link-hover link-body-emphasis link-underline-opacity-25 link-underline-opacity-100-hover align-items-baseline my-3"
   style="--bs-icon-link-transform: translate3d(-0.25rem, 0, 0)"
 >
   <i class="bi bi-arrow-left"></i> Kembali ke daftar percakapan
