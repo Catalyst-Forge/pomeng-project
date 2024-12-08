@@ -33,15 +33,8 @@
           </a>
         </div>
 
-        <div class="sidebar-item">
-          <a href="/analytic" class="sidebar-link">
-            <i class="bi bi-bar-chart"></i>
-            Analytic
-          </a>
-        </div>
-
         <div class="sidebar-item has-sub">
-          <div class="sidebar-link">
+          <div class="sidebar-link-wrapper">
             <i class="bi bi-clipboard-data"></i>
             <span>Dataset</span>
           </div>
@@ -58,7 +51,7 @@
         </div>
 
         <div class="sidebar-item has-sub">
-          <div class="sidebar-link">
+          <div class="sidebar-link-wrapper">
             <i class="bi bi-graph-up"></i>
             <span>Training Models</span>
           </div>
@@ -78,8 +71,8 @@
       <div class="menu mb-4">
         <div class="sidebar-item mb-3 border-top">
           <a href="{{ url_for('auth.logout') }}" class="sidebar-link">
-            <i class="bi bi-gear"></i>
-            Settings
+            <i class="bi bi-box-arrow-right"></i>
+            Logout
           </a>
         </div>
 
