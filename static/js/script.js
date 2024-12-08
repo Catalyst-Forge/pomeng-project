@@ -1,6 +1,7 @@
 import { handleChat } from "./utils/handleChat.js";
 import { CRUDDatasetHandler } from "./utils/crudDatasetHandler.js";
 import { generateBreadcrumb } from "./utils/generateBreadcrumb.js";
+import { createSunEditor } from "./utils/createSunEditor.js";
 
 const currentPage = window.location.pathname;
 
@@ -119,7 +120,7 @@ if (currentPage.startsWith("/dashboard")) {
         links.forEach((link) => {
           const linkUrl = new URL(link.href, window.location.href).pathname;
 
-          if (linkUrl === currentPage) {
+          if (linkUrl.includes(`/${segments[2]}/${segments[3]}`) === currentPage.includes(`/${segments[2]}/${segments[3]}`) && segments.length > 2) {
             item.classList.add("active");
             link.classList.add("active");
 
@@ -127,6 +128,9 @@ if (currentPage.startsWith("/dashboard")) {
             if (submenu) {
               submenu.classList.replace("submenu-closed", "submenu-open");
             }
+          } else if (linkUrl === currentPage) {
+            item.classList.add("active");
+            link.classList.add("active");
           }
         });
       });
@@ -155,7 +159,7 @@ if (currentPage.startsWith("/dashboard")) {
 }
 
 /**
- *  Function for Dataset Page
+ *  Function for LSTM Dataset Page
  */
 if (currentPage === "/dashboard/dataset/lstm/list") {
   const container = document.querySelector("#content");
@@ -184,9 +188,8 @@ if (currentPage === "/dashboard/dataset/lstm/list") {
 }
 
 /**
- *  Function for Fine Tuning Page
+ *  Function for Fine-tuning Dataset Page
  */
-
 if (currentPage === "/dashboard/dataset/fine-tuning/list") {
   document.addEventListener("DOMContentLoaded", () => {
     const deleteForms = document.querySelectorAll(".delete-form");
@@ -211,6 +214,58 @@ if (currentPage === "/dashboard/dataset/fine-tuning/list") {
           }
         });
       });
+    });
+  });
+}
+
+/**
+ *  Function for Add Dataset Fine-tuning Page
+ */
+if (currentPage === "/dashboard/dataset/fine-tuning/add") {
+  // Create Textarea Sun Editor
+  const systemConversation = document.querySelector("#systemConversation"),
+    userConversation = document.querySelector("#userConversation"),
+    assistantConversation = document.querySelector("#assistantConversation"),
+    systemConversationEditor = createSunEditor(systemConversation),
+    userConversationEditor = createSunEditor(userConversation),
+    assistantConversationEditor = createSunEditor(assistantConversation);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Handle for textarea Sun Editor
+    document.getElementById("create-form").addEventListener("submit", (e) => {
+      const systemConversationEditorContent = systemConversationEditor.getContents(),
+        userConversationEditorContent = userConversationEditor.getContents(),
+        assistantConversationEditorContent = assistantConversationEditor.getContents();
+
+      systemConversation.value = systemConversationEditorContent;
+      userConversation.value = userConversationEditorContent;
+      assistantConversation.value = assistantConversationEditorContent;
+    });
+  });
+}
+
+/**
+ *  Function for Update Dataset Fine-tuning Page
+ */
+if (currentPage.includes("/dashboard/dataset/fine-tuning") && currentPage.endsWith("/update")) {
+  // Create Textarea Sun Editor
+  const systemConversation = document.querySelector("#systemConversation"),
+    userConversation = document.querySelector("#userConversation"),
+    assistantConversation = document.querySelector("#assistantConversation"),
+    systemConversationEditor = createSunEditor(systemConversation),
+    userConversationEditor = createSunEditor(userConversation),
+    assistantConversationEditor = createSunEditor(assistantConversation);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Handle for textarea Sun Editor
+    document.getElementById("update-form").addEventListener("submit", (e) => {
+      const systemConversationEditorContent = systemConversationEditor.getContents(),
+        userConversationEditorContent = userConversationEditor.getContents(),
+        assistantConversationEditorContent = assistantConversationEditor.getContents();
+
+      systemConversation.value = systemConversationEditorContent;
+      userConversation.value = userConversationEditorContent;
+      assistantConversation.value = assistantConversationEditorContent;
     });
   });
 }
