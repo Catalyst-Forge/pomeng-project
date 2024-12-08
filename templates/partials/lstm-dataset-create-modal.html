@@ -1,6 +1,6 @@
 <section>
   <div id="createModal" class="modal fade" tabindex="-1" aria-labelledby="createModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
       <div class="modal-content">
         <header class="modal-header">
           <h3 class="modal-title">Create New LSTM Dataset</h3>
@@ -29,7 +29,7 @@
 
           <div class="mb-3">
             <label for="create-responses" class="form-label">Responses:</label>
-            <input type="text" class="form-control" id="create-responses" name="responses" required />
+            <textarea id="editor" name="responses"></textarea>
           </div>
 
           <input type="hidden" id="create-patterns-hidden" name="patterns_hidden" />

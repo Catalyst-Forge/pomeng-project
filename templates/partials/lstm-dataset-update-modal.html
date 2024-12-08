@@ -18,11 +18,14 @@
           <div class="mb-3">
             <label for="update-patterns" class="form-label">Patterns</label>
             <input type="text" class="form-control" id="update-patterns" name="patterns" value="" required />
+            <span class="text-body ms-2"
+              ><sub>Tekan <kbd>Enter</kbd> untuk menambahkan pattern</sub></span
+            >
           </div>
 
           <div class="mb-3">
             <label for="update-responses" class="form-label">Responses</label>
-            <input type="text" class="form-control" id="update-responses" name="responses" value="" required />
+            <textarea name="responses" id="update-responses" value></textarea>
           </div>
 
           <button type="submit" class="btn btn-primary">Update Dataset</button>
