@@ -5,7 +5,6 @@
   --blue-darker: #002080;
   --blue-dark: #0040a0;
   --blue: #0060c0;
-  --blue-light: #0080e0;
   --blue-lighter: #00a0ff;
   --blue-lightest: rgb(64, 192, 255);
   --blue-pale: #80e0ff;
@@ -14,6 +13,9 @@
   --sidebar-link-active: var(--blue);
   --bs-primary: var(--blue);
   --nav-brand-color: var(--blue-darkest);
+  --text-body: var(--bs-body-color);
+  --body-bg: var(--bs-body-bg);
+  --secondary-bg: var(--bs-secondary-bg);
 }
 
 [data-bs-theme="dark"] {
@@ -21,6 +23,9 @@
   --sidebar-link: #5a83f5;
   --sidebar-link-active: #92aef9;
   --nav-brand-color: var(--blue-lighter);
+  --text-body: var(--bs-body-color);
+  --body-bg: var(--bs-body-bg);
+  --secondary-bg: var(--bs-secondary-bg);
 }
 
 #sidebar {
@@ -51,7 +56,7 @@
           padding-top: 0.5rem;
           position: relative;
 
-          & .sidebar-link {
+          & :is(.sidebar-link, .sidebar-link-wrapper) {
             padding: 0.5rem 0.75rem;
             font-size: 1rem;
             display: flex;
@@ -73,7 +78,7 @@
           }
 
           &.active {
-            & .sidebar-link {
+            & :is(.sidebar-link, .sidebar-link-wrapper) {
               background-color: var(--blue-dark);
               color: var(--blue-paler);
 
@@ -92,7 +97,7 @@
             overflow: hidden;
             position: relative;
 
-            & > .sidebar-link:after {
+            & > .sidebar-link-wrapper:after {
               content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9" style="fill:none;stroke:gray;stroke-width:2"></polyline></svg>');
               margin-left: auto;
               width: 20px;
@@ -100,7 +105,7 @@
               transition: 300ms;
             }
 
-            &.active > .sidebar-link:after {
+            &.active > .sidebar-link-wrapper:after {
               content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9" style="fill:none;stroke:white;stroke-width:2"></polyline></svg>');
               rotate: 180deg;
             }
@@ -332,6 +337,32 @@
   height: 4rem;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
+}
+
+.text-response-bot > :is(p, ul, ol) {
+  display: inline;
+
+  & > li {
+    margin-left: 3rem;
+  }
+}
+
+.sun-editor {
+  border-radius: 0.25rem;
+  overflow: hidden;
+
+  & * {
+    background-color: var(--body-bg) !important;
+    color: var(--text-body) !important;
+  }
+
+  & .se-btn-module-border {
+    overflow: hidden;
+  }
+
+  & :is(.se-btn:enabled:focus, .se-btn:enabled:hover) {
+    background-color: var(--secondary-bg) !important;
+  }
 }
 
 /* Responsive table scroll */
