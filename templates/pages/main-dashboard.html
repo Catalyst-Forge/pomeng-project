@@ -71,5 +71,29 @@
       </div>
     </div>
   </div>
+
+  <div class="row mt-4">
+    <div class="col-12 col-md">
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <h1 class="card-title fs-4">LSTM Model Active</h1>
+          <h2 class="card-text fs-5 mb-4">Model: {{ lstm_model }}</h2>
+          <p class="card-text">Final Accuracy: {{ "%.2f"|format(summary.final_accuracy) }}&percnt;</p>
+          <p class="card-text">Best Accuracy: {{ '%.2f'|format(summary.best_accuracy) }}&percnt;</p>
+          <p class="card-text">Final Loss: {{ '%.2f'|format(summary.final_loss) }}&percnt;</p>
+          <p class="card-text">Best Epoch: {{ '%.2f'|format(summary.best_epoch) }}&percnt;</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md">
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <h1 class="card-title fs-4">OPENAI Model Active</h1>
+          <h2 class="card-text fs-5">Model: {{ openai_model }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock content %}
