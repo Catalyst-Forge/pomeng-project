@@ -1,3 +1,5 @@
+import { createSunEditor } from "./createSunEditor.js";
+
 export const CRUDDatasetHandler = (container) => {
   // Function for remove pattern button
   const removePattern = (button) => button.closest(".pattern-input").remove();
@@ -24,13 +26,17 @@ export const CRUDDatasetHandler = (container) => {
     containerPattern.appendChild(div);
   };
 
+  // Create Textarea Sun Editor
+  const createResponseEditor = createSunEditor(document.getElementById("editor"));
+  const updateResponseEditor = createSunEditor(document.querySelector("#update-responses"));
+
   // Function to handle update modal
   const openUpdateModal = (id, tag, patterns, responses) => {
     document.querySelector("#intent-id").value = id;
     document.querySelector("#update-tag").value = tag;
     document.querySelector("#update-patterns").value = patterns;
-    document.querySelector("#update-responses").value = responses;
-    document.querySelector("#update-form").action = `/dashboard/dataset/${id}/update`;
+    updateResponseEditor.setContents(responses);
+    document.querySelector("#update-form").action = `/dashboard/dataset/lstm/${id}/update`;
   };
 
   // Main event listener
@@ -45,6 +51,17 @@ export const CRUDDatasetHandler = (container) => {
     addPatternBtn.addEventListener("click", () => addPattern(container.querySelector("#create-patterns-list")));
 
     removePatternButtons.forEach((button) => button.addEventListener("click", () => removePattern(button)));
+
+    // Handle for textarea Sun Editor
+    document.getElementById("create-form").addEventListener("submit", (e) => {
+      const editorContent = createResponseEditor.getContents();
+      document.getElementById("editor").value = editorContent;
+    });
+
+    document.getElementById("update-form").addEventListener("submit", (e) => {
+      const editorContent = updateResponseEditor.getContents();
+      document.getElementById("update-responses").value = editorContent;
+    });
 
     // Handle submit for create intent
     createForm.addEventListener("click", () => {
@@ -79,7 +96,7 @@ export const CRUDDatasetHandler = (container) => {
           confirmButtonText: "Delete",
         }).then((result) => {
           if (result.isConfirmed) {
-            form.action = `/dashboard/dataset/${datasetId}/delete`;
+            form.action = `/dashboard/dataset/lstm/${datasetId}/delete`;
             form.submit();
           }
         });
