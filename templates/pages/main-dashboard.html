@@ -1,97 +1,95 @@
 <!DOCTYPE html>
 {% extends 'dashboard.html' %} {% block content %}
-<div class="container-fluid px-4">
-  <div class="row g-4 mt-4">
-    <div class="col-xl-3 col-md-6">
-      <div class="card bg-primary text-white h-100">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="me-3">
-              <div class="text-white-75">Fine Tuning Jobs</div>
-              <div class="text-lg fw-bold">{{ total_finetuning }}</div>
-            </div>
-            <i class="bi bi-cpu-fill fs-1 text-white-50"></i>
+<div class="row g-4 mt-4">
+  <div class="col-xl-3 col-md-6">
+    <div class="card bg-primary text-white h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="me-3">
+            <div class="text-white-75">Fine Tuning Jobs</div>
+            <div class="text-lg fw-bold">{{ total_finetuning }}</div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-      <div class="card bg-success text-white h-100">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="me-3">
-              <div class="text-white-75">OpenAI Models</div>
-              <div class="text-lg fw-bold">{{ total_openai_models }}</div>
-            </div>
-            <i class="bi bi-code-slash fs-1 text-white-50"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-      <div class="card bg-warning text-white h-100">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="me-3">
-              <div class="text-white-75">Dataset Finetuning</div>
-              <div class="text-lg fw-bold">{{ total_finetuning_records }}</div>
-            </div>
-            <i class="bi bi-database-fill fs-1 text-white-50"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-xl-3 col-md-6">
-      <div class="card bg-danger text-white h-100">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="me-3">
-              <div class="text-white-75">LSTM Dataset</div>
-              <div class="text-lg fw-bold">{{ total_lstm_records }}</div>
-            </div>
-            <i class="bi bi-graph-up-arrow fs-1 text-white-50"></i>
-          </div>
+          <i class="bi bi-cpu-fill fs-1 text-white-50"></i>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row mt-4">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header"><i class="bi bi-person-fill me-1 fs-5"></i> Welcome, {{ current_user.fullname }}!</div>
-        <div class="card-body">
-          <p class="card-text">
-            This is your personalized dashboard where you can track your fine-tuning jobs, OpenAI models, and dataset statistics at a glance.
-          </p>
+  <div class="col-xl-3 col-md-6">
+    <div class="card bg-success text-white h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="me-3">
+            <div class="text-white-75">OpenAI Models</div>
+            <div class="text-lg fw-bold">{{ total_openai_models }}</div>
+          </div>
+          <i class="bi bi-code-slash fs-1 text-white-50"></i>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row mt-4">
-    <div class="col-12 col-md">
-      <div class="card shadow-sm mb-3">
-        <div class="card-body">
-          <h1 class="card-title fs-4">LSTM Model Active</h1>
-          <h2 class="card-text fs-5 mb-4">Model: {{ lstm_model }}</h2>
-          <p class="card-text">Final Accuracy: {{ "%.2f"|format(summary.final_accuracy) }}&percnt;</p>
-          <p class="card-text">Best Accuracy: {{ '%.2f'|format(summary.best_accuracy) }}&percnt;</p>
-          <p class="card-text">Final Loss: {{ '%.2f'|format(summary.final_loss) }}&percnt;</p>
-          <p class="card-text">Best Epoch: {{ '%.2f'|format(summary.best_epoch) }}&percnt;</p>
+  <div class="col-xl-3 col-md-6">
+    <div class="card bg-warning text-white h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="me-3">
+            <div class="text-white-75">Dataset Finetuning</div>
+            <div class="text-lg fw-bold">{{ total_finetuning_records }}</div>
+          </div>
+          <i class="bi bi-database-fill fs-1 text-white-50"></i>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="col-12 col-md">
-      <div class="card shadow-sm mb-3">
-        <div class="card-body">
-          <h1 class="card-title fs-4">OPENAI Model Active</h1>
-          <h2 class="card-text fs-5">Model: {{ openai_model }}</h2>
+  <div class="col-xl-3 col-md-6">
+    <div class="card bg-danger text-white h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="me-3">
+            <div class="text-white-75">LSTM Dataset</div>
+            <div class="text-lg fw-bold">{{ total_lstm_records }}</div>
+          </div>
+          <i class="bi bi-graph-up-arrow fs-1 text-white-50"></i>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header"><i class="bi bi-person-fill me-1 fs-5"></i> Welcome, {{ current_user.fullname }}!</div>
+      <div class="card-body">
+        <p class="card-text">
+          This is your personalized dashboard where you can track your fine-tuning jobs, OpenAI models, and dataset statistics at a glance.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-12 col-md">
+    <div class="card shadow-sm mb-3">
+      <div class="card-body">
+        <h1 class="card-title fs-4">LSTM Model Active</h1>
+        <h2 class="card-text fs-5 mb-4">Model: {{ lstm_model }}</h2>
+        <p class="card-text">Final Accuracy: {{ "%.2f"|format(summary.final_accuracy) }}&percnt;</p>
+        <p class="card-text">Best Accuracy: {{ '%.2f'|format(summary.best_accuracy) }}&percnt;</p>
+        <p class="card-text">Final Loss: {{ '%.2f'|format(summary.final_loss) }}&percnt;</p>
+        <p class="card-text">Best Epoch: {{ '%.2f'|format(summary.best_epoch) }}&percnt;</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-md">
+    <div class="card shadow-sm mb-3">
+      <div class="card-body">
+        <h1 class="card-title fs-4">OPENAI Model Active</h1>
+        <h2 class="card-text fs-5">Model: {{ openai_model }}</h2>
       </div>
     </div>
   </div>
